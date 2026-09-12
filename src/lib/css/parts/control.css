@@ -1,0 +1,281 @@
+/*
+ * Controls: anything you click or toggle.
+ *
+ * Selectors key off the data attributes Bits UI puts on every part
+ * (`data-button-root`, `data-switch-thumb`, ...) and off its state attributes
+ * (`data-state`, `data-disabled`). Nothing here names a theme; all of it reads
+ * `--rb-*`. Themes therefore change how these look without touching this file.
+ */
+@layer rb.components {
+	/* ---- button ------------------------------------------------------------ */
+	:where([data-rb-theme]) [data-button-root],
+	:where([data-rb-theme]) [data-toolbar-button],
+	:where([data-rb-theme]) [data-pagination-page],
+	:where([data-rb-theme]) [data-pagination-prev],
+	:where([data-rb-theme]) [data-pagination-next],
+	:where([data-rb-theme]) [data-dialog-close],
+	:where([data-rb-theme]) [data-dialog-cancel],
+	:where([data-rb-theme]) [data-dialog-action] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--rb-gap);
+		min-height: var(--rb-control-height);
+		padding: var(--rb-control-padding-y) var(--rb-control-padding-x);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-bevel-out);
+		color: var(--rb-text);
+		font-family: inherit;
+		font-size: var(--rb-font-size);
+		font-weight: var(--rb-font-weight);
+		letter-spacing: var(--rb-letter-spacing);
+		text-transform: var(--rb-text-transform);
+		text-decoration: none;
+		cursor: var(--rb-cursor-pointer);
+		transition:
+			background-color var(--rb-transition),
+			box-shadow var(--rb-transition),
+			color var(--rb-transition);
+	}
+
+	/*
+	 * `data-rb-variant` is the convention for asking for a different treatment of
+	 * a Bits UI part without wrapping it: `<Button.Root data-rb-variant="primary">`.
+	 */
+	:where([data-rb-theme]) [data-button-root][data-rb-variant='primary'],
+	:where([data-rb-theme]) [data-dialog-action] {
+		border-color: var(--rb-accent);
+		background: var(--rb-accent);
+		color: var(--rb-text-on-accent);
+	}
+
+	:where([data-rb-theme]) [data-button-root][data-rb-variant='ghost'],
+	:where([data-rb-theme]) [data-toolbar-button] {
+		border-color: transparent;
+		background: transparent;
+		box-shadow: var(--rb-bevel-flat);
+	}
+
+	:where([data-rb-theme]) [data-button-root]:hover,
+	:where([data-rb-theme]) [data-toolbar-button]:hover,
+	:where([data-rb-theme]) [data-pagination-page]:hover,
+	:where([data-rb-theme]) [data-pagination-prev]:hover,
+	:where([data-rb-theme]) [data-pagination-next]:hover,
+	:where([data-rb-theme]) [data-dialog-close]:hover,
+	:where([data-rb-theme]) [data-dialog-cancel]:hover {
+		background: var(--rb-surface-hover);
+	}
+
+	:where([data-rb-theme]) [data-button-root][data-rb-variant='primary']:hover,
+	:where([data-rb-theme]) [data-dialog-action]:hover {
+		background: var(--rb-accent-hover);
+	}
+
+	:where([data-rb-theme]) [data-button-root]:active,
+	:where([data-rb-theme]) [data-toolbar-button]:active,
+	:where([data-rb-theme]) [data-pagination-page]:active,
+	:where([data-rb-theme]) [data-dialog-close]:active,
+	:where([data-rb-theme]) [data-dialog-cancel]:active,
+	:where([data-rb-theme]) [data-dialog-action]:active {
+		background: var(--rb-surface-active);
+		box-shadow: var(--rb-bevel-pressed);
+	}
+
+	:where([data-rb-theme]) [data-pagination-page][data-selected] {
+		border-color: var(--rb-accent);
+		background: var(--rb-accent);
+		color: var(--rb-text-on-accent);
+	}
+
+	/* ---- toggle and toggle group -------------------------------------------- */
+	:where([data-rb-theme]) [data-toggle-root],
+	:where([data-rb-theme]) [data-toggle-group-item],
+	:where([data-rb-theme]) [data-toolbar-group-item] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--rb-gap);
+		min-width: var(--rb-control-height);
+		min-height: var(--rb-control-height);
+		padding: var(--rb-control-padding-y) var(--rb-control-padding-x);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-bevel-out);
+		color: var(--rb-text);
+		cursor: var(--rb-cursor-pointer);
+		transition:
+			background-color var(--rb-transition),
+			box-shadow var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-toggle-root][data-state='on'],
+	:where([data-rb-theme]) [data-toggle-group-item][data-state='on'],
+	:where([data-rb-theme]) [data-toolbar-group-item][data-state='on'] {
+		background: var(--rb-surface-selected);
+		box-shadow: var(--rb-bevel-in);
+	}
+
+	:where([data-rb-theme]) [data-toggle-group-root],
+	:where([data-rb-theme]) [data-toolbar-group] {
+		display: inline-flex;
+		gap: var(--rb-space-1);
+	}
+
+	/* ---- checkbox ------------------------------------------------------------ */
+	:where([data-rb-theme]) [data-checkbox-root] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: none;
+		width: var(--rb-icon-size);
+		height: var(--rb-icon-size);
+		padding: 0;
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: calc(var(--rb-radius) / 2);
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in-thin);
+		color: var(--rb-text-on-accent);
+		cursor: var(--rb-cursor-pointer);
+		transition:
+			background-color var(--rb-transition),
+			border-color var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-checkbox-root][data-state='checked'],
+	:where([data-rb-theme]) [data-checkbox-root][data-state='indeterminate'] {
+		border-color: var(--rb-accent);
+		background: var(--rb-accent);
+	}
+
+	:where([data-rb-theme]) [data-checkbox-group] {
+		display: flex;
+		flex-direction: column;
+		gap: var(--rb-gap);
+	}
+
+	:where([data-rb-theme]) [data-checkbox-group-label] {
+		font-weight: var(--rb-font-weight-bold);
+	}
+
+	/* ---- switch -------------------------------------------------------------- */
+	:where([data-rb-theme]) [data-switch-root] {
+		display: inline-flex;
+		align-items: center;
+		flex: none;
+		width: calc(var(--rb-icon-size) * 2.25);
+		height: calc(var(--rb-icon-size) * 1.25);
+		padding: var(--rb-space-1);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: 999px;
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in-thin);
+		cursor: var(--rb-cursor-pointer);
+		transition: background-color var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-switch-root][data-state='checked'] {
+		border-color: var(--rb-accent);
+		background: var(--rb-accent);
+	}
+
+	:where([data-rb-theme]) [data-switch-thumb] {
+		width: calc(var(--rb-icon-size) * 0.875);
+		height: calc(var(--rb-icon-size) * 0.875);
+		border-radius: 999px;
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-bevel-out-thin);
+		transition: translate var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-switch-thumb][data-state='checked'] {
+		translate: calc(var(--rb-icon-size) * 1) 0;
+	}
+
+	/* ---- radio group and rating group ---------------------------------------- */
+	:where([data-rb-theme]) [data-radio-group-root],
+	:where([data-rb-theme]) [data-rating-group-root] {
+		display: flex;
+		flex-direction: column;
+		gap: var(--rb-gap);
+	}
+
+	:where([data-rb-theme]) [data-rating-group-root] {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	:where([data-rb-theme]) [data-radio-group-item] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: none;
+		width: var(--rb-icon-size);
+		height: var(--rb-icon-size);
+		padding: 0;
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: 999px;
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in-thin);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-radio-group-item][data-state='checked'] {
+		border-color: var(--rb-accent);
+		border-width: calc(var(--rb-icon-size) / 4);
+		background: var(--rb-surface-raised);
+	}
+
+	:where([data-rb-theme]) [data-rating-group-item] {
+		color: var(--rb-text-muted);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-rating-group-item][data-state='active'],
+	:where([data-rb-theme]) [data-rating-group-item][data-state='partial'] {
+		color: var(--rb-accent);
+	}
+
+	/* ---- label and toolbar --------------------------------------------------- */
+	:where([data-rb-theme]) [data-label-root] {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--rb-gap);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-toolbar-root] {
+		display: flex;
+		align-items: center;
+		gap: var(--rb-gap);
+		padding: var(--rb-space-2);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface);
+		box-shadow: var(--rb-bevel-out-thin);
+	}
+
+	:where([data-rb-theme]) [data-toolbar-link] {
+		color: var(--rb-link);
+	}
+
+	/* ---- shared states ------------------------------------------------------- */
+	:where([data-rb-theme]) [data-disabled],
+	:where([data-rb-theme]) [disabled] {
+		background-image: var(--rb-pattern-dither);
+		color: var(--rb-text-disabled);
+		cursor: not-allowed;
+		opacity: 0.7;
+	}
+
+	:where([data-rb-theme]) [data-invalid] {
+		border-color: var(--rb-accent);
+	}
+
+	:where([data-rb-theme]) :focus-visible {
+		outline: var(--rb-focus-width) var(--rb-focus-style) var(--rb-focus-color);
+		outline-offset: var(--rb-focus-offset);
+	}
+}

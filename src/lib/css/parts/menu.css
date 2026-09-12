@@ -1,0 +1,74 @@
+/*
+ * Menu rows. Dropdown, context menu, menubar menus and the item lists of
+ * select / combobox / command all share the same row, so they share one rule.
+ *
+ * Bits UI drives row highlight with `data-highlighted` (keyboard or pointer),
+ * not `:hover`, so that is what is styled here.
+ */
+@layer rb.components {
+	:where([data-rb-theme]) [data-menu-item],
+	:where([data-rb-theme]) [data-menu-checkbox-item],
+	:where([data-rb-theme]) [data-menu-radio-item],
+	:where([data-rb-theme]) [data-menu-sub-trigger],
+	:where([data-rb-theme]) [data-context-menu-item],
+	:where([data-rb-theme]) [data-select-item],
+	:where([data-rb-theme]) [data-combobox-item],
+	:where([data-rb-theme]) [data-command-item] {
+		display: flex;
+		align-items: center;
+		gap: var(--rb-gap);
+		min-height: var(--rb-menu-item-height);
+		padding: 0 var(--rb-space-3);
+		border-radius: calc(var(--rb-radius) / 2);
+		color: var(--rb-text);
+		text-transform: var(--rb-text-transform);
+		cursor: var(--rb-cursor-pointer);
+		user-select: none;
+	}
+
+	:where([data-rb-theme]) [data-highlighted] {
+		background: var(--rb-accent);
+		color: var(--rb-text-on-accent);
+	}
+
+	:where([data-rb-theme]) [data-select-item][data-selected],
+	:where([data-rb-theme]) [data-combobox-item][data-selected] {
+		background: var(--rb-surface-selected);
+	}
+
+	:where([data-rb-theme]) [data-menu-group-heading],
+	:where([data-rb-theme]) [data-select-group-label],
+	:where([data-rb-theme]) [data-command-group-heading] {
+		padding: var(--rb-space-2) var(--rb-space-3);
+		color: var(--rb-text-muted);
+		font-size: var(--rb-font-size-sm);
+		font-weight: var(--rb-font-weight-bold);
+		text-transform: var(--rb-text-transform);
+	}
+
+	:where([data-rb-theme]) [data-menu-separator],
+	:where([data-rb-theme]) [data-select-separator],
+	:where([data-rb-theme]) [data-command-separator],
+	:where([data-rb-theme]) [data-separator-root] {
+		flex: none;
+		margin: var(--rb-space-2) 0;
+		border: none;
+		background: var(--rb-border-color);
+		block-size: var(--rb-border-width);
+		inline-size: 100%;
+	}
+
+	:where([data-rb-theme]) [data-separator-root][data-orientation='vertical'] {
+		margin: 0 var(--rb-space-2);
+		block-size: auto;
+		inline-size: var(--rb-border-width);
+		align-self: stretch;
+	}
+
+	:where([data-rb-theme]) [data-command-empty],
+	:where([data-rb-theme]) [data-command-loading] {
+		padding: var(--rb-inset);
+		color: var(--rb-text-muted);
+		text-align: center;
+	}
+}

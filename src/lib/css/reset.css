@@ -1,0 +1,33 @@
+/*
+ * Optional reset. Not part of `retro-bits/css` - import it yourself with
+ * `import 'retro-bits/css/reset.css'` if your app has no reset of its own.
+ *
+ * It is deliberately tiny: just the things that make themed chrome misbehave.
+ */
+@layer rb.reset {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+	}
+
+	button,
+	input,
+	select,
+	textarea {
+		font: inherit;
+		color: inherit;
+	}
+
+	img,
+	svg,
+	video,
+	canvas {
+		display: block;
+		max-width: 100%;
+	}
+}

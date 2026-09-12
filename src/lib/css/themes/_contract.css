@@ -1,0 +1,138 @@
+/*
+ * The retro-bits token contract - reference and starting point for a new theme.
+ *
+ * This file is documentation: it is never imported, and the leading underscore
+ * keeps it out of `scripts/check-tokens.mjs`. Copy the block below to
+ * `css/themes/<id>.css`, swap the selector, and fill in every value.
+ *
+ * Rules of the contract:
+ *   - Component CSS reads only these names. It never mentions a theme id, so a
+ *     theme is purely a set of values.
+ *   - Every token must be declared. A missing one fails the token check.
+ *   - Tokens hold *whole values*, not just colours. `--rb-bevel-out` is a full
+ *     `box-shadow`: four stacked insets in Chicago, one hairline in Cube, `none`
+ *     in Phosphor. That is what lets one stylesheet serve every era.
+ *   - Declare tokens inside `@layer rb.tokens` and wrap the selector in
+ *     `:where()` so they add no specificity and consumer overrides always win.
+ */
+@layer rb.tokens {
+	:where([data-rb-theme='my-theme']) {
+		/* -- meta ------------------------------------------------------------ */
+		--rb-theme-name: 'My Theme'; /* quoted, for `content` and debugging */
+		--rb-color-scheme: light dark; /* feeds `color-scheme`; drives light-dark() */
+
+		/* -- surfaces --------------------------------------------------------- */
+		--rb-surface: ; /* default background of panels and controls */
+		--rb-surface-raised: ; /* things that sit above the surface (menus, popovers) */
+		--rb-surface-sunken: ; /* wells: text inputs, list boxes, scroll tracks */
+		--rb-surface-hover: ; /* hover feedback on an interactive surface */
+		--rb-surface-active: ; /* held-down / pressed feedback */
+		--rb-surface-disabled: ; /* background of a disabled control */
+		--rb-surface-selected: ; /* selected row or menu item background */
+		--rb-accent: ; /* primary action / highlight colour */
+		--rb-accent-hover: ;
+		--rb-accent-active: ;
+		--rb-desktop: ; /* the "behind everything" backdrop */
+		--rb-overlay: ; /* modal scrim, usually translucent */
+
+		/* -- text ------------------------------------------------------------- */
+		--rb-text: ; /* body text on --rb-surface */
+		--rb-text-muted: ; /* secondary / helper text */
+		--rb-text-disabled: ;
+		--rb-text-inverted: ; /* text on --rb-text (rare, e.g. tooltips) */
+		--rb-text-on-accent: ; /* text on --rb-accent */
+		--rb-link: ;
+		--rb-selection-bg: ; /* ::selection */
+		--rb-selection-text: ;
+
+		/* -- borders and bevels ----------------------------------------------- */
+		--rb-border-width: ; /* 1px nearly everywhere; 2px for chunky eras */
+		--rb-border-color: ;
+		--rb-border-color-muted: ; /* separators, disabled outlines */
+		--rb-radius: ; /* control corner radius; 0 for anything pre-OSX */
+		--rb-radius-window: ;
+		--rb-bevel-light: ; /* the four classic bevel ramp colours, light to dark */
+		--rb-bevel-lighter: ;
+		--rb-bevel-shadow: ;
+		--rb-bevel-darker: ;
+		--rb-bevel-out: ; /* complete box-shadow for a raised control */
+		--rb-bevel-in: ; /* complete box-shadow for a sunken well */
+		--rb-bevel-out-thin: ; /* single-line raised, e.g. toolbar buttons */
+		--rb-bevel-in-thin: ;
+		--rb-bevel-flat: ; /* usually `none`; the "no chrome" state */
+		--rb-bevel-pressed: ; /* what a button looks like while held */
+
+		/* -- focus ------------------------------------------------------------ */
+		--rb-focus-color: ;
+		--rb-focus-width: ;
+		--rb-focus-offset: ;
+		--rb-focus-style: ; /* `solid`, or `dotted` for a Win9x focus rectangle */
+
+		/* -- typography -------------------------------------------------------- */
+		--rb-font-ui: ; /* the interface face */
+		--rb-font-mono: ;
+		--rb-font-display: ; /* headings / title bars, often same as --rb-font-ui */
+		--rb-font-size: ;
+		--rb-font-size-sm: ;
+		--rb-font-size-lg: ;
+		--rb-line-height: ;
+		--rb-font-weight: ;
+		--rb-font-weight-bold: ;
+		--rb-letter-spacing: ;
+		--rb-text-transform: ; /* `uppercase` for text-mode themes */
+		--rb-font-smoothing: ; /* `none` keeps bitmap faces crisp */
+		--rb-font-features: ;
+
+		/* -- metrics ------------------------------------------------------------ */
+		--rb-unit: ; /* the theme's grid step; everything else is a multiple */
+		--rb-cell-w: ; /* character cell, for text-mode themes */
+		--rb-cell-h: ;
+		--rb-space-1: ;
+		--rb-space-2: ;
+		--rb-space-3: ;
+		--rb-space-4: ;
+		--rb-space-5: ;
+		--rb-space-6: ;
+		--rb-control-height: ;
+		--rb-control-padding-x: ;
+		--rb-control-padding-y: ;
+		--rb-gap: ; /* gap between related controls */
+		--rb-inset: ; /* padding inside a panel or dialog */
+		--rb-titlebar-height: ;
+		--rb-scrollbar-size: ;
+		--rb-icon-size: ;
+		--rb-menu-item-height: ;
+
+		/* -- window chrome -------------------------------------------------------- */
+		--rb-window-bg: ;
+		--rb-window-border: ; /* complete `border` shorthand */
+		--rb-window-bevel: ; /* complete box-shadow for the frame */
+		--rb-window-shadow: ; /* drop shadow beneath a floating window */
+		--rb-titlebar-bg: ; /* may be a gradient - Platinum's pinstripes live here */
+		--rb-titlebar-bg-inactive: ;
+		--rb-titlebar-text: ;
+		--rb-titlebar-text-inactive: ;
+		--rb-titlebar-font: ;
+		--rb-titlebar-padding: ;
+		--rb-titlebar-button-size: ;
+		--rb-titlebar-button-bevel: ;
+
+		/* -- decoration ------------------------------------------------------------ */
+		--rb-pattern-desktop: ; /* background-image for the desktop backdrop */
+		--rb-pattern-dither: ; /* 50% dither, for disabled fills and drag states */
+		--rb-pattern-titlebar: ; /* overlay image on the title bar */
+		--rb-scanlines: ; /* CRT overlay; `none` outside Phosphor/BigBlue */
+		--rb-glow: ; /* text-shadow for phosphor bloom */
+		--rb-image-rendering: ; /* `pixelated` for bitmap assets */
+		--rb-cursor: ;
+		--rb-cursor-pointer: ;
+		--rb-cursor-text: ;
+
+		/* -- motion ------------------------------------------------------------------ */
+		--rb-duration-fast: ;
+		--rb-duration: ;
+		--rb-duration-slow: ;
+		--rb-ease: ;
+		--rb-transition: ; /* `<duration> <easing>` pair components compose with */
+	}
+}

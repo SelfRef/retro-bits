@@ -1,0 +1,121 @@
+/*
+ * Things that display a value rather than collect one: progress, meter, slider,
+ * avatar, aspect ratio, pagination.
+ */
+@layer rb.components {
+	/* ---- progress and meter ------------------------------------------------ */
+	:where([data-rb-theme]) [data-progress-root],
+	:where([data-rb-theme]) [data-meter-root] {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: var(--rb-space-3);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: 999px;
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in-thin);
+		overflow: hidden;
+	}
+
+	/*
+	 * Progress and meter render no inner "fill" part of their own - the indicator
+	 * is whatever child you pass. `data-rb-indicator` marks it.
+	 */
+	:where([data-rb-theme]) [data-rb-indicator] {
+		display: block;
+		height: 100%;
+		background: var(--rb-accent);
+		transition: width var(--rb-transition);
+	}
+
+	/* ---- slider ------------------------------------------------------------- */
+	:where([data-rb-theme]) [data-slider-root] {
+		position: relative;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		height: var(--rb-control-height);
+		touch-action: none;
+		user-select: none;
+	}
+
+	:where([data-rb-theme]) [data-slider-root]::before {
+		content: '';
+		position: absolute;
+		inset-inline: 0;
+		height: var(--rb-space-2);
+		border-radius: 999px;
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in-thin);
+	}
+
+	:where([data-rb-theme]) [data-slider-range] {
+		position: absolute;
+		height: var(--rb-space-2);
+		border-radius: 999px;
+		background: var(--rb-accent);
+	}
+
+	:where([data-rb-theme]) [data-slider-thumb] {
+		position: absolute;
+		width: var(--rb-icon-size);
+		height: var(--rb-icon-size);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: 999px;
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-bevel-out);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-slider-tick] {
+		position: absolute;
+		width: var(--rb-border-width);
+		height: var(--rb-space-2);
+		background: var(--rb-border-color);
+	}
+
+	:where([data-rb-theme]) [data-slider-tick-label],
+	:where([data-rb-theme]) [data-slider-thumb-label] {
+		color: var(--rb-text-muted);
+		font-size: var(--rb-font-size-sm);
+	}
+
+	/* ---- avatar and aspect ratio -------------------------------------------- */
+	:where([data-rb-theme]) [data-avatar-root] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: calc(var(--rb-control-height) * 1.25);
+		height: calc(var(--rb-control-height) * 1.25);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: 999px;
+		background: var(--rb-surface-sunken);
+		overflow: hidden;
+	}
+
+	:where([data-rb-theme]) [data-avatar-image] {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		image-rendering: var(--rb-image-rendering);
+	}
+
+	:where([data-rb-theme]) [data-avatar-fallback] {
+		color: var(--rb-text-muted);
+		font-weight: var(--rb-font-weight-bold);
+	}
+
+	:where([data-rb-theme]) [data-aspect-ratio-root] {
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface-sunken);
+		overflow: hidden;
+	}
+
+	/* ---- pagination ---------------------------------------------------------- */
+	:where([data-rb-theme]) [data-pagination-root] {
+		display: flex;
+		align-items: center;
+		gap: var(--rb-space-1);
+	}
+}

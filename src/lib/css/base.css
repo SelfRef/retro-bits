@@ -1,0 +1,70 @@
+/*
+ * What a themed subtree looks like before any component is involved.
+ *
+ * Everything is wrapped in `:where()` so these rules carry no specificity, and
+ * they live in `@layer rb.base`, so unlayered consumer CSS always wins.
+ */
+@layer rb.base {
+	:where([data-rb-theme]) {
+		/*
+		 * `color-scheme` is what makes `light-dark()` in the token files resolve,
+		 * and it also keeps native scrollbars and form controls in step.
+		 */
+		color-scheme: var(--rb-color-scheme);
+
+		background-color: var(--rb-desktop);
+		background-image: var(--rb-pattern-desktop);
+		color: var(--rb-text);
+		font-family: var(--rb-font-ui);
+		font-size: var(--rb-font-size);
+		font-weight: var(--rb-font-weight);
+		font-feature-settings: var(--rb-font-features);
+		line-height: var(--rb-line-height);
+		letter-spacing: var(--rb-letter-spacing);
+		cursor: var(--rb-cursor);
+		text-shadow: var(--rb-glow);
+		-webkit-font-smoothing: var(--rb-font-smoothing);
+	}
+
+	/*
+	 * An explicit scheme wins over the theme's default. `ThemeState` only ever
+	 * writes a scheme the current theme declares support for, so this cannot put
+	 * a single-scheme theme into a scheme it has no values for.
+	 */
+	:where([data-rb-theme][data-rb-scheme='light']) {
+		color-scheme: light;
+	}
+
+	:where([data-rb-theme][data-rb-scheme='dark']) {
+		color-scheme: dark;
+	}
+
+	:where([data-rb-theme]) ::selection {
+		background-color: var(--rb-selection-bg);
+		color: var(--rb-selection-text);
+	}
+
+	:where([data-rb-theme]) a {
+		color: var(--rb-link);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) code,
+	:where([data-rb-theme]) kbd,
+	:where([data-rb-theme]) pre,
+	:where([data-rb-theme]) samp {
+		font-family: var(--rb-font-mono);
+	}
+
+	:where([data-rb-theme]) img {
+		image-rendering: var(--rb-image-rendering);
+	}
+
+	/* Eras with no animation set --rb-motion-scale to 0 and get it for free. */
+	@media (prefers-reduced-motion: reduce) {
+		:where([data-rb-theme]) * {
+			animation-duration: 1ms !important;
+			transition-duration: 1ms !important;
+		}
+	}
+}

@@ -1,0 +1,63 @@
+/*
+ * Fields: anything you type into or pick a value from. These share one sunken
+ * well look, so they share one rule.
+ */
+@layer rb.components {
+	:where([data-rb-theme]) [data-pin-input-cell],
+	:where([data-rb-theme]) [data-select-trigger],
+	:where([data-rb-theme]) [data-combobox-trigger],
+	:where([data-rb-theme]) [data-combobox-input],
+	:where([data-rb-theme]) [data-command-input],
+	:where([data-rb-theme]) [data-date-field-input],
+	:where([data-rb-theme]) [data-rb-field] {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--rb-gap);
+		min-height: var(--rb-control-height);
+		padding: var(--rb-control-padding-y) var(--rb-control-padding-x);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in-thin);
+		color: var(--rb-text);
+		font-family: inherit;
+		font-size: var(--rb-font-size);
+		letter-spacing: var(--rb-letter-spacing);
+		cursor: var(--rb-cursor-text);
+	}
+
+	:where([data-rb-theme]) [data-select-trigger],
+	:where([data-rb-theme]) [data-combobox-trigger] {
+		justify-content: space-between;
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-bevel-out-thin);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-pin-input-root] {
+		display: inline-flex;
+		gap: var(--rb-gap);
+	}
+
+	:where([data-rb-theme]) [data-pin-input-cell] {
+		justify-content: center;
+		width: calc(var(--rb-control-height) * 0.8);
+		padding-inline: 0;
+		font-family: var(--rb-font-mono);
+		font-variant-numeric: tabular-nums;
+	}
+
+	:where([data-rb-theme]) [data-pin-input-cell][data-active] {
+		border-color: var(--rb-accent);
+	}
+
+	:where([data-rb-theme]) [data-date-field-segment][data-placeholder] {
+		color: var(--rb-text-muted);
+	}
+
+	:where([data-rb-theme]) [data-date-field-segment]:focus,
+	:where([data-rb-theme]) [data-segment]:focus {
+		background: var(--rb-surface-selected);
+		outline: none;
+	}
+}

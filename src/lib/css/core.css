@@ -1,0 +1,21 @@
+/*
+ * retro-bits core: the reset-free, theme-free half of the library.
+ *
+ * Import this plus one or more `css/themes/<id>.css`, or import
+ * `retro-bits/css/index.css` to get core and every theme at once.
+ *
+ * Layer order matters more than any selector here. Everything retro-bits emits
+ * lives in one of these layers, and unlayered CSS - which is what a consumer
+ * writes by default - beats all of them. That is the override story: you should
+ * never need `!important` to restyle a part.
+ */
+@layer rb.reset, rb.tokens, rb.base, rb.components, rb.overrides;
+
+@import './base.css';
+@import './parts/control.css';
+@import './parts/field.css';
+@import './parts/popup.css';
+@import './parts/menu.css';
+@import './parts/disclosure.css';
+@import './parts/indicator.css';
+@import './parts/window.css';

@@ -1,0 +1,57 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			// Needs the firefox-devtools.vscode-firefox-debug extension.
+			// Launches a fresh Firefox profile; the pathMappings are what make
+			// breakpoints in .svelte sources land, since Vite serves unbundled
+			// files from /@fs/<absolute path> in dev.
+			"name": "Playground (Firefox)",
+			"type": "firefox",
+			"request": "launch",
+			"url": "http://localhost:5173",
+			"webRoot": "${workspaceFolder}",
+			"pathMappings": [
+				{ "url": "http://localhost:5173/@fs", "path": "" },
+				{ "url": "http://localhost:5173", "path": "${workspaceFolder}" }
+			],
+			"preLaunchTask": "dev: playground"
+		},
+		{
+			// runtimeExecutable is explicit because this machine has chromium, not
+			// google-chrome; drop it if you install Chrome proper.
+			"name": "Playground (Chromium)",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://localhost:5173",
+			"webRoot": "${workspaceFolder}",
+			"runtimeExecutable": "/usr/bin/chromium",
+			"sourceMapPathOverrides": {
+				"webpack://?:*/*": "${workspaceFolder}/*",
+				"/@fs/*": "/*"
+			},
+			"preLaunchTask": "dev: playground"
+		},
+		{
+			// No browser debugger: runs the dev server itself under the Node
+			// debugger (SSR, load functions, hooks) and lets Vite open the URL in
+			// the system default browser.
+			"name": "Playground (server only)",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm dev --open",
+			"cwd": "${workspaceFolder}"
+		},
+		{
+			"name": "Vitest: current file",
+			"type": "node",
+			"request": "launch",
+			"program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+			"args": ["run", "${relativeFile}"],
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal",
+			"smartStep": true,
+			"skipFiles": ["<node_internals>/**"]
+		}
+	]
+}

@@ -1,0 +1,118 @@
+/*
+ * Things that show and hide a panel: accordion, collapsible, tabs.
+ *
+ * Accordion and collapsible content animate against the height Bits UI measures
+ * for us and exposes as `--bits-accordion-content-height` /
+ * `--bits-collapsible-content-height`.
+ */
+@layer rb.components {
+	:where([data-rb-theme]) [data-accordion-root] {
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface);
+		overflow: hidden;
+	}
+
+	:where([data-rb-theme]) [data-accordion-item] + [data-accordion-item] {
+		border-top: var(--rb-border-width) solid var(--rb-border-color);
+	}
+
+	:where([data-rb-theme]) [data-accordion-header] {
+		margin: 0;
+		font-size: inherit;
+		font-weight: inherit;
+	}
+
+	:where([data-rb-theme]) [data-accordion-trigger],
+	:where([data-rb-theme]) [data-collapsible-trigger] {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--rb-gap);
+		width: 100%;
+		min-height: var(--rb-control-height);
+		padding: var(--rb-control-padding-y) var(--rb-inset);
+		border: none;
+		background: transparent;
+		color: var(--rb-text);
+		font-family: inherit;
+		font-size: var(--rb-font-size);
+		font-weight: var(--rb-font-weight-bold);
+		text-align: left;
+		text-transform: var(--rb-text-transform);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-accordion-trigger]:hover,
+	:where([data-rb-theme]) [data-collapsible-trigger]:hover {
+		background: var(--rb-surface-hover);
+	}
+
+	:where([data-rb-theme]) [data-accordion-content],
+	:where([data-rb-theme]) [data-collapsible-content] {
+		overflow: hidden;
+	}
+
+	:where([data-rb-theme]) [data-accordion-content][data-state='open'] {
+		animation: rb-slide-down var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-accordion-content][data-state='closed'] {
+		animation: rb-slide-up var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-accordion-content] > *,
+	:where([data-rb-theme]) [data-collapsible-content] > * {
+		padding: 0 var(--rb-inset) var(--rb-inset);
+	}
+
+	/* ---- tabs ------------------------------------------------------------- */
+	:where([data-rb-theme]) [data-tabs-list] {
+		display: flex;
+		gap: var(--rb-space-1);
+		border-bottom: var(--rb-border-width) solid var(--rb-border-color);
+	}
+
+	:where([data-rb-theme]) [data-tabs-trigger] {
+		min-height: var(--rb-control-height);
+		padding: var(--rb-control-padding-y) var(--rb-control-padding-x);
+		border: var(--rb-border-width) solid transparent;
+		border-bottom: none;
+		border-radius: var(--rb-radius) var(--rb-radius) 0 0;
+		background: transparent;
+		color: var(--rb-text-muted);
+		font-family: inherit;
+		font-size: var(--rb-font-size);
+		text-transform: var(--rb-text-transform);
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-tabs-trigger][data-state='active'] {
+		margin-bottom: calc(var(--rb-border-width) * -1);
+		border-color: var(--rb-border-color);
+		background: var(--rb-surface-raised);
+		color: var(--rb-text);
+	}
+
+	:where([data-rb-theme]) [data-tabs-content] {
+		padding: var(--rb-inset) 0;
+	}
+
+	@keyframes rb-slide-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--bits-accordion-content-height);
+		}
+	}
+
+	@keyframes rb-slide-up {
+		from {
+			height: var(--bits-accordion-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+}

@@ -1,0 +1,132 @@
+/*
+ * Chicago - Windows 9x (classic)
+ *
+ * PLACEHOLDER. Every token in the contract is declared so the registry, loader
+ * and theme switcher can be exercised against a real id, but the values are
+ * still Default's. Implementing this theme means replacing the values below --
+ * the token names must not change.
+ */
+@layer rb.tokens {
+	:where([data-rb-theme='chicago']) {
+		/* meta */
+		--rb-theme-name: 'Chicago';
+		--rb-color-scheme: light;
+
+		/* surfaces */
+		--rb-surface: light-dark(#ffffff, #09090b);
+		--rb-surface-raised: light-dark(#ffffff, #18181b);
+		--rb-surface-sunken: light-dark(#f4f4f5, #18181b);
+		--rb-surface-hover: light-dark(#f4f4f5, #27272a);
+		--rb-surface-active: light-dark(#e4e4e7, #3f3f46);
+		--rb-surface-disabled: light-dark(#f4f4f5, #18181b);
+		--rb-surface-selected: light-dark(#e4e4e7, #3f3f46);
+		--rb-accent: light-dark(#18181b, #fafafa);
+		--rb-accent-hover: light-dark(#27272a, #e4e4e7);
+		--rb-accent-active: light-dark(#3f3f46, #d4d4d8);
+		--rb-desktop: light-dark(#fafafa, #000000);
+		--rb-overlay: light-dark(rgb(9 9 11 / 0.5), rgb(0 0 0 / 0.7));
+
+		/* text */
+		--rb-text: light-dark(#09090b, #fafafa);
+		--rb-text-muted: light-dark(#71717a, #a1a1aa);
+		--rb-text-disabled: light-dark(#a1a1aa, #52525b);
+		--rb-text-inverted: light-dark(#fafafa, #09090b);
+		--rb-text-on-accent: light-dark(#fafafa, #09090b);
+		--rb-link: light-dark(#2563eb, #60a5fa);
+		--rb-selection-bg: light-dark(#18181b, #fafafa);
+		--rb-selection-text: light-dark(#fafafa, #09090b);
+
+		/* borders and bevels */
+		--rb-border-width: 1px;
+		--rb-border-color: light-dark(#e4e4e7, #27272a);
+		--rb-border-color-muted: light-dark(#f4f4f5, #1f1f23);
+		--rb-radius: 0.5rem;
+		--rb-radius-window: 0.75rem;
+		--rb-bevel-light: light-dark(#ffffff, #3f3f46);
+		--rb-bevel-lighter: light-dark(#ffffff, #52525b);
+		--rb-bevel-shadow: light-dark(#d4d4d8, #18181b);
+		--rb-bevel-darker: light-dark(#a1a1aa, #09090b);
+		--rb-bevel-out: 0 1px 2px light-dark(rgb(9 9 11 / 0.08), rgb(0 0 0 / 0.5));
+		--rb-bevel-in: inset 0 1px 2px light-dark(rgb(9 9 11 / 0.08), rgb(0 0 0 / 0.5));
+		--rb-bevel-out-thin: 0 1px 1px light-dark(rgb(9 9 11 / 0.05), rgb(0 0 0 / 0.4));
+		--rb-bevel-in-thin: inset 0 1px 1px light-dark(rgb(9 9 11 / 0.05), rgb(0 0 0 / 0.4));
+		--rb-bevel-flat: none;
+		--rb-bevel-pressed: inset 0 1px 3px light-dark(rgb(9 9 11 / 0.14), rgb(0 0 0 / 0.6));
+
+		/* focus */
+		--rb-focus-color: light-dark(#18181b, #fafafa);
+		--rb-focus-width: 2px;
+		--rb-focus-offset: 2px;
+		--rb-focus-style: solid;
+
+		/* typography */
+		--rb-font-ui:
+			ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+			sans-serif;
+		--rb-font-mono:
+			ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+		--rb-font-display: var(--rb-font-ui);
+		--rb-font-size: 0.875rem;
+		--rb-font-size-sm: 0.8125rem;
+		--rb-font-size-lg: 1rem;
+		--rb-line-height: 1.45;
+		--rb-font-weight: 400;
+		--rb-font-weight-bold: 600;
+		--rb-letter-spacing: normal;
+		--rb-text-transform: none;
+		--rb-font-smoothing: antialiased;
+		--rb-font-features: normal;
+
+		/* metrics */
+		--rb-unit: 4px;
+		--rb-cell-w: 8px;
+		--rb-cell-h: 16px;
+		--rb-space-1: 2px;
+		--rb-space-2: 4px;
+		--rb-space-3: 8px;
+		--rb-space-4: 12px;
+		--rb-space-5: 16px;
+		--rb-space-6: 24px;
+		--rb-control-height: 2.25rem;
+		--rb-control-padding-x: 0.75rem;
+		--rb-control-padding-y: 0.375rem;
+		--rb-gap: 0.5rem;
+		--rb-inset: 0.75rem;
+		--rb-titlebar-height: 2rem;
+		--rb-scrollbar-size: 10px;
+		--rb-icon-size: 1rem;
+		--rb-menu-item-height: 2rem;
+
+		/* window chrome */
+		--rb-window-bg: var(--rb-surface);
+		--rb-window-border: var(--rb-border-width) solid var(--rb-border-color);
+		--rb-window-bevel: none;
+		--rb-window-shadow: 0 10px 30px light-dark(rgb(9 9 11 / 0.12), rgb(0 0 0 / 0.6));
+		--rb-titlebar-bg: light-dark(#f4f4f5, #18181b);
+		--rb-titlebar-bg-inactive: light-dark(#fafafa, #111113);
+		--rb-titlebar-text: var(--rb-text);
+		--rb-titlebar-text-inactive: var(--rb-text-muted);
+		--rb-titlebar-font: var(--rb-font-ui);
+		--rb-titlebar-padding: 0 var(--rb-space-3);
+		--rb-titlebar-button-size: 1.25rem;
+		--rb-titlebar-button-bevel: none;
+
+		/* decoration */
+		--rb-pattern-desktop: none;
+		--rb-pattern-dither: none;
+		--rb-pattern-titlebar: none;
+		--rb-scanlines: none;
+		--rb-glow: none;
+		--rb-image-rendering: auto;
+		--rb-cursor: default;
+		--rb-cursor-pointer: pointer;
+		--rb-cursor-text: text;
+
+		/* motion */
+		--rb-duration-fast: 100ms;
+		--rb-duration: 150ms;
+		--rb-duration-slow: 250ms;
+		--rb-ease: cubic-bezier(0.2, 0, 0.2, 1);
+		--rb-transition: var(--rb-duration) var(--rb-ease);
+	}
+}

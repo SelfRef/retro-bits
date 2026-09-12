@@ -1,0 +1,177 @@
+/*
+ * The chrome Bits UI has no concept of: window frames, title bars, panels,
+ * group boxes, status bars, the desktop backdrop.
+ *
+ * These are retro-bits' own components, so unlike the Bits UI parts the markup
+ * is ours and stable. They are keyed off `data-rb-*` attributes.
+ */
+@layer rb.components {
+	/* ---- desktop ------------------------------------------------------------ */
+	:where([data-rb-theme]) [data-rb-desktop] {
+		position: relative;
+		min-height: 100%;
+		padding: var(--rb-space-6);
+		background-color: var(--rb-desktop);
+		background-image: var(--rb-pattern-desktop);
+	}
+
+	:where([data-rb-theme]) [data-rb-desktop][data-scanlines]::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image: var(--rb-scanlines);
+		pointer-events: none;
+	}
+
+	/* ---- window ------------------------------------------------------------- */
+	:where([data-rb-theme]) [data-rb-window] {
+		display: flex;
+		flex-direction: column;
+		border: var(--rb-window-border);
+		border-radius: var(--rb-radius-window);
+		background: var(--rb-window-bg);
+		box-shadow: var(--rb-window-bevel), var(--rb-window-shadow);
+		overflow: hidden;
+	}
+
+	:where([data-rb-theme]) [data-rb-window-body] {
+		flex: 1;
+		padding: var(--rb-inset);
+	}
+
+	/* ---- title bar ----------------------------------------------------------- */
+	:where([data-rb-theme]) [data-rb-titlebar] {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--rb-gap);
+		flex: none;
+		min-height: var(--rb-titlebar-height);
+		padding: var(--rb-titlebar-padding);
+		border-bottom: var(--rb-border-width) solid var(--rb-border-color);
+		background: var(--rb-titlebar-bg);
+		background-image: var(--rb-pattern-titlebar);
+		color: var(--rb-titlebar-text);
+		font-family: var(--rb-titlebar-font);
+		font-weight: var(--rb-font-weight-bold);
+		text-transform: var(--rb-text-transform);
+		user-select: none;
+	}
+
+	:where([data-rb-theme]) [data-rb-titlebar][data-state='inactive'] {
+		background: var(--rb-titlebar-bg-inactive);
+		background-image: none;
+		color: var(--rb-titlebar-text-inactive);
+	}
+
+	:where([data-rb-theme]) [data-rb-titlebar-title] {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	:where([data-rb-theme]) [data-rb-titlebar-actions],
+	:where([data-rb-theme]) [data-rb-window-controls] {
+		display: flex;
+		align-items: center;
+		gap: var(--rb-space-1);
+		flex: none;
+	}
+
+	:where([data-rb-theme]) [data-rb-window-control] {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--rb-titlebar-button-size);
+		height: var(--rb-titlebar-button-size);
+		padding: 0;
+		border: var(--rb-border-width) solid transparent;
+		border-radius: calc(var(--rb-radius) / 2);
+		background: transparent;
+		box-shadow: var(--rb-titlebar-button-bevel);
+		color: inherit;
+		font-family: inherit;
+		font-size: var(--rb-font-size-sm);
+		line-height: 1;
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-rb-window-control]:hover {
+		background: var(--rb-surface-hover);
+	}
+
+	:where([data-rb-theme]) [data-rb-window-control]:active {
+		background: var(--rb-surface-active);
+		box-shadow: var(--rb-bevel-pressed);
+	}
+
+	/* ---- panel and group box -------------------------------------------------- */
+	:where([data-rb-theme]) [data-rb-panel] {
+		padding: var(--rb-inset);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface);
+	}
+
+	:where([data-rb-theme]) [data-rb-panel][data-bare] {
+		padding: 0;
+	}
+
+	:where([data-rb-theme]) [data-rb-panel='raised'] {
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-bevel-out);
+	}
+
+	:where([data-rb-theme]) [data-rb-panel='sunken'] {
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in);
+	}
+
+	:where([data-rb-theme]) [data-rb-panel='flat'] {
+		box-shadow: var(--rb-bevel-flat);
+	}
+
+	:where([data-rb-theme]) [data-rb-groupbox] {
+		margin: 0;
+		padding: var(--rb-inset);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: transparent;
+		box-shadow: var(--rb-bevel-in-thin);
+	}
+
+	:where([data-rb-theme]) [data-rb-groupbox-legend] {
+		padding: 0 var(--rb-space-2);
+		color: var(--rb-text-muted);
+		font-weight: var(--rb-font-weight-bold);
+		text-transform: var(--rb-text-transform);
+	}
+
+	/* ---- status bar ------------------------------------------------------------ */
+	:where([data-rb-theme]) [data-rb-statusbar] {
+		display: flex;
+		align-items: stretch;
+		gap: var(--rb-space-1);
+		flex: none;
+		min-height: var(--rb-titlebar-height);
+		padding: var(--rb-space-1);
+		border-top: var(--rb-border-width) solid var(--rb-border-color);
+		background: var(--rb-surface);
+		color: var(--rb-text-muted);
+		font-size: var(--rb-font-size-sm);
+	}
+
+	:where([data-rb-theme]) [data-rb-statusbar-segment] {
+		display: flex;
+		align-items: center;
+		padding: 0 var(--rb-space-3);
+		box-shadow: var(--rb-bevel-in-thin);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	:where([data-rb-theme]) [data-rb-statusbar-segment][data-grow] {
+		flex: 1;
+	}
+}

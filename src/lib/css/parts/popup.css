@@ -1,0 +1,121 @@
+/*
+ * Floating surfaces: dialogs, popovers, tooltips, and the content panes of
+ * select / combobox / command.
+ *
+ * Bits UI portals most of these to `document.body`, which is why ThemeProvider
+ * puts `data-rb-theme` on the document element by default - a portalled dialog
+ * has to still be inside a themed subtree.
+ */
+@layer rb.components {
+	/* ---- scrim ---------------------------------------------------------- */
+	:where([data-rb-theme]) [data-dialog-overlay],
+	:where([data-rb-theme]) [data-popover-overlay] {
+		position: fixed;
+		inset: 0;
+		background: var(--rb-overlay);
+	}
+
+	/* ---- floating surfaces ----------------------------------------------- */
+	:where([data-rb-theme]) [data-dialog-content],
+	:where([data-rb-theme]) [data-popover-content],
+	:where([data-rb-theme]) [data-link-preview-content],
+	:where([data-rb-theme]) [data-select-content],
+	:where([data-rb-theme]) [data-combobox-content],
+	:where([data-rb-theme]) [data-menu-content],
+	:where([data-rb-theme]) [data-menu-sub-content],
+	:where([data-rb-theme]) [data-context-menu-content],
+	:where([data-rb-theme]) [data-command-root] {
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-window-shadow);
+		color: var(--rb-text);
+	}
+
+	:where([data-rb-theme]) [data-dialog-content] {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		translate: -50% -50%;
+		width: min(32rem, calc(100vw - var(--rb-space-6) * 2));
+		padding: var(--rb-inset);
+		border-radius: var(--rb-radius-window);
+	}
+
+	:where([data-rb-theme]) [data-popover-content],
+	:where([data-rb-theme]) [data-link-preview-content] {
+		padding: var(--rb-inset);
+	}
+
+	:where([data-rb-theme]) [data-select-content],
+	:where([data-rb-theme]) [data-combobox-content],
+	:where([data-rb-theme]) [data-menu-content],
+	:where([data-rb-theme]) [data-menu-sub-content],
+	:where([data-rb-theme]) [data-context-menu-content] {
+		padding: var(--rb-space-2);
+	}
+
+	:where([data-rb-theme]) [data-dialog-title] {
+		margin: 0 0 var(--rb-space-2);
+		font-family: var(--rb-font-display);
+		font-size: var(--rb-font-size-lg);
+		font-weight: var(--rb-font-weight-bold);
+		text-transform: var(--rb-text-transform);
+	}
+
+	:where([data-rb-theme]) [data-dialog-description] {
+		margin: 0 0 var(--rb-inset);
+		color: var(--rb-text-muted);
+	}
+
+	/* ---- tooltip ---------------------------------------------------------- */
+	:where([data-rb-theme]) [data-tooltip-content] {
+		padding: var(--rb-space-2) var(--rb-space-3);
+		border-radius: calc(var(--rb-radius) / 2);
+		background: var(--rb-text);
+		color: var(--rb-text-inverted);
+		font-size: var(--rb-font-size-sm);
+	}
+
+	/* ---- scroll area ------------------------------------------------------ */
+	:where([data-rb-theme]) [data-scroll-area-scrollbar] {
+		display: flex;
+		width: var(--rb-scrollbar-size);
+		padding: 1px;
+		background: var(--rb-surface-sunken);
+		touch-action: none;
+	}
+
+	:where([data-rb-theme]) [data-scroll-area-scrollbar][data-orientation='horizontal'] {
+		flex-direction: column;
+		width: auto;
+		height: var(--rb-scrollbar-size);
+	}
+
+	:where([data-rb-theme]) [data-scroll-area-thumb] {
+		flex: 1;
+		border-radius: calc(var(--rb-radius) / 2);
+		background: var(--rb-surface-active);
+		box-shadow: var(--rb-bevel-out-thin);
+	}
+
+	:where([data-rb-theme]) [data-scroll-area-corner] {
+		background: var(--rb-surface-sunken);
+	}
+
+	/* ---- open / close transitions ----------------------------------------- */
+	:where([data-rb-theme]) [data-dialog-content],
+	:where([data-rb-theme]) [data-popover-content],
+	:where([data-rb-theme]) [data-tooltip-content],
+	:where([data-rb-theme]) [data-menu-content] {
+		transition:
+			opacity var(--rb-transition),
+			scale var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-starting-style],
+	:where([data-rb-theme]) [data-ending-style] {
+		opacity: 0;
+		scale: 0.98;
+	}
+}

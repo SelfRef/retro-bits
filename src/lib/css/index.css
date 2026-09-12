@@ -1,0 +1,18 @@
+/*
+ * The everything bundle - `import 'retro-bits/css/index.css'`.
+ *
+ * Core plus all nine themes, so `data-rb-theme` can be flipped to any of them at
+ * runtime with no loading step. If you only ever use one theme, import
+ * `retro-bits/css/core.css` and that theme's file instead, and reach for
+ * `loadTheme()` if you later need another.
+ */
+@import './core.css';
+@import './themes/default.css';
+@import './themes/chicago.css';
+@import './themes/platinum.css';
+@import './themes/bigblue.css';
+@import './themes/phosphor.css';
+@import './themes/kickstart.css';
+@import './themes/haiku.css';
+@import './themes/cube.css';
+@import './themes/monolith.css';
