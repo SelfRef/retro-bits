@@ -152,11 +152,24 @@
 			box-shadow var(--rb-transition);
 	}
 
-	[data-toggle-root][data-state='on'],
-	[data-toggle-group-item][data-state='on'],
-	[data-toolbar-group-item][data-state='on'] {
-		background: var(--rb-surface-selected);
+	:is([data-toggle-root], [data-toggle-group-item], [data-toolbar-group-item]):hover {
+		background: var(--rb-surface-hover);
+	}
+
+	/* On is inverted, like a primary button: unmistakable without a bevel. */
+	:is([data-toggle-root], [data-toggle-group-item], [data-toolbar-group-item])[data-state='on'] {
+		border-color: var(--rb-accent);
+		background: var(--rb-accent);
 		box-shadow: var(--rb-bevel-in);
+		color: var(--rb-text-on-accent);
+	}
+
+	:is(
+			[data-toggle-root],
+			[data-toggle-group-item],
+			[data-toolbar-group-item]
+		)[data-state='on']:hover {
+		background: var(--rb-accent-hover);
 	}
 
 	[data-toggle-group-root],
