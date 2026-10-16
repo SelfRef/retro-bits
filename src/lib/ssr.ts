@@ -9,7 +9,7 @@ import {
 	THEME_STORAGE_KEY,
 	SCHEME_STORAGE_KEY
 } from './theme/constants.js';
-import type { ThemeId } from './types.js';
+import { THEME_IDS, type ThemeId } from './types.js';
 
 export { THEME_ATTRIBUTE, SCHEME_ATTRIBUTE, THEME_STORAGE_KEY, SCHEME_STORAGE_KEY };
 
@@ -45,21 +45,17 @@ export function themeAttributes(
  * An inline script for `<head>` that reconciles `localStorage` before first
  * paint, for apps that are not server rendered or that serve a cached shell.
  * Drop the result into a `<script>` tag in `app.html`.
+ *
+ * It only acts on a valid stored value, so it never overwrites what the server
+ * stamped from the cookie. `fallbackTheme` applies only when nothing set a theme.
  */
 export function noFlashScript(fallbackTheme: ThemeId = 'default'): string {
-	return `(function(){try{var e=document.documentElement,t=localStorage.getItem(${JSON.stringify(
-		THEME_STORAGE_KEY
-	)})||${JSON.stringify(fallbackTheme)},s=localStorage.getItem(${JSON.stringify(
-		SCHEME_STORAGE_KEY
-	)});e.setAttribute(${JSON.stringify(
-		THEME_ATTRIBUTE
-	)},t);if(s==="light"||s==="dark"){e.setAttribute(${JSON.stringify(
-		SCHEME_ATTRIBUTE
-	)},s)}else{e.removeAttribute(${JSON.stringify(SCHEME_ATTRIBUTE)})}}catch(_){}})()`;
+	const q = JSON.stringify;
+	return `(function(){try{var e=document.documentElement,t=localStorage.getItem(${q(THEME_STORAGE_KEY)}),s=localStorage.getItem(${q(SCHEME_STORAGE_KEY)});if(${q(THEME_IDS)}.indexOf(t)>-1)e.setAttribute(${q(THEME_ATTRIBUTE)},t);else if(!e.hasAttribute(${q(THEME_ATTRIBUTE)}))e.setAttribute(${q(THEME_ATTRIBUTE)},${q(fallbackTheme)});if(s==="light"||s==="dark")e.setAttribute(${q(SCHEME_ATTRIBUTE)},s);else if(s==="auto")e.removeAttribute(${q(SCHEME_ATTRIBUTE)})}catch(_){}})()`;
 }
 
 // Re-exported so a server hook can validate a cookie against the real registry
-// without importing the component entry point.
-export { THEMES, themeList, isThemeId, getTheme } from './themes/registry.js';
-export { THEME_IDS } from './types.js';
+// without importing the Svelte entry point.
+export { THEMES, themeList, isThemeId } from './themes/registry.js';
+export { THEME_IDS };
 export type { ThemeId, ThemeMeta, ColorScheme, SchemePreference } from './types.js';

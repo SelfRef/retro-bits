@@ -86,11 +86,6 @@
 	],
 	"description": "Retro operating system themes for Bits UI.",
 	"license": "GPL-3.0-or-later",
-	"peerDependenciesMeta": {
-		"bits-ui": {
-			"optional": true
-		}
-	},
 	"typesVersions": {
 		">4.0": {
 			"ssr": [

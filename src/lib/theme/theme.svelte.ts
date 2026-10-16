@@ -4,13 +4,6 @@ import { loadTheme } from '../themes/loader.js';
 import { THEME_STORAGE_KEY, SCHEME_STORAGE_KEY } from './constants.js';
 import type { ColorScheme, SchemePreference, ThemeId, ThemeMeta } from '../types.js';
 
-export {
-	THEME_ATTRIBUTE,
-	SCHEME_ATTRIBUTE,
-	THEME_STORAGE_KEY,
-	SCHEME_STORAGE_KEY
-} from './constants.js';
-
 export interface ThemeStateOptions {
 	/** Theme to start on. */
 	theme?: ThemeId;
@@ -169,8 +162,6 @@ export class ThemeState {
 
 const CONTEXT_KEY = Symbol.for('retro-bits.theme');
 
-let fallback: ThemeState | undefined;
-
 /**
  * Create the theme state and publish it to descendants. Call this during
  * component initialisation - `ThemeProvider` does it for you.
@@ -182,15 +173,15 @@ export function createTheme(options?: ThemeStateOptions): ThemeState {
 }
 
 /**
- * Read the theme state. Falls back to a module-level instance when there is no
- * provider above, so a component can be dropped into an unthemed app without
- * blowing up.
+ * Read the theme state published by the nearest `ThemeProvider`. Call this
+ * during component initialisation.
+ *
+ * Throws without a provider: state with nothing applying it to the DOM would
+ * make `set()` a silent no-op.
  */
 export function useTheme(): ThemeState {
-	try {
-		if (hasContext(CONTEXT_KEY)) return getContext<ThemeState>(CONTEXT_KEY);
-	} catch {
-		// called outside component initialisation - fall through to the singleton
+	if (!hasContext(CONTEXT_KEY)) {
+		throw new Error('retro-bits: useTheme() needs a <ThemeProvider> above it');
 	}
-	return (fallback ??= new ThemeState());
+	return getContext<ThemeState>(CONTEXT_KEY);
 }

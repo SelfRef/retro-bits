@@ -1,4 +1,6 @@
 import type { ThemeId } from '../types.js';
+import { THEMES } from './registry.js';
+import { THEME_ATTRIBUTE } from '../theme/constants.js';
 
 /**
  * Per-theme stylesheet loaders.
@@ -15,8 +17,28 @@ const loaders: Record<ThemeId, () => Promise<unknown>> = {
 const pending = new Map<ThemeId, Promise<void>>();
 const loaded = new Set<ThemeId>();
 
+/**
+ * True once a theme's tokens are in the document, whether `loadTheme()` brought
+ * them in or a static import did (`css/index.css` carries every theme).
+ *
+ * The probe reads `--rb-theme-name` off a throwaway element. Custom properties
+ * inherit, so an unloaded theme reports the page's current theme name instead
+ * of its own - which is why the name is compared, not just checked for presence.
+ */
 export function isThemeLoaded(id: ThemeId): boolean {
-	return loaded.has(id);
+	if (loaded.has(id)) return true;
+	if (typeof document === 'undefined') return false;
+
+	const probe = document.createElement('span');
+	probe.setAttribute(THEME_ATTRIBUTE, id);
+	probe.hidden = true;
+	document.body.append(probe);
+	const name = getComputedStyle(probe).getPropertyValue('--rb-theme-name');
+	probe.remove();
+
+	if (name.replace(/['"]/g, '').trim() !== THEMES[id].label) return false;
+	loaded.add(id);
+	return true;
 }
 
 /**
@@ -25,7 +47,7 @@ export function isThemeLoaded(id: ThemeId): boolean {
  * rapid switching does not fire the same import twice.
  */
 export function loadTheme(id: ThemeId): Promise<void> {
-	if (typeof document === 'undefined' || loaded.has(id)) return Promise.resolve();
+	if (typeof document === 'undefined' || isThemeLoaded(id)) return Promise.resolve();
 
 	let promise = pending.get(id);
 	if (!promise) {

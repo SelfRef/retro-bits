@@ -28,7 +28,6 @@ describe('retro-bits', () => {
 				'THEME_IDS',
 				'themeList',
 				'isThemeId',
-				'getTheme',
 				'loadTheme',
 				'isThemeLoaded',
 				'RB_TOKENS',
@@ -52,8 +51,7 @@ describe('retro-bits/ssr', () => {
 				'THEMES',
 				'THEME_IDS',
 				'themeList',
-				'isThemeId',
-				'getTheme'
+				'isThemeId'
 			].sort()
 		);
 	});
@@ -67,6 +65,40 @@ describe('retro-bits/ssr', () => {
 
 	it('leaves the scheme off when it is auto, so the CSS can fall back to the OS', () => {
 		expect(ssr.themeAttributes('default', 'auto')).toBe('data-rb-theme="default"');
+	});
+
+	it('noFlashScript only acts on valid stored values', () => {
+		const run = (stored: Record<string, string>, attrs: Record<string, string> = {}) => {
+			const html = {
+				attrs: { ...attrs },
+				setAttribute(k: string, v: string) {
+					this.attrs[k] = v;
+				},
+				removeAttribute(k: string) {
+					delete this.attrs[k];
+				},
+				hasAttribute(k: string) {
+					return k in this.attrs;
+				}
+			};
+			const storage = { getItem: (k: string) => stored[k] ?? null };
+			new Function('document', 'localStorage', ssr.noFlashScript())(
+				{ documentElement: html },
+				storage
+			);
+			return html.attrs;
+		};
+		const stamped = { 'data-rb-theme': 'default', 'data-rb-scheme': 'dark' };
+
+		// Empty or bogus storage leaves the server's cookie-based attributes alone.
+		expect(run({}, stamped)).toEqual(stamped);
+		expect(run({ 'rb-theme': 'nope', 'rb-scheme': 'nope' }, stamped)).toEqual(stamped);
+		// Valid storage wins; `auto` hands the scheme back to the OS.
+		expect(run({ 'rb-theme': 'default', 'rb-scheme': 'auto' }, stamped)).toEqual({
+			'data-rb-theme': 'default'
+		});
+		// Nothing stamped and nothing stored: the fallback theme.
+		expect(run({})).toEqual({ 'data-rb-theme': 'default' });
 	});
 
 	it('recognises every registered theme', () => {

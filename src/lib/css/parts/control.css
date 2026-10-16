@@ -262,8 +262,12 @@
 	}
 
 	/* ---- shared states ------------------------------------------------------- */
-	:where([data-rb-theme]) [data-disabled],
-	:where([data-rb-theme]) [disabled] {
+	/*
+	 * Only the outermost disabled element is dimmed: Bits UI marks a disabled
+	 * group and every item in it, and opacity would otherwise compound.
+	 */
+	:where([data-rb-theme])
+		:is([data-disabled], [disabled]):where(:not(:is([data-disabled], [disabled]) *)) {
 		background-image: var(--rb-pattern-dither);
 		color: var(--rb-text-disabled);
 		cursor: not-allowed;

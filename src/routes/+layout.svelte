@@ -10,7 +10,9 @@
 	import { ThemeProvider } from 'retro-bits';
 	import ThemeSwitcher from '$playground/ThemeSwitcher.svelte';
 
-	let { children }: { children: Snippet } = $props();
+	import type { LayoutData } from './$types.js';
+
+	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 
 	const sections = [
 		{ href: '/', label: 'Overview' },
@@ -23,7 +25,7 @@
 		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
 </script>
 
-<ThemeProvider>
+<ThemeProvider theme={data.theme} scheme={data.scheme}>
 	<div class="shell">
 		<header>
 			<a class="wordmark" href={resolve('/')}>retro-bits</a>

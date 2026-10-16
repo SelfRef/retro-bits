@@ -59,6 +59,12 @@ describe.each(THEME_IDS)('%s', (id) => {
 		expect(source(id)).toContain('@layer rb.tokens');
 	});
 
+	it('names itself with its registry label', () => {
+		// `isThemeLoaded()` detects a theme's stylesheet by reading this name back.
+		const declared = source(id).match(/^[\t ]*--rb-theme-name[\t ]*:[\t ]*([^;]+);/m)?.[1];
+		expect(declared?.trim()).toBe(`'${THEMES[id].label}'`);
+	});
+
 	it('agrees with the registry about which schemes it supports', () => {
 		// The registry is what `ThemeState` clamps against; `--rb-color-scheme` is
 		// what actually makes `light-dark()` resolve. They have to say the same thing.

@@ -1,11 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import {
-		createTheme,
-		SCHEME_ATTRIBUTE,
-		THEME_ATTRIBUTE,
-		type ThemeStateOptions
-	} from './theme.svelte.js';
+	import { createTheme, type ThemeStateOptions } from './theme.svelte.js';
+	import { SCHEME_ATTRIBUTE, THEME_ATTRIBUTE } from './constants.js';
 	import type { ThemeId, SchemePreference } from '../types.js';
 
 	interface Props extends ThemeStateOptions {

@@ -20,7 +20,3 @@ export const themeList: readonly ThemeMeta[] = THEME_IDS.map((id) => THEMES[id])
 export function isThemeId(value: unknown): value is ThemeId {
 	return typeof value === 'string' && (THEME_IDS as readonly string[]).includes(value);
 }
-
-export function getTheme(id: ThemeId): ThemeMeta {
-	return THEMES[id];
-}

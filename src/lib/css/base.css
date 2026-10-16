@@ -59,12 +59,18 @@
 	:where([data-rb-theme]) img {
 		image-rendering: var(--rb-image-rendering);
 	}
+}
 
-	/* Honour the OS setting regardless of theme. */
+/*
+ * Honour the OS setting regardless of theme. The last layer beats every
+ * component rule without `!important`, which keeps it overridable: a layered
+ * `!important` would beat unlayered consumer CSS, even consumer `!important`.
+ */
+@layer rb.overrides {
 	@media (prefers-reduced-motion: reduce) {
 		:where([data-rb-theme]) * {
-			animation-duration: 1ms !important;
-			transition-duration: 1ms !important;
+			animation-duration: 1ms;
+			transition-duration: 1ms;
 		}
 	}
 }
