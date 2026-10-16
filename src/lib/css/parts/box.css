@@ -6,7 +6,7 @@
  * the whole set of hooks for elements that are not Bits UI parts.
  */
 @layer rb.components {
-	:where([data-rb-theme]) [data-rb-box] {
+	[data-rb-box] {
 		padding: var(--rb-inset);
 		border: var(--rb-border-width) solid var(--rb-border-color);
 		border-radius: var(--rb-radius);
@@ -14,12 +14,12 @@
 		color: var(--rb-text);
 	}
 
-	:where([data-rb-theme]) [data-rb-box='raised'] {
+	[data-rb-box='raised'] {
 		background: var(--rb-surface-raised);
 		box-shadow: var(--rb-bevel-out);
 	}
 
-	:where([data-rb-theme]) [data-rb-box='sunken'] {
+	[data-rb-box='sunken'] {
 		background: var(--rb-surface-sunken);
 		box-shadow: var(--rb-bevel-in);
 	}

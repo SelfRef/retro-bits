@@ -1,11 +1,13 @@
 /*
- * What a themed subtree looks like before any component is involved.
+ * What the page looks like before any component is involved.
  *
- * Everything is wrapped in `:where()` so these rules carry no specificity, and
- * they live in `@layer rb.base`, so unlayered consumer CSS always wins.
+ * The root is always themed - by `DEFAULT_THEME` when it has no
+ * `data-rb-theme` - so component rules need no theme scope. A nested
+ * `data-rb-theme` re-declares the tokens for its subtree. Everything lives in
+ * `@layer rb.base`, so unlayered consumer CSS always wins.
  */
 @layer rb.base {
-	:where([data-rb-theme]) {
+	:where(:root, [data-rb-theme]) {
 		/*
 		 * `color-scheme` is what makes `light-dark()` in the token files resolve,
 		 * and it also keeps native scrollbars and form controls in step.
@@ -33,11 +35,11 @@
 	 * writes a scheme the current theme declares support for, so this cannot put
 	 * a single-scheme theme into a scheme it has no values for.
 	 */
-	:where([data-rb-theme][data-rb-scheme='light']) {
+	:where([data-rb-scheme='light']) {
 		color-scheme: light;
 	}
 
-	:where([data-rb-theme][data-rb-scheme='dark']) {
+	:where([data-rb-scheme='dark']) {
 		color-scheme: dark;
 	}
 
@@ -45,29 +47,29 @@
 	 * Native and Bits UI controls render real <button>s and <input>s, which do
 	 * not inherit the theme's face or colour on their own.
 	 */
-	:where([data-rb-theme]) :where(button, input, select, textarea) {
+	:where(button, input, select, textarea) {
 		font: inherit;
 		color: inherit;
 	}
 
-	:where([data-rb-theme]) ::selection {
+	::selection {
 		background-color: var(--rb-selection-bg);
 		color: var(--rb-selection-text);
 	}
 
-	:where([data-rb-theme]) a {
+	a {
 		color: var(--rb-link);
 		cursor: var(--rb-cursor-pointer);
 	}
 
-	:where([data-rb-theme]) code,
-	:where([data-rb-theme]) kbd,
-	:where([data-rb-theme]) pre,
-	:where([data-rb-theme]) samp {
+	code,
+	kbd,
+	pre,
+	samp {
 		font-family: var(--rb-font-mono);
 	}
 
-	:where([data-rb-theme]) img {
+	img {
 		image-rendering: var(--rb-image-rendering);
 	}
 }
@@ -79,7 +81,7 @@
  */
 @layer rb.overrides {
 	@media (prefers-reduced-motion: reduce) {
-		:where([data-rb-theme]) * {
+		* {
 			animation-duration: 1ms;
 			transition-duration: 1ms;
 		}

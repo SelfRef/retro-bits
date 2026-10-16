@@ -10,25 +10,21 @@
  * `data-context-menu-item`, `data-menubar-item` - never `data-menu-*`.
  */
 @layer rb.components {
-	:where([data-rb-theme])
-		:is([data-dropdown-menu-item], [data-context-menu-item], [data-menubar-item]),
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-checkbox-item],
-			[data-context-menu-checkbox-item],
-			[data-menubar-checkbox-item]
-		),
-	:where([data-rb-theme])
-		:is([data-dropdown-menu-radio-item], [data-context-menu-radio-item], [data-menubar-radio-item]),
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-sub-trigger],
-			[data-context-menu-sub-trigger],
-			[data-menubar-sub-trigger]
-		),
-	:where([data-rb-theme]) [data-select-item],
-	:where([data-rb-theme]) [data-combobox-item],
-	:where([data-rb-theme]) [data-command-item] {
+	:is([data-dropdown-menu-item], [data-context-menu-item], [data-menubar-item]),
+	:is(
+		[data-dropdown-menu-checkbox-item],
+		[data-context-menu-checkbox-item],
+		[data-menubar-checkbox-item]
+	),
+	:is([data-dropdown-menu-radio-item], [data-context-menu-radio-item], [data-menubar-radio-item]),
+	:is(
+		[data-dropdown-menu-sub-trigger],
+		[data-context-menu-sub-trigger],
+		[data-menubar-sub-trigger]
+	),
+	[data-select-item],
+	[data-combobox-item],
+	[data-command-item] {
 		display: flex;
 		align-items: center;
 		gap: var(--rb-gap);
@@ -40,24 +36,23 @@
 		user-select: none;
 	}
 
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-item],
-			[data-context-menu-item],
-			[data-menubar-item],
-			[data-dropdown-menu-checkbox-item],
-			[data-context-menu-checkbox-item],
-			[data-menubar-checkbox-item],
-			[data-dropdown-menu-radio-item],
-			[data-context-menu-radio-item],
-			[data-menubar-radio-item],
-			[data-dropdown-menu-sub-trigger],
-			[data-context-menu-sub-trigger],
-			[data-menubar-sub-trigger],
-			[data-select-item],
-			[data-combobox-item]
-		)[data-highlighted],
-	:where([data-rb-theme]) [data-command-item][data-selected] {
+	:is(
+		[data-dropdown-menu-item],
+		[data-context-menu-item],
+		[data-menubar-item],
+		[data-dropdown-menu-checkbox-item],
+		[data-context-menu-checkbox-item],
+		[data-menubar-checkbox-item],
+		[data-dropdown-menu-radio-item],
+		[data-context-menu-radio-item],
+		[data-menubar-radio-item],
+		[data-dropdown-menu-sub-trigger],
+		[data-context-menu-sub-trigger],
+		[data-menubar-sub-trigger],
+		[data-select-item],
+		[data-combobox-item]
+	)[data-highlighted],
+	[data-command-item][data-selected] {
 		background: var(--rb-accent);
 		color: var(--rb-text-on-accent);
 	}
@@ -67,15 +62,14 @@
 	 * filled from the content box when checked. currentColor keeps it legible on
 	 * a highlighted row. Children are free for the label.
 	 */
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-checkbox-item],
-			[data-context-menu-checkbox-item],
-			[data-menubar-checkbox-item],
-			[data-dropdown-menu-radio-item],
-			[data-context-menu-radio-item],
-			[data-menubar-radio-item]
-		)::before {
+	:is(
+		[data-dropdown-menu-checkbox-item],
+		[data-context-menu-checkbox-item],
+		[data-menubar-checkbox-item],
+		[data-dropdown-menu-radio-item],
+		[data-context-menu-radio-item],
+		[data-menubar-radio-item]
+	)::before {
 		content: '';
 		flex: none;
 		box-sizing: border-box;
@@ -85,17 +79,15 @@
 		border-radius: var(--rb-radius);
 	}
 
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-radio-item],
-			[data-context-menu-radio-item],
-			[data-menubar-radio-item]
-		)::before {
+	:is(
+		[data-dropdown-menu-radio-item],
+		[data-context-menu-radio-item],
+		[data-menubar-radio-item]
+	)::before {
 		border-radius: 999px;
 	}
 
-	:where([data-rb-theme])
-		:is(
+	:is(
 			[data-dropdown-menu-checkbox-item],
 			[data-context-menu-checkbox-item],
 			[data-menubar-checkbox-item],
@@ -107,8 +99,7 @@
 		background: currentColor content-box;
 	}
 
-	:where([data-rb-theme])
-		:is(
+	:is(
 			[data-dropdown-menu-checkbox-item],
 			[data-context-menu-checkbox-item],
 			[data-menubar-checkbox-item]
@@ -116,24 +107,22 @@
 		padding-block: calc((var(--rb-icon-size) - var(--rb-border-width) * 3) / 2);
 	}
 
-	:where([data-rb-theme]) :is([data-select-item], [data-combobox-item])[data-selected] {
+	:is([data-select-item], [data-combobox-item])[data-selected] {
 		background: var(--rb-surface-selected);
 	}
 
-	:where([data-rb-theme])
-		:is([data-select-item], [data-combobox-item])[data-selected][data-highlighted] {
+	:is([data-select-item], [data-combobox-item])[data-selected][data-highlighted] {
 		background: var(--rb-accent);
 	}
 
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-group-heading],
-			[data-context-menu-group-heading],
-			[data-menubar-group-heading]
-		),
-	:where([data-rb-theme]) [data-select-group-label],
-	:where([data-rb-theme]) [data-combobox-group-label],
-	:where([data-rb-theme]) [data-command-group-heading] {
+	:is(
+		[data-dropdown-menu-group-heading],
+		[data-context-menu-group-heading],
+		[data-menubar-group-heading]
+	),
+	[data-select-group-label],
+	[data-combobox-group-label],
+	[data-command-group-heading] {
 		padding: var(--rb-space-2) var(--rb-space-3);
 		color: var(--rb-text-muted);
 		font-size: var(--rb-font-size-sm);
@@ -141,12 +130,11 @@
 		text-transform: var(--rb-text-transform);
 	}
 
-	:where([data-rb-theme])
-		:is([data-dropdown-menu-separator], [data-context-menu-separator], [data-menubar-separator]),
-	:where([data-rb-theme]) [data-select-separator],
-	:where([data-rb-theme]) [data-combobox-separator],
-	:where([data-rb-theme]) [data-command-separator],
-	:where([data-rb-theme]) [data-separator-root] {
+	:is([data-dropdown-menu-separator], [data-context-menu-separator], [data-menubar-separator]),
+	[data-select-separator],
+	[data-combobox-separator],
+	[data-command-separator],
+	[data-separator-root] {
 		flex: none;
 		margin: var(--rb-space-2) 0;
 		border: none;
@@ -155,15 +143,15 @@
 		inline-size: 100%;
 	}
 
-	:where([data-rb-theme]) [data-separator-root][data-orientation='vertical'] {
+	[data-separator-root][data-orientation='vertical'] {
 		margin: 0 var(--rb-space-2);
 		block-size: auto;
 		inline-size: var(--rb-border-width);
 		align-self: stretch;
 	}
 
-	:where([data-rb-theme]) [data-command-empty],
-	:where([data-rb-theme]) [data-command-loading] {
+	[data-command-empty],
+	[data-command-loading] {
 		padding: var(--rb-inset);
 		color: var(--rb-text-muted);
 		text-align: center;

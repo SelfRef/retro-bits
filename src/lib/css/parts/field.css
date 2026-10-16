@@ -3,17 +3,16 @@
  * well look, so they share one rule.
  */
 @layer rb.components {
-	:where([data-rb-theme]) [data-pin-input-cell],
-	:where([data-rb-theme]) [data-select-trigger],
-	:where([data-rb-theme]) [data-combobox-trigger],
-	:where([data-rb-theme]) [data-combobox-input],
-	:where([data-rb-theme]) [data-command-input],
-	:where([data-rb-theme]) [data-date-field-input],
-	:where([data-rb-theme]) [data-time-field-input],
-	:where([data-rb-theme]) :is([data-calendar-month-select], [data-calendar-year-select]),
-	:where([data-rb-theme])
-		:is([data-range-calendar-month-select], [data-range-calendar-year-select]),
-	:where([data-rb-theme]) [data-rb-field] {
+	[data-pin-input-cell],
+	[data-select-trigger],
+	[data-combobox-trigger],
+	[data-combobox-input],
+	[data-command-input],
+	[data-date-field-input],
+	[data-time-field-input],
+	:is([data-calendar-month-select], [data-calendar-year-select]),
+	:is([data-range-calendar-month-select], [data-range-calendar-year-select]),
+	[data-rb-field] {
 		display: inline-flex;
 		align-items: center;
 		gap: var(--rb-gap);
@@ -30,53 +29,49 @@
 		cursor: var(--rb-cursor-text);
 	}
 
-	:where([data-rb-theme]) [data-select-trigger],
-	:where([data-rb-theme]) [data-combobox-trigger],
-	:where([data-rb-theme])
-		:is(
-			[data-calendar-month-select],
-			[data-calendar-year-select],
-			[data-range-calendar-month-select],
-			[data-range-calendar-year-select]
-		) {
+	[data-select-trigger],
+	[data-combobox-trigger],
+	:is(
+		[data-calendar-month-select],
+		[data-calendar-year-select],
+		[data-range-calendar-month-select],
+		[data-range-calendar-year-select]
+	) {
 		justify-content: space-between;
 		background: var(--rb-surface-raised);
 		box-shadow: var(--rb-bevel-out-thin);
 		cursor: var(--rb-cursor-pointer);
 	}
 
-	:where([data-rb-theme]) [data-select-trigger][data-placeholder] {
+	[data-select-trigger][data-placeholder] {
 		color: var(--rb-text-muted);
 	}
 
 	/* ---- date and time fields --------------------------------------------- */
-	:where([data-rb-theme]) :is([data-date-range-field-root], [data-time-range-field-root]) {
+	:is([data-date-range-field-root], [data-time-range-field-root]) {
 		display: inline-flex;
 		align-items: center;
 		flex-wrap: wrap;
 		gap: var(--rb-gap);
 	}
 
-	:where([data-rb-theme])
-		:is(
-			[data-date-field-label],
-			[data-date-range-field-label],
-			[data-time-field-label],
-			[data-time-range-field-label]
-		) {
+	:is(
+		[data-date-field-label],
+		[data-date-range-field-label],
+		[data-time-field-label],
+		[data-time-range-field-label]
+	) {
 		display: block;
 		margin-bottom: var(--rb-space-2);
 		font-weight: var(--rb-font-weight-bold);
 	}
 
-	:where([data-rb-theme]) :is([data-date-range-field-label], [data-time-range-field-label]) {
+	:is([data-date-range-field-label], [data-time-range-field-label]) {
 		flex-basis: 100%;
 	}
 
 	/* A picker's trigger sits inside the field, so it drops the button chrome. */
-	:where([data-rb-theme])
-		:is([data-date-field-input], [data-time-field-input])
-		[data-popover-trigger] {
+	:is([data-date-field-input], [data-time-field-input]) [data-popover-trigger] {
 		min-height: 0;
 		margin-inline-start: auto;
 		padding: 0 var(--rb-space-2);
@@ -86,12 +81,12 @@
 		translate: none;
 	}
 
-	:where([data-rb-theme]) [data-pin-input-root] {
+	[data-pin-input-root] {
 		display: inline-flex;
 		gap: var(--rb-gap);
 	}
 
-	:where([data-rb-theme]) [data-pin-input-cell] {
+	[data-pin-input-cell] {
 		justify-content: center;
 		width: calc(var(--rb-control-height) * 0.8);
 		padding-inline: 0;
@@ -99,22 +94,22 @@
 		font-variant-numeric: tabular-nums;
 	}
 
-	:where([data-rb-theme]) [data-pin-input-cell][data-active] {
+	[data-pin-input-cell][data-active] {
 		border-color: var(--rb-accent);
 	}
 
-	:where([data-rb-theme]) [data-segment] {
+	[data-segment] {
 		padding: 0 1px;
 		border-radius: var(--rb-radius);
 		font-variant-numeric: tabular-nums;
 	}
 
-	:where([data-rb-theme]) [data-segment][data-placeholder] {
+	[data-segment][data-placeholder] {
 		color: var(--rb-text-muted);
 	}
 
-	:where([data-rb-theme]) [data-date-field-segment]:focus,
-	:where([data-rb-theme]) [data-segment]:focus {
+	[data-date-field-segment]:focus,
+	[data-segment]:focus {
 		background: var(--rb-surface-selected);
 		outline: none;
 	}

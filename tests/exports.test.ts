@@ -29,6 +29,7 @@ describe('retro-bits', () => {
 				// registry
 				'THEMES',
 				'THEME_IDS',
+				'DEFAULT_THEME',
 				'themeList',
 				'isThemeId',
 				'palettesFor',
@@ -58,6 +59,7 @@ describe('retro-bits/ssr', () => {
 				'PALETTE_STORAGE_KEYS',
 				'THEMES',
 				'THEME_IDS',
+				'DEFAULT_THEME',
 				'themeList',
 				'isThemeId',
 				'palettesFor',

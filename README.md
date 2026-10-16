@@ -17,7 +17,7 @@ pnpm add retro-bits bits-ui
 
 ## Use
 
-The whole setup is one import and one attribute. No component, no JavaScript:
+The whole setup is one import. No component, no attribute, no JavaScript:
 
 ```svelte
 <!-- src/routes/+layout.svelte -->
@@ -26,20 +26,23 @@ The whole setup is one import and one attribute. No component, no JavaScript:
 </script>
 ```
 
-```html
-<!-- src/app.html -->
-<html lang="en" data-rb-theme="mono"></html>
-```
-
-Every Bits UI component on the page is now themed, with no wrapper:
+Every Bits UI component on the page is now themed with Mono, the default, with no wrapper:
 
 ```svelte
 <Button.Root>Save</Button.Root>
 ```
 
-Put the attribute on `<html>`, not a wrapper: Bits UI portals dialogs, popovers and menus to
-`document.body`, so anything less than the document element leaves portalled content unthemed. Light
-and dark follow `prefers-color-scheme` until you say otherwise.
+Light and dark follow `prefers-color-scheme`, in Mono's own palettes. To choose explicitly, set
+attributes on `<html>`:
+
+```html
+<html lang="en" data-rb-theme="mono" data-rb-scheme="dark" data-rb-palette-dark="nord-dark"></html>
+```
+
+Each falls back on its own: no `data-rb-theme` means Mono, no palette means the theme's own colours
+for that scheme, no `data-rb-scheme` means the OS decides, and light when it has no preference. Keep
+them on `<html>` rather than a wrapper: Bits UI portals dialogs, popovers and menus to
+`document.body`, outside any wrapper, where they would get the root's theme instead.
 
 ### Switching at runtime
 
@@ -160,8 +163,8 @@ token test checks the two agree.
 ### Override anything
 
 Everything retro-bits emits is inside one cascade layer, `rb` (with `rb.reset`, `rb.tokens`,
-`rb.base`, `rb.components` and `rb.overrides` inside it), and selectors are wrapped in `:where()`.
-Unlayered CSS - which is what you write by default - beats all of it, so you should never need
+`rb.base`, `rb.components` and `rb.overrides` inside it), and selectors are as weak as they can
+be - mostly a single attribute. Unlayered CSS - which is what you write by default - beats all of it, so you should never need
 `!important`. Bits UI's `class` prop works as usual.
 
 With Tailwind v4, whose output is layered too, declare the order once so utilities still win:

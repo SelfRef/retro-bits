@@ -13,7 +13,7 @@ import { describe, expect, it } from 'vitest';
 
 import { RB_TOKENS } from '../src/lib/themes/contract.js';
 import { THEMES } from '../src/lib/themes/registry.js';
-import { THEME_IDS, type PaletteMeta, type ThemeId } from '../src/lib/types.js';
+import { DEFAULT_THEME, THEME_IDS, type PaletteMeta, type ThemeId } from '../src/lib/types.js';
 
 const themeDir = fileURLToPath(new URL('../src/lib/css/themes/', import.meta.url));
 
@@ -38,6 +38,24 @@ function declaredTokens(id: ThemeId): Set<string> {
 describe('theme files', () => {
 	it('there is exactly one stylesheet per registered theme', () => {
 		expect(fileIds.sort()).toEqual([...THEME_IDS].sort());
+	});
+});
+
+describe('default theme', () => {
+	// A root with no `data-rb-theme` is styled by exactly one theme, and it has to
+	// be the one the runtime falls back to.
+	const ROOT = ':root:not([data-rb-theme])';
+
+	it('is the only theme that styles a root without the attribute', () => {
+		const claiming = THEME_IDS.filter((id) => source(id).includes(ROOT));
+		expect(claiming).toEqual([DEFAULT_THEME]);
+	});
+
+	it('applies its palettes there too', () => {
+		const palettes = source(DEFAULT_THEME).match(/\[data-rb-palette-(light|dark)=/g) ?? [];
+		const onRoot =
+			source(DEFAULT_THEME).match(/:root:not\(\[data-rb-theme\]\)\)\[data-rb-palette-/g) ?? [];
+		expect(onRoot.length).toBe(palettes.length);
 	});
 });
 

@@ -3,7 +3,14 @@ import { THEMES, isThemeId, resolvePalette } from '../themes/registry.js';
 import { loadTheme } from '../themes/loader.js';
 import { THEME_STORAGE_KEY, SCHEME_STORAGE_KEY, PALETTE_STORAGE_KEYS } from './constants.js';
 import { isSchemePreference } from './settings.js';
-import type { ColorScheme, PaletteMeta, SchemePreference, ThemeId, ThemeMeta } from '../types.js';
+import {
+	DEFAULT_THEME,
+	type ColorScheme,
+	type PaletteMeta,
+	type SchemePreference,
+	type ThemeId,
+	type ThemeMeta
+} from '../types.js';
 
 export interface ThemeStateOptions {
 	/** Theme to start on. */
@@ -49,7 +56,7 @@ function writeStored(key: string, value: string, cookieMaxAge: number): void {
  * state, so it can be unit tested without a document.
  */
 export class ThemeState {
-	#theme = $state<ThemeId>('mono');
+	#theme = $state<ThemeId>(DEFAULT_THEME);
 	#scheme = $state<SchemePreference>('auto');
 	#systemScheme = $state<ColorScheme>('light');
 	#pending = $state(false);

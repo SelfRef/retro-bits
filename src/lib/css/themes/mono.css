@@ -23,7 +23,8 @@
  * MIT, Copyright (c) 2025 Cameron Brooks).
  */
 @layer rb.tokens {
-	:where([data-rb-theme='mono']) {
+	/* Mono is the default theme, so it also styles a root with no theme set. */
+	:where([data-rb-theme='mono'], :root:not([data-rb-theme])) {
 		/* meta */
 		--rb-theme-name: 'Mono';
 		--rb-color-scheme: light dark;
@@ -152,322 +153,414 @@
 
 	/* -- palettes: each overrides one scheme's inputs ---------------------- */
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='rose-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='rose-light']
+	) {
 		--mono-light-bg: #fff0f5;
 		--mono-light-bg-alt: #ffe5ee;
 		--mono-light-text: #550a2a;
 		--mono-light-text-alt: #a02040;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='rose-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='rose-dark']
+	) {
 		--mono-dark-bg: #3b0a24;
 		--mono-dark-bg-alt: #4d122c;
 		--mono-dark-text: #ffe5ee;
 		--mono-dark-text-alt: #ffb6c1;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='ocean-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='ocean-light']
+	) {
 		--mono-light-bg: #f0fcff;
 		--mono-light-bg-alt: #e0f9ff;
 		--mono-light-text: #00475d;
 		--mono-light-text-alt: #007c96;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='ocean-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='ocean-dark']
+	) {
 		--mono-dark-bg: #002933;
 		--mono-dark-bg-alt: #003a47;
 		--mono-dark-text: #e0f9ff;
 		--mono-dark-text-alt: #90dffa;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='forest-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='forest-light']
+	) {
 		--mono-light-bg: #f3fff0;
 		--mono-light-bg-alt: #ecffeb;
 		--mono-light-text: #2a4f2a;
 		--mono-light-text-alt: #4f7f4f;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='forest-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='forest-dark']
+	) {
 		--mono-dark-bg: #1a2e1a;
 		--mono-dark-bg-alt: #243f24;
 		--mono-dark-text: #d6f5d6;
 		--mono-dark-text-alt: #a4d4a4;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='desert-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='desert-light']
+	) {
 		--mono-light-bg: #faf3d7;
 		--mono-light-bg-alt: #f5e8b8;
 		--mono-light-text: #8b6d1f;
 		--mono-light-text-alt: #b98a00;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='desert-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='desert-dark']
+	) {
 		--mono-dark-bg: #3f351f;
 		--mono-dark-bg-alt: #5a4a2a;
 		--mono-dark-text: #f5e8b8;
 		--mono-dark-text-alt: #efd08f;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='sepia-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='sepia-light']
+	) {
 		--mono-light-bg: #f4ece2;
 		--mono-light-bg-alt: #e8d9c5;
 		--mono-light-text: #5d3a1a;
 		--mono-light-text-alt: #8b5a2b;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='sepia-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='sepia-dark']
+	) {
 		--mono-dark-bg: #392b24;
 		--mono-dark-bg-alt: #4f3b32;
 		--mono-dark-text: #e8d9c5;
 		--mono-dark-text-alt: #cbb3a3;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='twilight-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='twilight-light']
+	) {
 		--mono-light-bg: #f0f0ff;
 		--mono-light-bg-alt: #e8e8ff;
 		--mono-light-text: #2a2a5b;
 		--mono-light-text-alt: #4f4fa3;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='twilight-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='twilight-dark']
+	) {
 		--mono-dark-bg: #1e1e3a;
 		--mono-dark-bg-alt: #2a2a4f;
 		--mono-dark-text: #e0d8ff;
 		--mono-dark-text-alt: #bfb3ff;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='glacier-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='glacier-light']
+	) {
 		--mono-light-bg: #f4fbff;
 		--mono-light-bg-alt: #e6f7fd;
 		--mono-light-text: #003344;
 		--mono-light-text-alt: #005566;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='glacier-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='glacier-dark']
+	) {
 		--mono-dark-bg: #0d1a1f;
 		--mono-dark-bg-alt: #1a2d33;
 		--mono-dark-text: #ccf2ff;
 		--mono-dark-text-alt: #99e0f2;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='clay-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='clay-light']
+	) {
 		--mono-light-bg: #f8ebe4;
 		--mono-light-bg-alt: #e6c8ba;
 		--mono-light-text: #8b453f;
 		--mono-light-text-alt: #b66e63;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='clay-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='clay-dark']
+	) {
 		--mono-dark-bg: #3b2e2a;
 		--mono-dark-bg-alt: #513f3c;
 		--mono-dark-text: #e6c8ba;
 		--mono-dark-text-alt: #d0a49d;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='midnight-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='midnight-dark']
+	) {
 		--mono-dark-bg: #0a0f18;
 		--mono-dark-bg-alt: #141a29;
 		--mono-dark-text: #d0d8ff;
 		--mono-dark-text-alt: #a0b0e0;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='sandstone-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='sandstone-light']
+	) {
 		--mono-light-bg: #fbede2;
 		--mono-light-bg-alt: #f1d2c4;
 		--mono-light-text: #a34f3e;
 		--mono-light-text-alt: #c96b54;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='sandstone-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='sandstone-dark']
+	) {
 		--mono-dark-bg: #3a2b27;
 		--mono-dark-bg-alt: #513f3b;
 		--mono-dark-text: #f1d2c4;
 		--mono-dark-text-alt: #d8ac9e;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='coral-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='coral-light']
+	) {
 		--mono-light-bg: #fff5f0;
 		--mono-light-bg-alt: #ffe6dc;
 		--mono-light-text: #d1443c;
 		--mono-light-text-alt: #e65a49;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='coral-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='coral-dark']
+	) {
 		--mono-dark-bg: #4b1e16;
 		--mono-dark-bg-alt: #5c2a21;
 		--mono-dark-text: #ffe6dc;
 		--mono-dark-text-alt: #ffb8aa;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='mint-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='mint-light']
+	) {
 		--mono-light-bg: #f0fff4;
 		--mono-light-bg-alt: #e0ffea;
 		--mono-light-text: #1f5d40;
 		--mono-light-text-alt: #3a8f6b;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='mint-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='mint-dark']
+	) {
 		--mono-dark-bg: #1a2a1e;
 		--mono-dark-bg-alt: #243a27;
 		--mono-dark-text: #e0ffea;
 		--mono-dark-text-alt: #a0d2ac;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='mauve-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='mauve-light']
+	) {
 		--mono-light-bg: #faf5ff;
 		--mono-light-bg-alt: #f1eaff;
 		--mono-light-text: #5b2a5b;
 		--mono-light-text-alt: #7f4f7f;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='mauve-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='mauve-dark']
+	) {
 		--mono-dark-bg: #2e1e2e;
 		--mono-dark-bg-alt: #3c2a3c;
 		--mono-dark-text: #f1eaff;
 		--mono-dark-text-alt: #d6b3d6;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='slate-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='slate-light']
+	) {
 		--mono-light-bg: #f4f6f8;
 		--mono-light-bg-alt: #e6e9ed;
 		--mono-light-text: #2e3a47;
 		--mono-light-text-alt: #48535f;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='slate-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='slate-dark']
+	) {
 		--mono-dark-bg: #181f24;
 		--mono-dark-bg-alt: #242c31;
 		--mono-dark-text: #e6e9ed;
 		--mono-dark-text-alt: #b0b6bb;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='honey-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='honey-light']
+	) {
 		--mono-light-bg: #fff9e6;
 		--mono-light-bg-alt: #fff3cc;
 		--mono-light-text: #7f5900;
 		--mono-light-text-alt: #a36f0a;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='honey-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='honey-dark']
+	) {
 		--mono-dark-bg: #3a2d14;
 		--mono-dark-bg-alt: #503f1c;
 		--mono-dark-text: #fff3cc;
 		--mono-dark-text-alt: #ffe599;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='rust-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='rust-light']
+	) {
 		--mono-light-bg: #fff0ea;
 		--mono-light-bg-alt: #ffdacf;
 		--mono-light-text: #8b2e0f;
 		--mono-light-text-alt: #b34718;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='rust-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='rust-dark']
+	) {
 		--mono-dark-bg: #2f1a15;
 		--mono-dark-bg-alt: #422a23;
 		--mono-dark-text: #ffdacf;
 		--mono-dark-text-alt: #ffb699;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='dracula-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='dracula-light']
+	) {
 		--mono-light-bg: #f8f8f2;
 		--mono-light-bg-alt: #e8e8dc;
 		--mono-light-text: #282a36;
 		--mono-light-text-alt: #44475a;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='dracula-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='dracula-dark']
+	) {
 		--mono-dark-bg: #282a36;
 		--mono-dark-bg-alt: #373a4f;
 		--mono-dark-text: #f8f8f2;
 		--mono-dark-text-alt: #bd93f9;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='solarized-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='solarized-light']
+	) {
 		--mono-light-bg: #fdf6e3;
 		--mono-light-bg-alt: #eee8d5;
 		--mono-light-text: #657b83;
 		--mono-light-text-alt: #586e75;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='solarized-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='solarized-dark']
+	) {
 		--mono-dark-bg: #002b36;
 		--mono-dark-bg-alt: #073642;
 		--mono-dark-text: #fdf6e3;
 		--mono-dark-text-alt: #93a1a1;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='monokai-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='monokai-light']
+	) {
 		--mono-light-bg: #f5f5f5;
 		--mono-light-bg-alt: #e8e8e8;
 		--mono-light-text: #272822;
 		--mono-light-text-alt: #75715e;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='monokai-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='monokai-dark']
+	) {
 		--mono-dark-bg: #272822;
 		--mono-dark-bg-alt: #3e3d32;
 		--mono-dark-text: #f8f8f2;
 		--mono-dark-text-alt: #f92672;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='gruvbox-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='gruvbox-light']
+	) {
 		--mono-light-bg: #fbf1c7;
 		--mono-light-bg-alt: #f9f5d7;
 		--mono-light-text: #3c3836;
 		--mono-light-text-alt: #504945;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='gruvbox-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='gruvbox-dark']
+	) {
 		--mono-dark-bg: #282828;
 		--mono-dark-bg-alt: #32302f;
 		--mono-dark-text: #ebdbb2;
 		--mono-dark-text-alt: #d5c4a1;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='nord-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='nord-light']
+	) {
 		--mono-light-bg: #eceff4;
 		--mono-light-bg-alt: #e5e9f0;
 		--mono-light-text: #2e3440;
 		--mono-light-text-alt: #4c566a;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='nord-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='nord-dark']
+	) {
 		--mono-dark-bg: #2e3440;
 		--mono-dark-bg-alt: #3b4252;
 		--mono-dark-text: #d8dee9;
 		--mono-dark-text-alt: #e5e9f0;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='one-dark-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='one-dark-light']
+	) {
 		--mono-light-bg: #fafafa;
 		--mono-light-bg-alt: #f0f0f0;
 		--mono-light-text: #383a42;
 		--mono-light-text-alt: #525358;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='one-dark-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='one-dark-dark']
+	) {
 		--mono-dark-bg: #282c34;
 		--mono-dark-bg-alt: #353b45;
 		--mono-dark-text: #abb2bf;
 		--mono-dark-text-alt: #cad3e0;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-light='palenight-light']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-light='palenight-light']
+	) {
 		--mono-light-bg: #f5f2fa;
 		--mono-light-bg-alt: #ebe8f5;
 		--mono-light-text: #4a4563;
 		--mono-light-text-alt: #6c678e;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='palenight-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='palenight-dark']
+	) {
 		--mono-dark-bg: #292d3e;
 		--mono-dark-bg-alt: #444267;
 		--mono-dark-text: #e0def4;
 		--mono-dark-text-alt: #c3bef0;
 	}
 
-	:where([data-rb-theme='mono'][data-rb-palette-dark='terminal-dark']) {
+	:where(
+		:is([data-rb-theme='mono'], :root:not([data-rb-theme]))[data-rb-palette-dark='terminal-dark']
+	) {
 		--mono-dark-bg: #000000;
 		--mono-dark-bg-alt: #001100;
 		--mono-dark-text: #00ff00;

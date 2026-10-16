@@ -7,6 +7,13 @@ export const THEME_IDS = ['mono'] as const;
 
 export type ThemeId = (typeof THEME_IDS)[number];
 
+/**
+ * Used whenever no theme is chosen. Its stylesheet also styles a `<html>` that
+ * has no `data-rb-theme`, so plain CSS works without the attribute;
+ * `tests/tokens.test.ts` checks the two agree.
+ */
+export const DEFAULT_THEME: ThemeId = 'mono';
+
 export type ColorScheme = 'light' | 'dark';
 
 /** What a consumer may ask for; `auto` follows `prefers-color-scheme`. */

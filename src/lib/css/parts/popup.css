@@ -2,9 +2,8 @@
  * Floating surfaces: dialogs, popovers, tooltips, and the content panes of
  * select / combobox / command.
  *
- * Bits UI portals most of these to `document.body`, which is why ThemeProvider
- * puts `data-rb-theme` on the document element by default - a portalled dialog
- * has to still be inside a themed subtree.
+ * Bits UI portals most of these to `document.body`, so they take the root's
+ * theme - which is why ThemeProvider writes its attributes to `<html>` by default.
  *
  * Dialog and menu parts are prefixed with their variant: AlertDialog renders
  * `data-alert-dialog-*`, and the menu family renders `data-dropdown-menu-*`,
@@ -12,29 +11,27 @@
  */
 @layer rb.components {
 	/* ---- scrim ---------------------------------------------------------- */
-	:where([data-rb-theme]) [data-dialog-overlay],
-	:where([data-rb-theme]) [data-alert-dialog-overlay],
-	:where([data-rb-theme]) [data-popover-overlay] {
+	[data-dialog-overlay],
+	[data-alert-dialog-overlay],
+	[data-popover-overlay] {
 		position: fixed;
 		inset: 0;
 		background: var(--rb-overlay);
 	}
 
 	/* ---- floating surfaces ----------------------------------------------- */
-	:where([data-rb-theme]) :is([data-dialog-content], [data-alert-dialog-content]),
-	:where([data-rb-theme]) [data-popover-content],
-	:where([data-rb-theme]) [data-link-preview-content],
-	:where([data-rb-theme]) [data-select-content],
-	:where([data-rb-theme]) [data-combobox-content],
-	:where([data-rb-theme])
-		:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]),
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-sub-content],
-			[data-context-menu-sub-content],
-			[data-menubar-sub-content]
-		),
-	:where([data-rb-theme]) [data-command-root] {
+	:is([data-dialog-content], [data-alert-dialog-content]),
+	[data-popover-content],
+	[data-link-preview-content],
+	[data-select-content],
+	[data-combobox-content],
+	:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]),
+	:is(
+		[data-dropdown-menu-sub-content],
+		[data-context-menu-sub-content],
+		[data-menubar-sub-content]
+	),
+	[data-command-root] {
 		border: var(--rb-border-width) solid var(--rb-border-color);
 		border-radius: var(--rb-radius);
 		background: var(--rb-surface-raised);
@@ -42,7 +39,7 @@
 		color: var(--rb-text);
 	}
 
-	:where([data-rb-theme]) :is([data-dialog-content], [data-alert-dialog-content]) {
+	:is([data-dialog-content], [data-alert-dialog-content]) {
 		position: fixed;
 		top: 50%;
 		left: 50%;
@@ -52,25 +49,23 @@
 		border-radius: var(--rb-radius-window);
 	}
 
-	:where([data-rb-theme]) [data-popover-content],
-	:where([data-rb-theme]) [data-link-preview-content] {
+	[data-popover-content],
+	[data-link-preview-content] {
 		padding: var(--rb-inset);
 	}
 
-	:where([data-rb-theme]) [data-select-content],
-	:where([data-rb-theme]) [data-combobox-content],
-	:where([data-rb-theme])
-		:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]),
-	:where([data-rb-theme])
-		:is(
-			[data-dropdown-menu-sub-content],
-			[data-context-menu-sub-content],
-			[data-menubar-sub-content]
-		) {
+	[data-select-content],
+	[data-combobox-content],
+	:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]),
+	:is(
+		[data-dropdown-menu-sub-content],
+		[data-context-menu-sub-content],
+		[data-menubar-sub-content]
+	) {
 		padding: var(--rb-space-2);
 	}
 
-	:where([data-rb-theme]) :is([data-dialog-title], [data-alert-dialog-title]) {
+	:is([data-dialog-title], [data-alert-dialog-title]) {
 		margin: 0 0 var(--rb-space-2);
 		font-family: var(--rb-font-display);
 		font-size: var(--rb-font-size-lg);
@@ -78,13 +73,13 @@
 		text-transform: var(--rb-text-transform);
 	}
 
-	:where([data-rb-theme]) :is([data-dialog-description], [data-alert-dialog-description]) {
+	:is([data-dialog-description], [data-alert-dialog-description]) {
 		margin: 0 0 var(--rb-inset);
 		color: var(--rb-text-muted);
 	}
 
 	/* ---- tooltip ---------------------------------------------------------- */
-	:where([data-rb-theme]) [data-tooltip-content] {
+	[data-tooltip-content] {
 		padding: var(--rb-space-2) var(--rb-space-3);
 		border-radius: calc(var(--rb-radius) / 2);
 		background: var(--rb-text);
@@ -94,23 +89,22 @@
 
 	/* ---- arrows ------------------------------------------------------------ */
 	/* Every Bits UI arrow is an svg filled with currentColor. */
-	:where([data-rb-theme]) [data-arrow] {
+	[data-arrow] {
 		display: block;
 		color: var(--rb-border-color);
 	}
 
-	:where([data-rb-theme]) [data-tooltip-content] [data-arrow] {
+	[data-tooltip-content] [data-arrow] {
 		color: var(--rb-text);
 	}
 
 	/* ---- select and combobox lists ------------------------------------------ */
-	:where([data-rb-theme])
-		:is(
-			[data-select-scroll-up-button],
-			[data-select-scroll-down-button],
-			[data-combobox-scroll-up-button],
-			[data-combobox-scroll-down-button]
-		) {
+	:is(
+		[data-select-scroll-up-button],
+		[data-select-scroll-down-button],
+		[data-combobox-scroll-up-button],
+		[data-combobox-scroll-down-button]
+	) {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -121,13 +115,13 @@
 
 	/* ---- command ------------------------------------------------------------ */
 	/* An inline palette: the input becomes the top rule of the box. */
-	:where([data-rb-theme]) [data-command-root] {
+	[data-command-root] {
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
 	}
 
-	:where([data-rb-theme]) [data-command-root] [data-command-input] {
+	[data-command-root] [data-command-input] {
 		width: 100%;
 		border-width: 0 0 var(--rb-border-width);
 		border-radius: 0;
@@ -135,14 +129,14 @@
 		box-shadow: none;
 	}
 
-	:where([data-rb-theme]) [data-command-list] {
+	[data-command-list] {
 		max-height: calc(var(--rb-menu-item-height) * 7);
 		padding: var(--rb-space-2);
 		overflow-y: auto;
 	}
 
 	/* ---- scroll area ------------------------------------------------------ */
-	:where([data-rb-theme]) [data-scroll-area-scrollbar] {
+	[data-scroll-area-scrollbar] {
 		display: flex;
 		width: var(--rb-scrollbar-size);
 		padding: 1px;
@@ -150,36 +144,35 @@
 		touch-action: none;
 	}
 
-	:where([data-rb-theme]) [data-scroll-area-scrollbar][data-orientation='horizontal'] {
+	[data-scroll-area-scrollbar][data-orientation='horizontal'] {
 		flex-direction: column;
 		width: auto;
 		height: var(--rb-scrollbar-size);
 	}
 
-	:where([data-rb-theme]) [data-scroll-area-thumb] {
+	[data-scroll-area-thumb] {
 		flex: 1;
 		border-radius: calc(var(--rb-radius) / 2);
 		background: var(--rb-surface-active);
 		box-shadow: var(--rb-bevel-out-thin);
 	}
 
-	:where([data-rb-theme]) [data-scroll-area-corner] {
+	[data-scroll-area-corner] {
 		background: var(--rb-surface-sunken);
 	}
 
 	/* ---- open / close transitions ----------------------------------------- */
-	:where([data-rb-theme]) :is([data-dialog-content], [data-alert-dialog-content]),
-	:where([data-rb-theme]) [data-popover-content],
-	:where([data-rb-theme]) [data-tooltip-content],
-	:where([data-rb-theme])
-		:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]) {
+	:is([data-dialog-content], [data-alert-dialog-content]),
+	[data-popover-content],
+	[data-tooltip-content],
+	:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]) {
 		transition:
 			opacity var(--rb-transition),
 			scale var(--rb-transition);
 	}
 
-	:where([data-rb-theme]) [data-starting-style],
-	:where([data-rb-theme]) [data-ending-style] {
+	[data-starting-style],
+	[data-ending-style] {
 		opacity: 0;
 		scale: 0.98;
 	}

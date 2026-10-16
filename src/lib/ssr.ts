@@ -12,7 +12,7 @@ import {
 	PALETTE_STORAGE_KEYS
 } from './theme/constants.js';
 import { readThemeSettings, type ThemeDefaults } from './theme/settings.js';
-import { THEME_IDS } from './types.js';
+import { DEFAULT_THEME, THEME_IDS } from './types.js';
 
 export {
 	THEME_ATTRIBUTE,
@@ -59,7 +59,7 @@ export function themeAttributes(
  * stamped from the cookie. `defaults` apply only where nothing set a value.
  */
 export function noFlashScript(defaults: ThemeDefaults = {}): string {
-	const fallbackTheme = defaults.theme ?? 'mono';
+	const fallbackTheme = defaults.theme ?? DEFAULT_THEME;
 	const fallbackScheme =
 		defaults.scheme === 'light' || defaults.scheme === 'dark' ? defaults.scheme : '';
 	const q = JSON.stringify;
@@ -79,5 +79,5 @@ export function noFlashScript(defaults: ThemeDefaults = {}): string {
 // Re-exported so a server hook can validate a cookie against the real registry
 // without importing the Svelte entry point.
 export { THEMES, themeList, isThemeId, palettesFor, resolvePalette } from './themes/registry.js';
-export { THEME_IDS };
+export { THEME_IDS, DEFAULT_THEME };
 export type { ThemeId, ThemeMeta, PaletteMeta, ColorScheme, SchemePreference } from './types.js';

@@ -4,7 +4,7 @@
  */
 import { isThemeId, resolvePalette } from '../themes/registry.js';
 import { PALETTE_STORAGE_KEYS, SCHEME_STORAGE_KEY, THEME_STORAGE_KEY } from './constants.js';
-import type { ColorScheme, SchemePreference, ThemeId } from '../types.js';
+import { DEFAULT_THEME, type ColorScheme, type SchemePreference, type ThemeId } from '../types.js';
 
 export interface ThemeSettings {
 	theme: ThemeId;
@@ -15,7 +15,7 @@ export interface ThemeSettings {
 
 /** What to use when nothing valid is stored. */
 export interface ThemeDefaults {
-	/** Defaults to `mono`. */
+	/** Defaults to `DEFAULT_THEME`, Mono. */
 	theme?: ThemeId;
 	/** Defaults to `auto`, which follows the OS. Pass `light` or `dark` to skip that. */
 	scheme?: SchemePreference;
@@ -39,7 +39,7 @@ export function readThemeSettings(
 	defaults: ThemeDefaults = {}
 ): ThemeSettings {
 	const stored = read(THEME_STORAGE_KEY);
-	const theme = isThemeId(stored) ? stored : (defaults.theme ?? 'mono');
+	const theme = isThemeId(stored) ? stored : (defaults.theme ?? DEFAULT_THEME);
 	const scheme = read(SCHEME_STORAGE_KEY);
 
 	return {

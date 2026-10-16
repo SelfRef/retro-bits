@@ -8,28 +8,27 @@
  */
 @layer rb.components {
 	/* ---- button ------------------------------------------------------------ */
-	:where([data-rb-theme]) :is([data-button-root], [data-rb-button]),
-	:where([data-rb-theme])
-		:is(
-			[data-dialog-trigger],
-			[data-alert-dialog-trigger],
-			[data-popover-trigger],
-			[data-dropdown-menu-trigger],
-			[data-tooltip-trigger],
-			[data-popover-close],
-			[data-alert-dialog-close],
-			[data-calendar-prev-button],
-			[data-calendar-next-button],
-			[data-range-calendar-prev-button],
-			[data-range-calendar-next-button]
-		),
-	:where([data-rb-theme]) [data-toolbar-button],
-	:where([data-rb-theme]) [data-pagination-page],
-	:where([data-rb-theme]) [data-pagination-prev],
-	:where([data-rb-theme]) [data-pagination-next],
-	:where([data-rb-theme]) [data-dialog-close],
-	:where([data-rb-theme]) [data-alert-dialog-cancel],
-	:where([data-rb-theme]) [data-alert-dialog-action] {
+	:is([data-button-root], [data-rb-button]),
+	:is(
+		[data-dialog-trigger],
+		[data-alert-dialog-trigger],
+		[data-popover-trigger],
+		[data-dropdown-menu-trigger],
+		[data-tooltip-trigger],
+		[data-popover-close],
+		[data-alert-dialog-close],
+		[data-calendar-prev-button],
+		[data-calendar-next-button],
+		[data-range-calendar-prev-button],
+		[data-range-calendar-next-button]
+	),
+	[data-toolbar-button],
+	[data-pagination-page],
+	[data-pagination-prev],
+	[data-pagination-next],
+	[data-dialog-close],
+	[data-alert-dialog-cancel],
+	[data-alert-dialog-action] {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -59,85 +58,82 @@
 	 * a Bits UI part without wrapping it: `<Button.Root data-rb-variant="primary">`.
 	 * `data-rb-button` gives a native `<button>` or `<a>` the same look.
 	 */
-	:where([data-rb-theme]) :is([data-button-root], [data-rb-button])[data-rb-variant='primary'],
-	:where([data-rb-theme]) [data-alert-dialog-action] {
+	:is([data-button-root], [data-rb-button])[data-rb-variant='primary'],
+	[data-alert-dialog-action] {
 		border-color: var(--rb-accent);
 		background: var(--rb-accent);
 		color: var(--rb-text-on-accent);
 	}
 
-	:where([data-rb-theme]) :is([data-button-root], [data-rb-button])[data-rb-variant='ghost'],
-	:where([data-rb-theme]) [data-toolbar-button] {
+	:is([data-button-root], [data-rb-button])[data-rb-variant='ghost'],
+	[data-toolbar-button] {
 		border-color: transparent;
 		background: transparent;
 		box-shadow: var(--rb-bevel-flat);
 	}
 
-	:where([data-rb-theme]) :is([data-button-root], [data-rb-button]):hover,
-	:where([data-rb-theme])
-		:is(
-			[data-dialog-trigger],
-			[data-alert-dialog-trigger],
-			[data-popover-trigger],
-			[data-dropdown-menu-trigger],
-			[data-tooltip-trigger],
-			[data-popover-close],
-			[data-alert-dialog-close],
-			[data-calendar-prev-button],
-			[data-calendar-next-button],
-			[data-range-calendar-prev-button],
-			[data-range-calendar-next-button]
-		):hover,
-	:where([data-rb-theme]) [data-toolbar-button]:hover,
-	:where([data-rb-theme]) [data-pagination-page]:hover,
-	:where([data-rb-theme]) [data-pagination-prev]:hover,
-	:where([data-rb-theme]) [data-pagination-next]:hover,
-	:where([data-rb-theme]) [data-dialog-close]:hover,
-	:where([data-rb-theme]) [data-alert-dialog-cancel]:hover {
+	:is([data-button-root], [data-rb-button]):hover,
+	:is(
+		[data-dialog-trigger],
+		[data-alert-dialog-trigger],
+		[data-popover-trigger],
+		[data-dropdown-menu-trigger],
+		[data-tooltip-trigger],
+		[data-popover-close],
+		[data-alert-dialog-close],
+		[data-calendar-prev-button],
+		[data-calendar-next-button],
+		[data-range-calendar-prev-button],
+		[data-range-calendar-next-button]
+	):hover,
+	[data-toolbar-button]:hover,
+	[data-pagination-page]:hover,
+	[data-pagination-prev]:hover,
+	[data-pagination-next]:hover,
+	[data-dialog-close]:hover,
+	[data-alert-dialog-cancel]:hover {
 		background: var(--rb-surface-hover);
 	}
 
-	:where([data-rb-theme])
-		:is([data-button-root], [data-rb-button])[data-rb-variant='primary']:hover,
-	:where([data-rb-theme]) [data-alert-dialog-action]:hover {
+	:is([data-button-root], [data-rb-button])[data-rb-variant='primary']:hover,
+	[data-alert-dialog-action]:hover {
 		background: var(--rb-accent-hover);
 	}
 
-	:where([data-rb-theme]) :is([data-button-root], [data-rb-button]):active,
-	:where([data-rb-theme])
-		:is(
-			[data-dialog-trigger],
-			[data-alert-dialog-trigger],
-			[data-popover-trigger],
-			[data-dropdown-menu-trigger],
-			[data-tooltip-trigger],
-			[data-popover-close],
-			[data-alert-dialog-close],
-			[data-calendar-prev-button],
-			[data-calendar-next-button],
-			[data-range-calendar-prev-button],
-			[data-range-calendar-next-button]
-		):active,
-	:where([data-rb-theme]) [data-toolbar-button]:active,
-	:where([data-rb-theme]) [data-pagination-page]:active,
-	:where([data-rb-theme]) [data-dialog-close]:active,
-	:where([data-rb-theme]) [data-alert-dialog-cancel]:active,
-	:where([data-rb-theme]) [data-alert-dialog-action]:active {
+	:is([data-button-root], [data-rb-button]):active,
+	:is(
+		[data-dialog-trigger],
+		[data-alert-dialog-trigger],
+		[data-popover-trigger],
+		[data-dropdown-menu-trigger],
+		[data-tooltip-trigger],
+		[data-popover-close],
+		[data-alert-dialog-close],
+		[data-calendar-prev-button],
+		[data-calendar-next-button],
+		[data-range-calendar-prev-button],
+		[data-range-calendar-next-button]
+	):active,
+	[data-toolbar-button]:active,
+	[data-pagination-page]:active,
+	[data-dialog-close]:active,
+	[data-alert-dialog-cancel]:active,
+	[data-alert-dialog-action]:active {
 		background: var(--rb-surface-active);
 		box-shadow: var(--rb-bevel-pressed);
 		translate: var(--rb-press-offset);
 	}
 
-	:where([data-rb-theme]) [data-pagination-page][data-selected] {
+	[data-pagination-page][data-selected] {
 		border-color: var(--rb-accent);
 		background: var(--rb-accent);
 		color: var(--rb-text-on-accent);
 	}
 
 	/* ---- toggle and toggle group -------------------------------------------- */
-	:where([data-rb-theme]) [data-toggle-root],
-	:where([data-rb-theme]) [data-toggle-group-item],
-	:where([data-rb-theme]) [data-toolbar-group-item] {
+	[data-toggle-root],
+	[data-toggle-group-item],
+	[data-toolbar-group-item] {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -156,15 +152,15 @@
 			box-shadow var(--rb-transition);
 	}
 
-	:where([data-rb-theme]) [data-toggle-root][data-state='on'],
-	:where([data-rb-theme]) [data-toggle-group-item][data-state='on'],
-	:where([data-rb-theme]) [data-toolbar-group-item][data-state='on'] {
+	[data-toggle-root][data-state='on'],
+	[data-toggle-group-item][data-state='on'],
+	[data-toolbar-group-item][data-state='on'] {
 		background: var(--rb-surface-selected);
 		box-shadow: var(--rb-bevel-in);
 	}
 
-	:where([data-rb-theme]) [data-toggle-group-root],
-	:where([data-rb-theme]) [data-toolbar-group] {
+	[data-toggle-group-root],
+	[data-toolbar-group] {
 		display: inline-flex;
 		gap: var(--rb-space-1);
 	}
@@ -174,7 +170,7 @@
 	 * Checkbox and radio draw their own mark: the accent fills the content box,
 	 * and padding shrinks that box to an inner square or dot. Render no children.
 	 */
-	:where([data-rb-theme]) [data-checkbox-root] {
+	[data-checkbox-root] {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -194,26 +190,26 @@
 			border-color var(--rb-transition);
 	}
 
-	:where([data-rb-theme]) [data-checkbox-root][data-state='checked'],
-	:where([data-rb-theme]) [data-checkbox-root][data-state='indeterminate'],
-	:where([data-rb-theme]) [data-radio-group-item][data-state='checked'] {
+	[data-checkbox-root][data-state='checked'],
+	[data-checkbox-root][data-state='indeterminate'],
+	[data-radio-group-item][data-state='checked'] {
 		padding: calc(var(--rb-icon-size) / 4 - var(--rb-border-width));
 		border-color: var(--rb-accent);
 		background: var(--rb-accent) content-box;
 	}
 
 	/* A bar one border wide, centred. */
-	:where([data-rb-theme]) [data-checkbox-root][data-state='indeterminate'] {
+	[data-checkbox-root][data-state='indeterminate'] {
 		padding-block: calc((var(--rb-icon-size) - var(--rb-border-width) * 3) / 2);
 	}
 
-	:where([data-rb-theme]) [data-checkbox-group] {
+	[data-checkbox-group] {
 		display: flex;
 		flex-direction: column;
 		gap: var(--rb-gap);
 	}
 
-	:where([data-rb-theme]) [data-checkbox-group-label] {
+	[data-checkbox-group-label] {
 		font-weight: var(--rb-font-weight-bold);
 	}
 
@@ -223,7 +219,7 @@
 	 * colour that inverts when the track fills, so it reads with or without
 	 * bevels. It travels exactly one icon cell.
 	 */
-	:where([data-rb-theme]) [data-switch-root] {
+	[data-switch-root] {
 		display: inline-flex;
 		align-items: center;
 		flex: none;
@@ -239,12 +235,12 @@
 		transition: background-color var(--rb-transition);
 	}
 
-	:where([data-rb-theme]) [data-switch-root][data-state='checked'] {
+	[data-switch-root][data-state='checked'] {
 		border-color: var(--rb-accent);
 		background: var(--rb-accent);
 	}
 
-	:where([data-rb-theme]) [data-switch-thumb] {
+	[data-switch-thumb] {
 		width: calc(var(--rb-icon-size) - var(--rb-border-width) * 4);
 		height: calc(var(--rb-icon-size) - var(--rb-border-width) * 4);
 		border-radius: var(--rb-radius);
@@ -253,25 +249,25 @@
 		transition: translate var(--rb-transition);
 	}
 
-	:where([data-rb-theme]) [data-switch-thumb][data-state='checked'] {
+	[data-switch-thumb][data-state='checked'] {
 		background: var(--rb-surface-raised);
 		translate: var(--rb-icon-size) 0;
 	}
 
 	/* ---- radio group and rating group ---------------------------------------- */
-	:where([data-rb-theme]) [data-radio-group-root],
-	:where([data-rb-theme]) [data-rating-group-root] {
+	[data-radio-group-root],
+	[data-rating-group-root] {
 		display: flex;
 		flex-direction: column;
 		gap: var(--rb-gap);
 	}
 
-	:where([data-rb-theme]) [data-rating-group-root] {
+	[data-rating-group-root] {
 		flex-direction: row;
 		align-items: center;
 	}
 
-	:where([data-rb-theme]) [data-radio-group-item] {
+	[data-radio-group-item] {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -287,25 +283,25 @@
 		cursor: var(--rb-cursor-pointer);
 	}
 
-	:where([data-rb-theme]) [data-rating-group-item] {
+	[data-rating-group-item] {
 		color: var(--rb-text-muted);
 		cursor: var(--rb-cursor-pointer);
 	}
 
-	:where([data-rb-theme]) [data-rating-group-item][data-state='active'],
-	:where([data-rb-theme]) [data-rating-group-item][data-state='partial'] {
+	[data-rating-group-item][data-state='active'],
+	[data-rating-group-item][data-state='partial'] {
 		color: var(--rb-accent);
 	}
 
 	/* ---- label and toolbar --------------------------------------------------- */
-	:where([data-rb-theme]) [data-label-root] {
+	[data-label-root] {
 		display: inline-flex;
 		align-items: center;
 		gap: var(--rb-gap);
 		cursor: var(--rb-cursor-pointer);
 	}
 
-	:where([data-rb-theme]) [data-toolbar-root] {
+	[data-toolbar-root] {
 		display: flex;
 		align-items: center;
 		gap: var(--rb-gap);
@@ -316,7 +312,7 @@
 		box-shadow: var(--rb-bevel-out-thin);
 	}
 
-	:where([data-rb-theme]) [data-toolbar-link] {
+	[data-toolbar-link] {
 		color: var(--rb-link);
 	}
 
@@ -325,19 +321,18 @@
 	 * Only the outermost disabled element is dimmed: Bits UI marks a disabled
 	 * group and every item in it, and opacity would otherwise compound.
 	 */
-	:where([data-rb-theme])
-		:is([data-disabled], [disabled]):where(:not(:is([data-disabled], [disabled]) *)) {
+	:is([data-disabled], [disabled]):where(:not(:is([data-disabled], [disabled]) *)) {
 		background-image: var(--rb-pattern-dither);
 		color: var(--rb-text-disabled);
 		cursor: not-allowed;
 		opacity: 0.7;
 	}
 
-	:where([data-rb-theme]) [data-invalid] {
+	[data-invalid] {
 		border-color: var(--rb-accent);
 	}
 
-	:where([data-rb-theme]) :focus-visible {
+	:focus-visible {
 		outline: var(--rb-focus-width) var(--rb-focus-style) var(--rb-focus-color);
 		outline-offset: var(--rb-focus-offset);
 	}

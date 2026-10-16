@@ -9,8 +9,8 @@
 		 * Where the attributes are written.
 		 *
 		 * `global` (the default) puts them on `<html>`. That matters: Bits UI
-		 * portals dialogs, popovers and menus to `document.body`, so anything
-		 * short of the document element leaves portalled content unthemed.
+		 * portals dialogs, popovers and menus to `document.body`, where they take
+		 * the root's theme, not a wrapper's.
 		 *
 		 * `scoped` writes them to this component's own wrapper instead, which is
 		 * what you want for a theme preview or a nested theme - but then portalled

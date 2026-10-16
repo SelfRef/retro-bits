@@ -6,7 +6,7 @@
  * `data-outside-month`, `data-unavailable`, `data-disabled`.
  */
 @layer rb.components {
-	:where([data-rb-theme]) :is([data-calendar-root], [data-range-calendar-root]) {
+	:is([data-calendar-root], [data-range-calendar-root]) {
 		display: inline-block;
 		padding: var(--rb-inset);
 		border: var(--rb-border-width) solid var(--rb-border-color);
@@ -16,15 +16,13 @@
 	}
 
 	/* Inside a picker the popover already draws the frame. */
-	:where([data-rb-theme])
-		[data-popover-content]
-		:is([data-calendar-root], [data-range-calendar-root]) {
+	[data-popover-content] :is([data-calendar-root], [data-range-calendar-root]) {
 		padding: 0;
 		border: none;
 		background: none;
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-header], [data-range-calendar-header]) {
+	:is([data-calendar-header], [data-range-calendar-header]) {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -32,29 +30,28 @@
 		margin-bottom: var(--rb-space-3);
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-heading], [data-range-calendar-heading]) {
+	:is([data-calendar-heading], [data-range-calendar-heading]) {
 		font-weight: var(--rb-font-weight-bold);
 		text-transform: var(--rb-text-transform);
 	}
 
 	/* Prev / next take the button look from control.css; here they go square. */
-	:where([data-rb-theme])
-		:is(
-			[data-calendar-prev-button],
-			[data-calendar-next-button],
-			[data-range-calendar-prev-button],
-			[data-range-calendar-next-button]
-		) {
+	:is(
+		[data-calendar-prev-button],
+		[data-calendar-next-button],
+		[data-range-calendar-prev-button],
+		[data-range-calendar-next-button]
+	) {
 		min-width: var(--rb-control-height);
 		padding-inline: 0;
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-grid], [data-range-calendar-grid]) {
+	:is([data-calendar-grid], [data-range-calendar-grid]) {
 		border-collapse: collapse;
 		border-spacing: 0;
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-head-cell], [data-range-calendar-head-cell]) {
+	:is([data-calendar-head-cell], [data-range-calendar-head-cell]) {
 		padding: 0 0 var(--rb-space-2);
 		color: var(--rb-text-muted);
 		font-size: var(--rb-font-size-sm);
@@ -62,12 +59,12 @@
 		text-align: center;
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-cell], [data-range-calendar-cell]) {
+	:is([data-calendar-cell], [data-range-calendar-cell]) {
 		padding: 0;
 		text-align: center;
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-day], [data-range-calendar-day]) {
+	:is([data-calendar-day], [data-range-calendar-day]) {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -83,32 +80,31 @@
 		user-select: none;
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-day], [data-range-calendar-day]):hover {
+	:is([data-calendar-day], [data-range-calendar-day]):hover {
 		background: var(--rb-surface-hover);
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-day], [data-range-calendar-day])[data-today] {
+	:is([data-calendar-day], [data-range-calendar-day])[data-today] {
 		border-color: var(--rb-border-color);
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-day], [data-range-calendar-day])[data-outside-month] {
+	:is([data-calendar-day], [data-range-calendar-day])[data-outside-month] {
 		color: var(--rb-text-muted);
 	}
 
-	:where([data-rb-theme]) :is([data-calendar-day], [data-range-calendar-day])[data-unavailable] {
+	:is([data-calendar-day], [data-range-calendar-day])[data-unavailable] {
 		color: var(--rb-text-disabled);
 		text-decoration: line-through;
 		cursor: not-allowed;
 	}
 
 	/* The range between its ends, and the preview while picking the second end. */
-	:where([data-rb-theme]) [data-range-calendar-day]:is([data-selected], [data-highlighted]) {
+	[data-range-calendar-day]:is([data-selected], [data-highlighted]) {
 		background: var(--rb-surface-selected);
 	}
 
-	:where([data-rb-theme]) [data-calendar-day][data-selected],
-	:where([data-rb-theme])
-		[data-range-calendar-day]:is([data-selection-start], [data-selection-end]) {
+	[data-calendar-day][data-selected],
+	[data-range-calendar-day]:is([data-selection-start], [data-selection-end]) {
 		border-color: var(--rb-accent);
 		background: var(--rb-accent);
 		color: var(--rb-text-on-accent);
