@@ -1,0 +1,19 @@
+// Zed tasks: `task: spawn` from the command palette.
+[
+	{
+		"label": "playground: open in default browser",
+		"command": "pnpm dev --open",
+		"allow_concurrent_runs": false,
+		"reveal": "always"
+	},
+	{
+		// Vite opens the URL with $BROWSER and $BROWSER_ARGS. The default browser's
+		// desktop file is named after its binary (firefox, chromium, ...), and they
+		// all take --new-window. Zed runs `command` through your login shell, so the
+		// POSIX part is wrapped in single quotes that fish, bash and zsh all leave alone.
+		"label": "playground: open in new browser window",
+		"command": "sh -c 'BROWSER=$(basename \"$(xdg-settings get default-web-browser)\" .desktop) BROWSER_ARGS=--new-window exec pnpm dev --open'",
+		"allow_concurrent_runs": false,
+		"reveal": "always"
+	}
+]
