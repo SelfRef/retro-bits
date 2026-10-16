@@ -33,9 +33,7 @@
 
 <p class="lede">
 	Every token in the contract, as the browser resolves it right now for
-	<strong>{theme.meta.label}</strong> in <strong>{theme.resolvedScheme}</strong>. The eight planned
-	themes still carry Default's values - what changes today is
-	<code>--rb-theme-name</code> and the attribute.
+	<strong>{theme.meta.label}</strong> in <strong>{theme.resolvedScheme}</strong>.
 </p>
 
 {#each groups as group (group)}

@@ -2,7 +2,7 @@
  * The retro-bits token contract - reference and starting point for a new theme.
  *
  * This file is documentation: it is never imported, and the leading underscore
- * keeps it out of `scripts/check-tokens.mjs`. Copy the block below to
+ * keeps it out of `tests/tokens.test.ts`. Copy the block below to
  * `css/themes/<id>.css`, swap the selector, and fill in every value.
  *
  * Rules of the contract:
@@ -98,30 +98,16 @@
 		--rb-control-padding-y: ;
 		--rb-gap: ; /* gap between related controls */
 		--rb-inset: ; /* padding inside a panel or dialog */
-		--rb-titlebar-height: ;
 		--rb-scrollbar-size: ;
 		--rb-icon-size: ;
 		--rb-menu-item-height: ;
 
-		/* -- window chrome -------------------------------------------------------- */
-		--rb-window-bg: ;
-		--rb-window-border: ; /* complete `border` shorthand */
-		--rb-window-bevel: ; /* complete box-shadow for the frame */
-		--rb-window-shadow: ; /* drop shadow beneath a floating window */
-		--rb-titlebar-bg: ; /* may be a gradient - Platinum's pinstripes live here */
-		--rb-titlebar-bg-inactive: ;
-		--rb-titlebar-text: ;
-		--rb-titlebar-text-inactive: ;
-		--rb-titlebar-font: ;
-		--rb-titlebar-padding: ;
-		--rb-titlebar-button-size: ;
-		--rb-titlebar-button-bevel: ;
+		/* -- window ---------------------------------------------------------------- */
+		--rb-window-shadow: ; /* drop shadow beneath dialogs, popovers and menus */
 
 		/* -- decoration ------------------------------------------------------------ */
 		--rb-pattern-desktop: ; /* background-image for the desktop backdrop */
 		--rb-pattern-dither: ; /* 50% dither, for disabled fills and drag states */
-		--rb-pattern-titlebar: ; /* overlay image on the title bar */
-		--rb-scanlines: ; /* CRT overlay; `none` outside Phosphor/BigBlue */
 		--rb-glow: ; /* text-shadow for phosphor bloom */
 		--rb-image-rendering: ; /* `pixelated` for bitmap assets */
 		--rb-cursor: ;

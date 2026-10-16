@@ -12,17 +12,8 @@ describe('retro-bits', () => {
 	it('exports the documented surface', () => {
 		expect(Object.keys(root).sort()).toEqual(
 			[
-				// components
-				'Desktop',
-				'GroupBox',
-				'Panel',
-				'StatusBar',
-				'StatusBarSegment',
-				'ThemeProvider',
-				'TitleBar',
-				'Window',
-				'WindowControls',
 				// theme runtime
+				'ThemeProvider',
 				'ThemeState',
 				'createTheme',
 				'useTheme',
@@ -68,8 +59,8 @@ describe('retro-bits/ssr', () => {
 	});
 
 	it('stamps a valid theme and ignores a bogus cookie', () => {
-		expect(ssr.themeAttributes('phosphor', 'dark')).toBe(
-			'data-rb-theme="phosphor" data-rb-scheme="dark"'
+		expect(ssr.themeAttributes('default', 'dark')).toBe(
+			'data-rb-theme="default" data-rb-scheme="dark"'
 		);
 		expect(ssr.themeAttributes('not-a-theme', 'nonsense')).toBe('data-rb-theme="default"');
 	});
@@ -80,6 +71,6 @@ describe('retro-bits/ssr', () => {
 
 	it('recognises every registered theme', () => {
 		for (const id of THEME_IDS) expect(ssr.isThemeId(id)).toBe(true);
-		expect(ssr.isThemeId('chicago-2')).toBe(false);
+		expect(ssr.isThemeId('chicago')).toBe(false);
 	});
 });

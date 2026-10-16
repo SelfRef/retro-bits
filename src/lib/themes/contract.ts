@@ -3,7 +3,7 @@
  *
  * Component CSS only ever reads `var(--rb-*)`; it never names a theme. A theme is
  * therefore nothing but a complete set of these custom properties, and
- * `scripts/check-tokens.mjs` fails the build if any theme file is missing one.
+ * `tests/tokens.test.ts` fails if any theme file is missing one.
  *
  * Keep this in sync with `css/themes/_contract.css`, which documents what each
  * token is for.
@@ -90,32 +90,16 @@ export const RB_TOKEN_GROUPS = {
 		'--rb-control-padding-y',
 		'--rb-gap',
 		'--rb-inset',
-		'--rb-titlebar-height',
 		'--rb-scrollbar-size',
 		'--rb-icon-size',
 		'--rb-menu-item-height'
 	],
 
-	window: [
-		'--rb-window-bg',
-		'--rb-window-border',
-		'--rb-window-bevel',
-		'--rb-window-shadow',
-		'--rb-titlebar-bg',
-		'--rb-titlebar-bg-inactive',
-		'--rb-titlebar-text',
-		'--rb-titlebar-text-inactive',
-		'--rb-titlebar-font',
-		'--rb-titlebar-padding',
-		'--rb-titlebar-button-size',
-		'--rb-titlebar-button-bevel'
-	],
+	window: ['--rb-window-shadow'],
 
 	decoration: [
 		'--rb-pattern-desktop',
 		'--rb-pattern-dither',
-		'--rb-pattern-titlebar',
-		'--rb-scanlines',
 		'--rb-glow',
 		'--rb-image-rendering',
 		'--rb-cursor',

@@ -84,7 +84,7 @@
 		"ui",
 		"components"
 	],
-	"description": "Retro operating system themes for Bits UI, plus the window chrome Bits UI has no concept of.",
+	"description": "Retro operating system themes for Bits UI.",
 	"license": "GPL-3.0-or-later",
 	"peerDependenciesMeta": {
 		"bits-ui": {

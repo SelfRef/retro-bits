@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 
-	// The everything bundle: core plus all nine themes, so switching needs no
+	// The everything bundle: core plus every theme, so switching needs no
 	// loading step. An app that only ever uses one theme would import
 	// `retro-bits/css/core.css` and that theme instead.
 	import 'retro-bits/css/index.css';

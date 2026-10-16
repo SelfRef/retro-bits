@@ -12,8 +12,7 @@
 		{ href: '/gallery/overlays', label: 'Overlays' },
 		{ href: '/gallery/menus', label: 'Menus' },
 		{ href: '/gallery/indicators', label: 'Indicators' },
-		{ href: '/gallery/date', label: 'Date & time' },
-		{ href: '/gallery/window', label: 'Window chrome' }
+		{ href: '/gallery/date', label: 'Date & time' }
 	] as const;
 </script>
 

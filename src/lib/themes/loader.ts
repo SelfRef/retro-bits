@@ -9,15 +9,7 @@ import type { ThemeId } from '../types.js';
  * the rest on demand. The specifiers are static so bundlers can see them.
  */
 const loaders: Record<ThemeId, () => Promise<unknown>> = {
-	default: () => import('../css/themes/default.css'),
-	chicago: () => import('../css/themes/chicago.css'),
-	platinum: () => import('../css/themes/platinum.css'),
-	bigblue: () => import('../css/themes/bigblue.css'),
-	phosphor: () => import('../css/themes/phosphor.css'),
-	kickstart: () => import('../css/themes/kickstart.css'),
-	haiku: () => import('../css/themes/haiku.css'),
-	cube: () => import('../css/themes/cube.css'),
-	monolith: () => import('../css/themes/monolith.css')
+	default: () => import('../css/themes/default.css')
 };
 
 const pending = new Map<ThemeId, Promise<void>>();

@@ -3,4 +3,4 @@ export type { RbToken, RbTokenGroup } from './contract.js';
 export { THEMES, themeList, isThemeId, getTheme } from './registry.js';
 export { loadTheme, isThemeLoaded } from './loader.js';
 export { THEME_IDS } from '../types.js';
-export type { ThemeId, ThemeMeta, ThemeStatus, ColorScheme, SchemePreference } from '../types.js';
+export type { ThemeId, ThemeMeta, ColorScheme, SchemePreference } from '../types.js';

@@ -60,7 +60,7 @@
 		image-rendering: var(--rb-image-rendering);
 	}
 
-	/* Eras with no animation set --rb-motion-scale to 0 and get it for free. */
+	/* Honour the OS setting regardless of theme. */
 	@media (prefers-reduced-motion: reduce) {
 		:where([data-rb-theme]) * {
 			animation-duration: 1ms !important;

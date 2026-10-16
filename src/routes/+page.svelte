@@ -3,16 +3,13 @@
 	import { themeList, useTheme } from 'retro-bits';
 
 	const theme = useTheme();
-	const ready = themeList.filter((entry) => entry.status === 'ready');
-	const planned = themeList.filter((entry) => entry.status === 'planned');
 </script>
 
 <h1>retro-bits</h1>
 
 <p class="lede">
-	Retro operating system themes for <a href="https://bits-ui.com">Bits UI</a>, plus the window
-	chrome Bits UI has no concept of. Themes are plain CSS driven by <code>--rb-*</code> custom properties,
-	so consumers need no Tailwind and no build step.
+	Retro operating system themes for <a href="https://bits-ui.com">Bits UI</a>. Themes are plain CSS
+	driven by <code>--rb-*</code> custom properties, so consumers need no Tailwind and no build step.
 </p>
 
 <section>
@@ -41,23 +38,20 @@
 	</p>
 	<table>
 		<thead>
-			<tr><th>Theme</th><th>Inspiration</th><th>Name from</th><th>Status</th></tr>
+			<tr><th>Theme</th><th>Inspiration</th><th>Name from</th></tr>
 		</thead>
 		<tbody>
-			{#each [...ready, ...planned] as entry (entry.id)}
+			{#each themeList as entry (entry.id)}
 				<tr>
 					<th scope="row">{entry.label}</th>
 					<td>{entry.inspiration}</td>
 					<td>{entry.reference}</td>
-					<td>{entry.status === 'ready' ? 'implemented' : 'declared'}</td>
 				</tr>
 			{/each}
 		</tbody>
 	</table>
 	<p class="note">
-		Stage 1 builds the machinery, not the looks. The eight planned themes are real registry entries
-		with complete token files, so the registry, loader and switcher are exercised against the actual
-		set of ids - but their values are still Default's.
+		Only Default exists so far. The retro themes are planned - see <code>PLAN.md</code>.
 	</p>
 </section>
 
@@ -65,7 +59,7 @@
 	<h2>What to look at</h2>
 	<ul>
 		<li>
-			<a href={resolve('/gallery')}>Gallery</a> - every Bits UI component, plus the window chrome.
+			<a href={resolve('/gallery')}>Gallery</a> - every Bits UI component.
 		</li>
 		<li>
 			<a href={resolve('/tokens')}>Tokens</a> - the contract, resolved live for the current theme.

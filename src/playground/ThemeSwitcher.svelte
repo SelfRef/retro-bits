@@ -21,7 +21,7 @@
 		<select value={theme.current} onchange={pick} disabled={switching}>
 			{#each themeList as entry (entry.id)}
 				<option value={entry.id}>
-					{entry.label}{entry.status === 'planned' ? ' (planned)' : ''}
+					{entry.label}
 				</option>
 			{/each}
 		</select>

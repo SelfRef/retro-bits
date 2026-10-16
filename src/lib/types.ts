@@ -3,17 +3,7 @@
  * Adding an entry here is step one of adding a theme; `themes/registry.ts` and a
  * matching `css/themes/<id>.css` are checked against this list.
  */
-export const THEME_IDS = [
-	'default',
-	'chicago',
-	'platinum',
-	'bigblue',
-	'phosphor',
-	'kickstart',
-	'haiku',
-	'cube',
-	'monolith'
-] as const;
+export const THEME_IDS = ['default'] as const;
 
 export type ThemeId = (typeof THEME_IDS)[number];
 
@@ -21,9 +11,6 @@ export type ColorScheme = 'light' | 'dark';
 
 /** What a consumer may ask for; `auto` follows `prefers-color-scheme`. */
 export type SchemePreference = ColorScheme | 'auto';
-
-/** How far along a theme's visual implementation is. */
-export type ThemeStatus = 'ready' | 'planned';
 
 export interface ThemeMeta {
 	id: ThemeId;
@@ -38,5 +25,4 @@ export interface ThemeMeta {
 	 * so asking for `dark` on a light-only theme resolves to `light`.
 	 */
 	schemes: readonly ColorScheme[];
-	status: ThemeStatus;
 }
