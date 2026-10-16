@@ -1,0 +1,26 @@
+/*
+ * A plain box for your own markup, matching the theme's panels:
+ * `<div data-rb-box>`, or `data-rb-box="raised"` / `"sunken"` for a bevel.
+ *
+ * With `data-rb-button` (control.css) and `data-rb-field` (field.css) this is
+ * the whole set of hooks for elements that are not Bits UI parts.
+ */
+@layer rb.components {
+	:where([data-rb-theme]) [data-rb-box] {
+		padding: var(--rb-inset);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface);
+		color: var(--rb-text);
+	}
+
+	:where([data-rb-theme]) [data-rb-box='raised'] {
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-bevel-out);
+	}
+
+	:where([data-rb-theme]) [data-rb-box='sunken'] {
+		background: var(--rb-surface-sunken);
+		box-shadow: var(--rb-bevel-in);
+	}
+}

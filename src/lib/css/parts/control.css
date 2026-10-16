@@ -8,7 +8,7 @@
  */
 @layer rb.components {
 	/* ---- button ------------------------------------------------------------ */
-	:where([data-rb-theme]) [data-button-root],
+	:where([data-rb-theme]) :is([data-button-root], [data-rb-button]),
 	:where([data-rb-theme])
 		:is(
 			[data-dialog-trigger],
@@ -51,22 +51,23 @@
 	/*
 	 * `data-rb-variant` is the convention for asking for a different treatment of
 	 * a Bits UI part without wrapping it: `<Button.Root data-rb-variant="primary">`.
+	 * `data-rb-button` gives a native `<button>` or `<a>` the same look.
 	 */
-	:where([data-rb-theme]) [data-button-root][data-rb-variant='primary'],
+	:where([data-rb-theme]) :is([data-button-root], [data-rb-button])[data-rb-variant='primary'],
 	:where([data-rb-theme]) [data-alert-dialog-action] {
 		border-color: var(--rb-accent);
 		background: var(--rb-accent);
 		color: var(--rb-text-on-accent);
 	}
 
-	:where([data-rb-theme]) [data-button-root][data-rb-variant='ghost'],
+	:where([data-rb-theme]) :is([data-button-root], [data-rb-button])[data-rb-variant='ghost'],
 	:where([data-rb-theme]) [data-toolbar-button] {
 		border-color: transparent;
 		background: transparent;
 		box-shadow: var(--rb-bevel-flat);
 	}
 
-	:where([data-rb-theme]) [data-button-root]:hover,
+	:where([data-rb-theme]) :is([data-button-root], [data-rb-button]):hover,
 	:where([data-rb-theme])
 		:is(
 			[data-dialog-trigger],
@@ -84,12 +85,13 @@
 		background: var(--rb-surface-hover);
 	}
 
-	:where([data-rb-theme]) [data-button-root][data-rb-variant='primary']:hover,
+	:where([data-rb-theme])
+		:is([data-button-root], [data-rb-button])[data-rb-variant='primary']:hover,
 	:where([data-rb-theme]) [data-alert-dialog-action]:hover {
 		background: var(--rb-accent-hover);
 	}
 
-	:where([data-rb-theme]) [data-button-root]:active,
+	:where([data-rb-theme]) :is([data-button-root], [data-rb-button]):active,
 	:where([data-rb-theme])
 		:is(
 			[data-dialog-trigger],

@@ -12,7 +12,8 @@
 		{ href: '/gallery/overlays', label: 'Overlays' },
 		{ href: '/gallery/menus', label: 'Menus' },
 		{ href: '/gallery/indicators', label: 'Indicators' },
-		{ href: '/gallery/date', label: 'Date & time' }
+		{ href: '/gallery/date', label: 'Date & time' },
+		{ href: '/gallery/plain', label: 'Plain HTML' }
 	] as const;
 </script>
 

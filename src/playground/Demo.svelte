@@ -16,7 +16,7 @@
 	let { title, note, unstyled = false, children }: Props = $props();
 </script>
 
-<section class="demo" class:unstyled>
+<section class="demo" class:unstyled data-rb-box>
 	<header>
 		<h3>{title}</h3>
 		{#if unstyled}<span class="badge" title="Not styled by the Mono theme yet">stage 2</span>{/if}
@@ -30,10 +30,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--rb-space-3);
-		padding: var(--rb-inset);
-		border: var(--rb-border-width) solid var(--rb-border-color);
-		border-radius: var(--rb-radius);
-		background: var(--rb-surface);
 	}
 
 	header {
