@@ -14,6 +14,10 @@
  *     in Phosphor. That is what lets one stylesheet serve every era.
  *   - Declare tokens inside `@layer rb.tokens` and wrap the selector in
  *     `:where()` so they add no specificity and consumer overrides always win.
+ *   - Private inputs a theme derives its tokens from use the theme's own prefix
+ *     (`--mono-light-bg`), never `--rb-`. Palettes override those inputs under
+ *     `[data-rb-palette-light='<id>']` / `[data-rb-palette-dark='<id>']`; see
+ *     mono.css.
  */
 @layer rb.tokens {
 	:where([data-rb-theme='my-theme']) {

@@ -1,14 +1,17 @@
 import { getContext, hasContext, setContext } from 'svelte';
-import { THEMES, isThemeId } from '../themes/registry.js';
+import { THEMES, isThemeId, resolvePalette } from '../themes/registry.js';
 import { loadTheme } from '../themes/loader.js';
-import { THEME_STORAGE_KEY, SCHEME_STORAGE_KEY } from './constants.js';
-import type { ColorScheme, SchemePreference, ThemeId, ThemeMeta } from '../types.js';
+import { THEME_STORAGE_KEY, SCHEME_STORAGE_KEY, PALETTE_STORAGE_KEYS } from './constants.js';
+import { isSchemePreference } from './settings.js';
+import type { ColorScheme, PaletteMeta, SchemePreference, ThemeId, ThemeMeta } from '../types.js';
 
 export interface ThemeStateOptions {
 	/** Theme to start on. */
 	theme?: ThemeId;
 	/** Scheme to start on. `auto` follows the OS. */
 	scheme?: SchemePreference;
+	/** Palette ids to start on, per scheme. Unknown ids fall back to the default. */
+	palettes?: Partial<Record<ColorScheme, string>>;
 	/**
 	 * Remember the choice in `localStorage` and a cookie, so the server can stamp
 	 * the right attribute on the next request and avoid a flash.
@@ -16,14 +19,6 @@ export interface ThemeStateOptions {
 	persist?: boolean;
 	/** Cookie lifetime in seconds. Defaults to a year. */
 	cookieMaxAge?: number;
-}
-
-function isColorScheme(value: unknown): value is ColorScheme {
-	return value === 'light' || value === 'dark';
-}
-
-function isSchemePreference(value: unknown): value is SchemePreference {
-	return value === 'auto' || isColorScheme(value);
 }
 
 function readStored(key: string): string | null {
@@ -58,6 +53,8 @@ export class ThemeState {
 	#scheme = $state<SchemePreference>('auto');
 	#systemScheme = $state<ColorScheme>('light');
 	#pending = $state(false);
+	// Raw choices, kept across theme switches; `palettes` validates them.
+	#palettes = $state<Partial<Record<ColorScheme, string>>>({});
 	#persist: boolean;
 	#cookieMaxAge: number;
 
@@ -65,14 +62,20 @@ export class ThemeState {
 		this.#persist = options.persist ?? true;
 		this.#cookieMaxAge = options.cookieMaxAge ?? 60 * 60 * 24 * 365;
 
-		const storedTheme = this.#persist ? readStored(THEME_STORAGE_KEY) : null;
-		const storedScheme = this.#persist ? readStored(SCHEME_STORAGE_KEY) : null;
+		const stored = (key: string) => (this.#persist ? readStored(key) : null);
+		const storedTheme = stored(THEME_STORAGE_KEY);
+		const storedScheme = stored(SCHEME_STORAGE_KEY);
 
 		if (isThemeId(storedTheme)) this.#theme = storedTheme;
 		else if (options.theme) this.#theme = options.theme;
 
 		if (isSchemePreference(storedScheme)) this.#scheme = storedScheme;
 		else if (options.scheme) this.#scheme = options.scheme;
+
+		this.#palettes = {
+			light: stored(PALETTE_STORAGE_KEYS.light) ?? options.palettes?.light,
+			dark: stored(PALETTE_STORAGE_KEYS.dark) ?? options.palettes?.dark
+		};
 	}
 
 	/** The current theme id. */
@@ -102,6 +105,22 @@ export class ThemeState {
 		return supported.includes(wanted) ? wanted : supported[0];
 	}
 
+	/**
+	 * The palette in use for each scheme the theme has. Both are applied at
+	 * once - CSS picks between them - so the light one is ready while dark.
+	 */
+	get palettes(): Partial<Record<ColorScheme, PaletteMeta>> {
+		return {
+			light: resolvePalette(this.#theme, 'light', this.#palettes.light),
+			dark: resolvePalette(this.#theme, 'dark', this.#palettes.dark)
+		};
+	}
+
+	/** The palette on screen right now. */
+	get palette(): PaletteMeta | undefined {
+		return this.palettes[this.resolvedScheme];
+	}
+
 	/** True while a theme's stylesheet is still loading. */
 	get pending(): boolean {
 		return this.#pending;
@@ -127,6 +146,21 @@ export class ThemeState {
 			if (this.#persist) writeStored(THEME_STORAGE_KEY, id, this.#cookieMaxAge);
 		} finally {
 			this.#pending = false;
+		}
+	}
+
+	/**
+	 * Pick a palette. It replaces the current palette of its own scheme only,
+	 * so the other scheme keeps whatever it had.
+	 */
+	setPalette(id: string): void {
+		const palettes: readonly PaletteMeta[] = THEMES[this.#theme].palettes;
+		const palette = palettes.find((entry) => entry.id === id);
+		if (!palette) throw new Error(`retro-bits: theme "${this.#theme}" has no palette "${id}"`);
+
+		this.#palettes[palette.scheme] = id;
+		if (this.#persist) {
+			writeStored(PALETTE_STORAGE_KEYS[palette.scheme], id, this.#cookieMaxAge);
 		}
 	}
 

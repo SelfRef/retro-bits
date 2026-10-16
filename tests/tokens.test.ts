@@ -13,7 +13,7 @@ import { describe, expect, it } from 'vitest';
 
 import { RB_TOKENS } from '../src/lib/themes/contract.js';
 import { THEMES } from '../src/lib/themes/registry.js';
-import { THEME_IDS, type ThemeId } from '../src/lib/types.js';
+import { THEME_IDS, type PaletteMeta, type ThemeId } from '../src/lib/types.js';
 
 const themeDir = fileURLToPath(new URL('../src/lib/css/themes/', import.meta.url));
 
@@ -63,6 +63,27 @@ describe.each(THEME_IDS)('%s', (id) => {
 		// `isThemeLoaded()` detects a theme's stylesheet by reading this name back.
 		const declared = source(id).match(/^[\t ]*--rb-theme-name[\t ]*:[\t ]*([^;]+);/m)?.[1];
 		expect(declared?.trim()).toBe(`'${THEMES[id].label}'`);
+	});
+
+	it('has a palette for each scheme it supports, and only those', () => {
+		const palettes: readonly PaletteMeta[] = THEMES[id].palettes;
+		const schemes = new Set(palettes.map((palette) => palette.scheme));
+		expect([...schemes].sort()).toEqual([...THEMES[id].schemes].sort());
+		expect(new Set(palettes.map((p) => p.id)).size, 'duplicate palette ids').toBe(palettes.length);
+	});
+
+	it('styles exactly the non-default palettes in the registry', () => {
+		// The first palette of each scheme is the theme's base values; every other
+		// one needs a block that overrides them.
+		const expected = THEMES[id].palettes
+			.filter((palette, index, all) => all.findIndex((p) => p.scheme === palette.scheme) !== index)
+			.map((palette) => `${palette.scheme}:${palette.id}`)
+			.sort();
+		const styled = Array.from(
+			source(id).matchAll(/\[data-rb-palette-(light|dark)='([a-z0-9-]+)'\]/g),
+			(m) => `${m[1]}:${m[2]}`
+		).sort();
+		expect(styled).toEqual(expected);
 	});
 
 	it('agrees with the registry about which schemes it supports', () => {

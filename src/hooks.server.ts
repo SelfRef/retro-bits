@@ -1,10 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
-import {
-	SCHEME_STORAGE_KEY,
-	THEME_STORAGE_KEY,
-	noFlashScript,
-	themeAttributes
-} from 'retro-bits/ssr';
+import { noFlashScript, themeAttributes } from 'retro-bits/ssr';
 
 /**
  * Stamps the theme onto the server-rendered HTML so the first paint is already
@@ -17,10 +12,7 @@ export const handle: Handle = ({ event, resolve }) =>
 			html
 				.replace(
 					'%rb.theme%',
-					themeAttributes(
-						event.cookies.get(THEME_STORAGE_KEY),
-						event.cookies.get(SCHEME_STORAGE_KEY)
-					)
+					themeAttributes((key) => event.cookies.get(key))
 				)
 				.replace('%rb.noflash%', noFlashScript())
 	});

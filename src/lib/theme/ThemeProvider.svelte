@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { createTheme, type ThemeStateOptions } from './theme.svelte.js';
-	import { SCHEME_ATTRIBUTE, THEME_ATTRIBUTE } from './constants.js';
+	import { PALETTE_ATTRIBUTES, SCHEME_ATTRIBUTE, THEME_ATTRIBUTE } from './constants.js';
 	import type { ThemeId, SchemePreference } from '../types.js';
 
 	interface Props extends ThemeStateOptions {
@@ -28,6 +28,7 @@
 		target = 'global',
 		theme,
 		scheme,
+		palettes,
 		persist,
 		cookieMaxAge,
 		children,
@@ -37,9 +38,16 @@
 	// svelte-ignore state_referenced_locally
 	// These are initial values by design: changing them later should not rebuild
 	// the state and throw away the user's current choice.
-	const state = createTheme({ theme, scheme, persist, cookieMaxAge });
+	const state = createTheme({ theme, scheme, palettes, persist, cookieMaxAge });
 
 	$effect(() => state.watchSystemScheme());
+
+	const attributes = $derived({
+		[THEME_ATTRIBUTE]: state.current,
+		[SCHEME_ATTRIBUTE]: state.resolvedScheme,
+		[PALETTE_ATTRIBUTES.light]: state.palettes.light?.id,
+		[PALETTE_ATTRIBUTES.dark]: state.palettes.dark?.id
+	});
 
 	// In global mode the attributes belong on an element Svelte does not own, so
 	// they are written imperatively. In scoped mode they are just attributes on
@@ -48,18 +56,15 @@
 		if (target !== 'global') return;
 
 		const element = document.documentElement;
-		element.setAttribute(THEME_ATTRIBUTE, state.current);
-		element.setAttribute(SCHEME_ATTRIBUTE, state.resolvedScheme);
-	});
-
-	const scopedAttributes = $derived({
-		[THEME_ATTRIBUTE]: state.current,
-		[SCHEME_ATTRIBUTE]: state.resolvedScheme
+		for (const [name, value] of Object.entries(attributes)) {
+			if (value) element.setAttribute(name, value);
+			else element.removeAttribute(name);
+		}
 	});
 </script>
 
 {#if target === 'global'}
 	{@render children()}
 {:else}
-	<div bind:this={ref} {...scopedAttributes}>{@render children()}</div>
+	<div bind:this={ref} {...attributes}>{@render children()}</div>
 {/if}

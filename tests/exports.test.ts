@@ -19,8 +19,11 @@ describe('retro-bits', () => {
 				'useTheme',
 				'THEME_ATTRIBUTE',
 				'SCHEME_ATTRIBUTE',
+				'PALETTE_ATTRIBUTES',
 				'THEME_STORAGE_KEY',
 				'SCHEME_STORAGE_KEY',
+				'PALETTE_STORAGE_KEYS',
+				'readThemeSettings',
 				'themeAttributes',
 				'noFlashScript',
 				// registry
@@ -28,6 +31,8 @@ describe('retro-bits', () => {
 				'THEME_IDS',
 				'themeList',
 				'isThemeId',
+				'palettesFor',
+				'resolvePalette',
 				'loadTheme',
 				'isThemeLoaded',
 				'RB_TOKENS',
@@ -44,25 +49,55 @@ describe('retro-bits/ssr', () => {
 			[
 				'themeAttributes',
 				'noFlashScript',
+				'readThemeSettings',
 				'THEME_ATTRIBUTE',
 				'SCHEME_ATTRIBUTE',
+				'PALETTE_ATTRIBUTES',
 				'THEME_STORAGE_KEY',
 				'SCHEME_STORAGE_KEY',
+				'PALETTE_STORAGE_KEYS',
 				'THEMES',
 				'THEME_IDS',
 				'themeList',
-				'isThemeId'
+				'isThemeId',
+				'palettesFor',
+				'resolvePalette'
 			].sort()
 		);
 	});
 
-	it('stamps a valid theme and ignores a bogus cookie', () => {
-		expect(ssr.themeAttributes('mono', 'dark')).toBe('data-rb-theme="mono" data-rb-scheme="dark"');
-		expect(ssr.themeAttributes('not-a-theme', 'nonsense')).toBe('data-rb-theme="mono"');
+	const cookies = (values: Record<string, string>) => (key: string) => values[key];
+	const defaults = 'data-rb-palette-light="mono-light" data-rb-palette-dark="mono-dark"';
+
+	it('stamps a valid choice and ignores bogus cookies', () => {
+		expect(
+			ssr.themeAttributes(
+				cookies({
+					'rb-theme': 'mono',
+					'rb-scheme': 'dark',
+					'rb-palette-light': 'rose-light',
+					'rb-palette-dark': 'nord-dark'
+				})
+			)
+		).toBe(
+			'data-rb-theme="mono" data-rb-scheme="dark" data-rb-palette-light="rose-light" data-rb-palette-dark="nord-dark"'
+		);
+		expect(ssr.themeAttributes(cookies({ 'rb-theme': 'nope', 'rb-scheme': 'nope' }))).toBe(
+			`data-rb-theme="mono" ${defaults}`
+		);
 	});
 
 	it('leaves the scheme off when it is auto, so the CSS can fall back to the OS', () => {
-		expect(ssr.themeAttributes('mono', 'auto')).toBe('data-rb-theme="mono"');
+		expect(ssr.themeAttributes(cookies({ 'rb-scheme': 'auto' }))).toBe(
+			`data-rb-theme="mono" ${defaults}`
+		);
+	});
+
+	it('only takes a palette in the slot of its own scheme', () => {
+		const settings = ssr.readThemeSettings(
+			cookies({ 'rb-palette-light': 'nord-dark', 'rb-palette-dark': 'nord-dark' })
+		);
+		expect(settings.palettes).toEqual({ light: 'mono-light', dark: 'nord-dark' });
 	});
 
 	it('noFlashScript only acts on valid stored values', () => {
@@ -77,6 +112,9 @@ describe('retro-bits/ssr', () => {
 				},
 				hasAttribute(k: string) {
 					return k in this.attrs;
+				},
+				getAttribute(k: string) {
+					return this.attrs[k] ?? null;
 				}
 			};
 			const storage = { getItem: (k: string) => stored[k] ?? null };
@@ -97,6 +135,11 @@ describe('retro-bits/ssr', () => {
 		});
 		// Nothing stamped and nothing stored: the fallback theme.
 		expect(run({})).toEqual({ 'data-rb-theme': 'mono' });
+		// Palettes only land in the slot of their own scheme.
+		expect(
+			run({ 'rb-palette-light': 'rose-light', 'rb-palette-dark': 'rose-light' }, stamped)
+		).toEqual({ ...stamped, 'data-rb-palette-light': 'rose-light' });
+		expect(run({ 'rb-theme': 'constructor' })).toEqual({ 'data-rb-theme': 'mono' });
 	});
 
 	it('recognises every registered theme', () => {

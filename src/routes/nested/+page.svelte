@@ -3,15 +3,21 @@
 	import { ThemeProvider } from 'retro-bits';
 	import Demo from '$playground/Demo.svelte';
 
-	const schemes = ['light', 'dark'] as const;
+	const panes = [
+		{ scheme: 'light', palette: 'mono-light' },
+		{ scheme: 'dark', palette: 'mono-dark' },
+		{ scheme: 'light', palette: 'sepia-light' },
+		{ scheme: 'dark', palette: 'gruvbox-dark' }
+	] as const;
 </script>
 
 <h1>Nested themes</h1>
 
 <p class="lede">
 	Tokens are custom properties, so a nested <code>data-rb-theme</code> simply re-declares them for its
-	subtree. Two themes or schemes can sit side by side in one page with no extra machinery - which is what
-	makes a theme picker with live previews possible. Only Mono exists so far, so this shows its two schemes.
+	subtree. Two themes, schemes or palettes can sit side by side in one page with no extra machinery -
+	which is what makes a theme picker with live previews possible. Only Mono exists so far, so this shows
+	a few of its palettes.
 </p>
 
 <p class="lede">
@@ -22,9 +28,15 @@
 </p>
 
 <div class="split">
-	{#each schemes as scheme (scheme)}
-		<ThemeProvider target="scoped" theme="mono" {scheme} persist={false}>
-			<Demo title="Mono, {scheme}">
+	{#each panes as { scheme, palette } (palette)}
+		<ThemeProvider
+			target="scoped"
+			theme="mono"
+			{scheme}
+			palettes={{ [scheme]: palette }}
+			persist={false}
+		>
+			<Demo title={palette}>
 				<Label.Root>
 					<Checkbox.Root checked />
 					Themed independently

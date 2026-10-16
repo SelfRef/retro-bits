@@ -25,7 +25,7 @@
 		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
 </script>
 
-<ThemeProvider theme={data.theme} scheme={data.scheme}>
+<ThemeProvider {...data}>
 	<div class="shell">
 		<header>
 			<a class="wordmark" href={resolve('/')}>retro-bits</a>
