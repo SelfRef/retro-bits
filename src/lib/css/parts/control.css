@@ -33,6 +33,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: var(--rb-gap);
+		box-sizing: border-box;
 		min-height: var(--rb-control-height);
 		padding: var(--rb-control-padding-y) var(--rb-control-padding-x);
 		border: var(--rb-border-width) solid var(--rb-border-color);
@@ -138,6 +139,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: var(--rb-gap);
+		box-sizing: border-box;
 		min-width: var(--rb-control-height);
 		min-height: var(--rb-control-height);
 		padding: var(--rb-control-padding-y) var(--rb-control-padding-x);
