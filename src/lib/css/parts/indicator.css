@@ -67,13 +67,17 @@
 		background: var(--rb-surface-raised);
 		box-shadow: var(--rb-bevel-out);
 		cursor: var(--rb-cursor-pointer);
+		/* Ticks come after the thumb in the DOM; keep it on top of them. */
+		z-index: 1;
 	}
 
+	/* Decoration only: a tick must not steal the pointer from the track or thumb. */
 	[data-slider-tick] {
 		position: absolute;
 		width: var(--rb-border-width);
 		height: var(--rb-space-2);
 		background: var(--rb-border-color);
+		pointer-events: none;
 	}
 
 	/* Tick labels sit above the track; make room so they do not crowd what is above. */
