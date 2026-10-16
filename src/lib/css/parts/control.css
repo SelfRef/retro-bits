@@ -320,14 +320,39 @@
 
 	/* ---- shared states ------------------------------------------------------- */
 	/*
-	 * Only the outermost disabled element is dimmed: Bits UI marks a disabled
-	 * group and every item in it, and opacity would otherwise compound.
+	 * Disabled: a control keeps its shape, but everything it draws - border,
+	 * text, fill, mark - turns the disabled colour, on the disabled surface. It
+	 * works by re-pointing the tokens the control reads rather than overriding
+	 * each property, so every control dims the same way and the change reaches
+	 * its parts (a switch thumb, a radio dot, a menu row's mark). Hover and press
+	 * feedback go flat. A label wrapping a disabled control dims with it. An
+	 * accordion item is left out: it owns the separator above it, and its
+	 * trigger is marked disabled on its own.
 	 */
-	:is([data-disabled], [disabled]):where(:not(:is([data-disabled], [disabled]) *)) {
-		background-image: var(--rb-pattern-dither);
+	:is([data-disabled], [disabled]):not([data-accordion-item]),
+	[data-label-root]:has([data-disabled], [disabled]) {
+		--rb-text: var(--rb-text-disabled);
+		--rb-text-muted: var(--rb-text-disabled);
+		--rb-link: var(--rb-text-disabled);
+		--rb-text-on-accent: var(--rb-surface-disabled);
+		--rb-accent: var(--rb-text-disabled);
+		--rb-accent-hover: var(--rb-text-disabled);
+		--rb-accent-active: var(--rb-text-disabled);
+		--rb-border-color: var(--rb-text-disabled);
+		--rb-surface-raised: var(--rb-surface-disabled);
+		--rb-surface-sunken: var(--rb-surface-disabled);
+		--rb-surface-hover: var(--rb-surface-disabled);
+		--rb-surface-active: var(--rb-surface-disabled);
+		--rb-surface-selected: var(--rb-surface-disabled);
+		--rb-bevel-pressed: var(--rb-bevel-out);
+		--rb-press-offset: none;
 		color: var(--rb-text-disabled);
 		cursor: not-allowed;
-		opacity: 0.7;
+	}
+
+	/* Only the outermost one: Bits UI marks a disabled group and every item in it. */
+	:is([data-disabled], [disabled]):where(:not(:is([data-disabled], [disabled]) *)) {
+		background-image: var(--rb-pattern-dither);
 	}
 
 	[data-invalid] {
