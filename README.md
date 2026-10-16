@@ -190,6 +190,9 @@ pull another in on demand - it resolves before the attribute flips, so there is 
 
 ## Variants and hooks
 
+[docs/REFERENCE.md](docs/REFERENCE.md) lists every component with its styled parts, states and
+required markup, and every hook. It ships in the package, at `node_modules/retro-bits/docs/`.
+
 There are no wrapper components. Ask for a different treatment of a Bits UI part with
 `data-rb-variant`:
 
@@ -253,7 +256,7 @@ an input and its button, a row of buttons, or a combobox input and its trigger:
 ```svelte
 <div data-rb-group>
 	<Combobox.Input />
-	<Combobox.Trigger>▾</Combobox.Trigger>
+	<Combobox.Trigger aria-label="Open" />
 </div>
 ```
 
@@ -324,8 +327,7 @@ pnpm run prepack    # build dist/ and run publint
 
 In Zed, `task: spawn` offers the playground in the default browser or in a new browser window.
 
-Playground routes worth knowing: `/gallery` (every Bits UI component, unstyled ones badged, plus
-the plain-HTML hooks), `/tokens` (the contract resolved live), `/nested` (scoped providers side by
+Playground routes worth knowing: `/gallery` (every Bits UI component, plus the plain-HTML hooks), `/tokens` (the contract resolved live), `/nested` (scoped providers side by
 side).
 
 ## Licence
