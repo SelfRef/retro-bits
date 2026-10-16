@@ -168,7 +168,9 @@
 	/* ---- checkbox ------------------------------------------------------------ */
 	/*
 	 * Checkbox and radio draw their own mark: the accent fills the content box,
-	 * and padding shrinks that box to an inner square or dot. Render no children.
+	 * and padding shrinks that box to an inner square or dot. The gap is one
+	 * border width, the same as around the switch thumb, so all three marks
+	 * match. Render no children.
 	 */
 	[data-checkbox-root] {
 		display: inline-flex;
@@ -193,7 +195,7 @@
 	[data-checkbox-root][data-state='checked'],
 	[data-checkbox-root][data-state='indeterminate'],
 	[data-radio-group-item][data-state='checked'] {
-		padding: calc(var(--rb-icon-size) / 4 - var(--rb-border-width));
+		padding: var(--rb-border-width);
 		border-color: var(--rb-accent);
 		background: var(--rb-accent) content-box;
 	}

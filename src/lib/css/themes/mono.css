@@ -128,7 +128,11 @@
 		--rb-gap: var(--rb-cell-w);
 		--rb-inset: calc(var(--rb-cell-h) - var(--rb-border-width));
 		--rb-scrollbar-size: calc(var(--rb-cell-h) / 2);
-		--rb-icon-size: var(--rb-cell-h);
+		/*
+		 * Whole, even pixels: checkbox, radio and switch marks sit a border width
+		 * inside their box, and a fractional box leaves the gaps uneven.
+		 */
+		--rb-icon-size: round(var(--rb-cell-h), 2px);
 		--rb-menu-item-height: var(--rb-control-height);
 
 		/* window */

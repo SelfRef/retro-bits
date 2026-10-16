@@ -95,7 +95,7 @@
 			[data-context-menu-radio-item],
 			[data-menubar-radio-item]
 		):is([data-state='checked'], [data-state='indeterminate'])::before {
-		padding: calc(var(--rb-icon-size) / 4 - var(--rb-border-width));
+		padding: var(--rb-border-width);
 		background: currentColor content-box;
 	}
 
