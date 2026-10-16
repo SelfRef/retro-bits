@@ -54,10 +54,9 @@
 			calc(50% + var(--rb-arrow-size) / 2) center;
 	}
 
-	/* Inside a field the picker trigger fills the field's height. */
+	/* Inside a field it is as wide as a combobox trigger's arrow cell. */
 	:is([data-date-field-input], [data-time-field-input]) [data-popover-trigger] {
-		align-self: stretch;
-		min-width: calc(var(--rb-arrow-size) * 2 + var(--rb-control-padding-x) * 2);
+		min-width: calc(var(--rb-control-height) - var(--rb-border-width));
 	}
 
 	:is(

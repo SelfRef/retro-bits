@@ -82,15 +82,26 @@
 		flex-basis: 100%;
 	}
 
-	/* A picker's trigger sits inside the field, so it drops the button chrome. */
+	/*
+	 * A picker's trigger is the end of the field: it reaches the field's inner
+	 * edges, past its padding, behind a separator like a combobox's trigger.
+	 */
 	:is([data-date-field-input], [data-time-field-input]) [data-popover-trigger] {
+		align-self: stretch;
 		min-height: 0;
-		margin-inline-start: auto;
-		padding: 0 var(--rb-space-2);
+		margin-block: calc(var(--rb-control-padding-y) * -1);
+		margin-inline: auto calc(var(--rb-control-padding-x) * -1);
+		padding: 0;
 		border: none;
+		border-inline-start: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: 0;
 		background-color: transparent;
 		box-shadow: none;
 		translate: none;
+	}
+
+	:is([data-date-field-input], [data-time-field-input]) [data-popover-trigger]:hover {
+		background-color: var(--rb-surface-hover);
 	}
 
 	[data-pin-input-root] {
