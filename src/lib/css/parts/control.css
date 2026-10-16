@@ -285,8 +285,9 @@
 		cursor: var(--rb-cursor-pointer);
 	}
 
+	/* Empty stars are a faint tint of the filled colour, so the two read apart in any palette. */
 	[data-rating-group-item] {
-		color: var(--rb-text-muted);
+		color: color-mix(in srgb, var(--rb-accent) 25%, var(--rb-surface));
 		cursor: var(--rb-cursor-pointer);
 	}
 
