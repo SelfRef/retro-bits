@@ -9,20 +9,7 @@ dependency would install nothing usable. Publish it - to npm, or GitHub Packages
 private - and version it with semver, since every consuming app pins it. Token renames and
 `data-rb-*` hook changes are the breaking ones.
 
-## Stage 2: finish the Mono theme
-
-Mono has to style every Bits UI component before the retro themes start, so each of them has a
-complete target. The gallery marks the unstyled ones with a **stage 2** badge:
-
-- Command
-- Menubar
-- Navigation menu
-- Calendar, Range calendar
-- Date field, Date range field, Time field, Time range field
-- Date picker, Date range picker
-
-Menubar's menus are styled through the shared menu rules; the bar itself (`data-menubar-root`,
-`data-menubar-trigger`) is not.
+## Mono follow-ups
 
 The shared disabled rule paints `--rb-pattern-dither` on the outermost disabled element, which can
 be a group container rather than a control. Mono's dither is `none`, so this only matters once a
@@ -32,7 +19,7 @@ Checkbox and radio marks are an inner fill of the accent colour. Themes that wan
 tick, a DOS `[X]`) will need a hook for it, likely a `--rb-check-glyph` token rendered with
 `::before`.
 
-## Stage 3: the retro themes
+## The retro themes
 
 Adding one: put the id in `THEME_IDS` (`src/lib/types.ts`), describe it in `themes/registry.ts`,
 copy `css/themes/_contract.css` to `css/themes/<id>.css` and fill in every value, then add it to

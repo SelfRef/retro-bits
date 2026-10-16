@@ -6,9 +6,8 @@ Themes are plain CSS driven by `--rb-*` custom properties. There is no Tailwind,
 build step for consumers - and no wrapper components to keep in step with `bits-ui` releases,
 because the themes style Bits UI through the data attributes it already renders.
 
-> **Status: early.** The machinery is done - package, theme registry, runtime switching, SSR, and a
-> playground. There is one theme, **Mono**, and it does not cover every Bits UI component yet.
-> The retro themes are planned - see [PLAN.md](PLAN.md).
+> **Status: early.** One theme, **Mono**, styles every Bits UI component, with 48 palettes. The
+> retro themes are planned - see [PLAN.md](PLAN.md).
 
 ## Install
 
@@ -64,16 +63,24 @@ For a theme, scheme or palette picker, wrap the app in `ThemeProvider`. It write
 	const theme = useTheme();
 </script>
 
-<select value={theme.palettes.dark?.id} onchange={(e) => theme.setPalette(e.currentTarget.value)}>
-	{#each palettesFor(theme.current, 'dark') as palette (palette.id)}
-		<option value={palette.id}>{palette.label}</option>
+<!-- One menu, light palettes first: picking one also switches to its scheme. -->
+<select
+	value={theme.palette?.id}
+	onchange={(e) => theme.setScheme(theme.setPalette(e.currentTarget.value).scheme)}
+>
+	{#each ['light', 'dark'] as scheme (scheme)}
+		<optgroup label={scheme}>
+			{#each palettesFor(theme.current, scheme) as palette (palette.id)}
+				<option value={palette.id}>{palette.label}</option>
+			{/each}
+		</optgroup>
 	{/each}
 </select>
-
-<button onclick={() => theme.toggleScheme()}>{theme.resolvedScheme}</button>
 ```
 
-`theme.set(id)` switches theme, `setScheme('light' | 'dark' | 'auto')` the scheme.
+`theme.set(id)` switches theme and `setScheme('light' | 'dark' | 'auto')` the scheme. `setPalette`
+only replaces the palette of its own scheme, so an app can also offer separate light and dark
+pickers and let `auto` follow the OS.
 
 ## Themes
 
@@ -204,6 +211,19 @@ render them without children:
 <Checkbox.Root bind:checked />
 ```
 
+Checkbox and radio items in menus draw theirs too, so their children are free for the label.
+
+NavigationMenu sizes its shared viewport from the first child of `Content`, so give `Content` one
+wrapper:
+
+```svelte
+<NavigationMenu.Content>
+	<ul>
+		<li><NavigationMenu.Link href="/docs">Docs</NavigationMenu.Link></li>
+	</ul>
+</NavigationMenu.Content>
+```
+
 ### Your own markup
 
 Three hooks give hand-written elements the same look as the Bits UI parts around them:
@@ -242,6 +262,10 @@ with `<html lang="en" %rb.theme%>` and `<script>%rb.noflash%</script>` in `app.h
 scheme and both palettes come back from the cookies `ThemeProvider` writes; unknown values fall back
 rather than throwing.
 
+With nothing stored the scheme is `auto` and follows the OS. To start on a fixed scheme instead,
+pass the same defaults to all three helpers: `themeAttributes(read, { scheme: 'light' })`,
+`noFlashScript({ scheme: 'light' })` and `readThemeSettings(read, { scheme: 'light' })`.
+
 The script only applies a valid value from `localStorage`, so it never undoes what the server
 stamped from the cookie. To make server-rendered text that reads the theme agree too (a switcher,
 say), hand the cookie to the provider from a layout `load`:
@@ -272,6 +296,8 @@ pnpm test           # token contract, Bits UI selectors, public surface
 pnpm check:tokens   # just the contract
 pnpm run prepack    # build dist/ and run publint
 ```
+
+In Zed, `task: spawn` offers the playground in the default browser or in a new browser window.
 
 Playground routes worth knowing: `/gallery` (every Bits UI component, unstyled ones badged, plus
 the plain-HTML hooks), `/tokens` (the contract resolved live), `/nested` (scoped providers side by
