@@ -14,8 +14,8 @@
 	:where([data-rb-theme]) [data-pagination-prev],
 	:where([data-rb-theme]) [data-pagination-next],
 	:where([data-rb-theme]) [data-dialog-close],
-	:where([data-rb-theme]) [data-dialog-cancel],
-	:where([data-rb-theme]) [data-dialog-action] {
+	:where([data-rb-theme]) [data-alert-dialog-cancel],
+	:where([data-rb-theme]) [data-alert-dialog-action] {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -45,7 +45,7 @@
 	 * a Bits UI part without wrapping it: `<Button.Root data-rb-variant="primary">`.
 	 */
 	:where([data-rb-theme]) [data-button-root][data-rb-variant='primary'],
-	:where([data-rb-theme]) [data-dialog-action] {
+	:where([data-rb-theme]) [data-alert-dialog-action] {
 		border-color: var(--rb-accent);
 		background: var(--rb-accent);
 		color: var(--rb-text-on-accent);
@@ -64,12 +64,12 @@
 	:where([data-rb-theme]) [data-pagination-prev]:hover,
 	:where([data-rb-theme]) [data-pagination-next]:hover,
 	:where([data-rb-theme]) [data-dialog-close]:hover,
-	:where([data-rb-theme]) [data-dialog-cancel]:hover {
+	:where([data-rb-theme]) [data-alert-dialog-cancel]:hover {
 		background: var(--rb-surface-hover);
 	}
 
 	:where([data-rb-theme]) [data-button-root][data-rb-variant='primary']:hover,
-	:where([data-rb-theme]) [data-dialog-action]:hover {
+	:where([data-rb-theme]) [data-alert-dialog-action]:hover {
 		background: var(--rb-accent-hover);
 	}
 
@@ -77,8 +77,8 @@
 	:where([data-rb-theme]) [data-toolbar-button]:active,
 	:where([data-rb-theme]) [data-pagination-page]:active,
 	:where([data-rb-theme]) [data-dialog-close]:active,
-	:where([data-rb-theme]) [data-dialog-cancel]:active,
-	:where([data-rb-theme]) [data-dialog-action]:active {
+	:where([data-rb-theme]) [data-alert-dialog-cancel]:active,
+	:where([data-rb-theme]) [data-alert-dialog-action]:active {
 		background: var(--rb-surface-active);
 		box-shadow: var(--rb-bevel-pressed);
 	}

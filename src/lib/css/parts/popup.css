@@ -5,10 +5,15 @@
  * Bits UI portals most of these to `document.body`, which is why ThemeProvider
  * puts `data-rb-theme` on the document element by default - a portalled dialog
  * has to still be inside a themed subtree.
+ *
+ * Dialog and menu parts are prefixed with their variant: AlertDialog renders
+ * `data-alert-dialog-*`, and the menu family renders `data-dropdown-menu-*`,
+ * `data-context-menu-*` or `data-menubar-*`. `:is()` keeps those lists short.
  */
 @layer rb.components {
 	/* ---- scrim ---------------------------------------------------------- */
 	:where([data-rb-theme]) [data-dialog-overlay],
+	:where([data-rb-theme]) [data-alert-dialog-overlay],
 	:where([data-rb-theme]) [data-popover-overlay] {
 		position: fixed;
 		inset: 0;
@@ -16,14 +21,19 @@
 	}
 
 	/* ---- floating surfaces ----------------------------------------------- */
-	:where([data-rb-theme]) [data-dialog-content],
+	:where([data-rb-theme]) :is([data-dialog-content], [data-alert-dialog-content]),
 	:where([data-rb-theme]) [data-popover-content],
 	:where([data-rb-theme]) [data-link-preview-content],
 	:where([data-rb-theme]) [data-select-content],
 	:where([data-rb-theme]) [data-combobox-content],
-	:where([data-rb-theme]) [data-menu-content],
-	:where([data-rb-theme]) [data-menu-sub-content],
-	:where([data-rb-theme]) [data-context-menu-content],
+	:where([data-rb-theme])
+		:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]),
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-sub-content],
+			[data-context-menu-sub-content],
+			[data-menubar-sub-content]
+		),
 	:where([data-rb-theme]) [data-command-root] {
 		border: var(--rb-border-width) solid var(--rb-border-color);
 		border-radius: var(--rb-radius);
@@ -32,7 +42,7 @@
 		color: var(--rb-text);
 	}
 
-	:where([data-rb-theme]) [data-dialog-content] {
+	:where([data-rb-theme]) :is([data-dialog-content], [data-alert-dialog-content]) {
 		position: fixed;
 		top: 50%;
 		left: 50%;
@@ -49,13 +59,18 @@
 
 	:where([data-rb-theme]) [data-select-content],
 	:where([data-rb-theme]) [data-combobox-content],
-	:where([data-rb-theme]) [data-menu-content],
-	:where([data-rb-theme]) [data-menu-sub-content],
-	:where([data-rb-theme]) [data-context-menu-content] {
+	:where([data-rb-theme])
+		:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]),
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-sub-content],
+			[data-context-menu-sub-content],
+			[data-menubar-sub-content]
+		) {
 		padding: var(--rb-space-2);
 	}
 
-	:where([data-rb-theme]) [data-dialog-title] {
+	:where([data-rb-theme]) :is([data-dialog-title], [data-alert-dialog-title]) {
 		margin: 0 0 var(--rb-space-2);
 		font-family: var(--rb-font-display);
 		font-size: var(--rb-font-size-lg);
@@ -63,7 +78,7 @@
 		text-transform: var(--rb-text-transform);
 	}
 
-	:where([data-rb-theme]) [data-dialog-description] {
+	:where([data-rb-theme]) :is([data-dialog-description], [data-alert-dialog-description]) {
 		margin: 0 0 var(--rb-inset);
 		color: var(--rb-text-muted);
 	}
@@ -104,10 +119,11 @@
 	}
 
 	/* ---- open / close transitions ----------------------------------------- */
-	:where([data-rb-theme]) [data-dialog-content],
+	:where([data-rb-theme]) :is([data-dialog-content], [data-alert-dialog-content]),
 	:where([data-rb-theme]) [data-popover-content],
 	:where([data-rb-theme]) [data-tooltip-content],
-	:where([data-rb-theme]) [data-menu-content] {
+	:where([data-rb-theme])
+		:is([data-dropdown-menu-content], [data-context-menu-content], [data-menubar-content]) {
 		transition:
 			opacity var(--rb-transition),
 			scale var(--rb-transition);

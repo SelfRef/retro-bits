@@ -4,13 +4,27 @@
  *
  * Bits UI drives row highlight with `data-highlighted` (keyboard or pointer),
  * not `:hover`, so that is what is styled here.
+ *
+ * Menu parts carry the variant as their prefix - `data-dropdown-menu-item`,
+ * `data-context-menu-item`, `data-menubar-item` - never `data-menu-*`.
  */
 @layer rb.components {
-	:where([data-rb-theme]) [data-menu-item],
-	:where([data-rb-theme]) [data-menu-checkbox-item],
-	:where([data-rb-theme]) [data-menu-radio-item],
-	:where([data-rb-theme]) [data-menu-sub-trigger],
-	:where([data-rb-theme]) [data-context-menu-item],
+	:where([data-rb-theme])
+		:is([data-dropdown-menu-item], [data-context-menu-item], [data-menubar-item]),
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-checkbox-item],
+			[data-context-menu-checkbox-item],
+			[data-menubar-checkbox-item]
+		),
+	:where([data-rb-theme])
+		:is([data-dropdown-menu-radio-item], [data-context-menu-radio-item], [data-menubar-radio-item]),
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-sub-trigger],
+			[data-context-menu-sub-trigger],
+			[data-menubar-sub-trigger]
+		),
 	:where([data-rb-theme]) [data-select-item],
 	:where([data-rb-theme]) [data-combobox-item],
 	:where([data-rb-theme]) [data-command-item] {
@@ -36,7 +50,12 @@
 		background: var(--rb-surface-selected);
 	}
 
-	:where([data-rb-theme]) [data-menu-group-heading],
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-group-heading],
+			[data-context-menu-group-heading],
+			[data-menubar-group-heading]
+		),
 	:where([data-rb-theme]) [data-select-group-label],
 	:where([data-rb-theme]) [data-command-group-heading] {
 		padding: var(--rb-space-2) var(--rb-space-3);
@@ -46,7 +65,8 @@
 		text-transform: var(--rb-text-transform);
 	}
 
-	:where([data-rb-theme]) [data-menu-separator],
+	:where([data-rb-theme])
+		:is([data-dropdown-menu-separator], [data-context-menu-separator], [data-menubar-separator]),
 	:where([data-rb-theme]) [data-select-separator],
 	:where([data-rb-theme]) [data-command-separator],
 	:where([data-rb-theme]) [data-separator-root] {
