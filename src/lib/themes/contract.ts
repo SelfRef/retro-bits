@@ -93,6 +93,7 @@ export const RB_TOKEN_GROUPS = {
 		'--rb-inset',
 		'--rb-scrollbar-size',
 		'--rb-icon-size',
+		'--rb-arrow-size',
 		'--rb-menu-item-height'
 	],
 

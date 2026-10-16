@@ -105,6 +105,7 @@
 		--rb-inset: ; /* padding inside a panel or dialog */
 		--rb-scrollbar-size: ;
 		--rb-icon-size: ;
+		--rb-arrow-size: ; /* half the width of the drawn open/close arrow; it is twice as wide as tall */
 		--rb-menu-item-height: ;
 
 		/* -- window ---------------------------------------------------------------- */

@@ -133,6 +133,8 @@
 		 * inside their box, and a fractional box leaves the gaps uneven.
 		 */
 		--rb-icon-size: round(var(--rb-cell-h), 2px);
+		/* The arrow is as wide as a bold `▾`, in whole pixels so its diagonals stay crisp. */
+		--rb-arrow-size: round(0.3em, 1px);
 		--rb-menu-item-height: var(--rb-control-height);
 
 		/* window */

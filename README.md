@@ -216,6 +216,15 @@ render them without children:
 
 Checkbox and radio items in menus draw theirs too, so their children are free for the label.
 
+Likewise every control that opens something - Select and Combobox triggers, the date pickers'
+trigger, Accordion and Collapsible triggers, and native `<select data-rb-field>` - gets the same
+drawn arrow, pointing up while open. Leave the glyph out:
+
+```svelte
+<Combobox.Trigger aria-label="Open" />
+<Accordion.Trigger>Details</Accordion.Trigger>
+```
+
 NavigationMenu sizes its shared viewport from the first child of `Content`, so give `Content` one
 wrapper:
 

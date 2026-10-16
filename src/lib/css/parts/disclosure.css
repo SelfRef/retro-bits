@@ -33,7 +33,7 @@
 		min-height: var(--rb-control-height);
 		padding: var(--rb-control-padding-y) var(--rb-inset);
 		border: none;
-		background: transparent;
+		background-color: transparent;
 		color: var(--rb-text);
 		font-family: inherit;
 		font-size: var(--rb-font-size);
@@ -45,7 +45,7 @@
 
 	[data-accordion-trigger]:hover,
 	[data-collapsible-trigger]:hover {
-		background: var(--rb-surface-hover);
+		background-color: var(--rb-surface-hover);
 	}
 
 	[data-accordion-content],

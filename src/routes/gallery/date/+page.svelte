@@ -159,7 +159,7 @@
 					{#each segments as segment, index (index)}
 						<DatePicker.Segment part={segment.part}>{segment.value}</DatePicker.Segment>
 					{/each}
-					<DatePicker.Trigger aria-label="Open calendar">▾</DatePicker.Trigger>
+					<DatePicker.Trigger aria-label="Open calendar" />
 				{/snippet}
 			</DatePicker.Input>
 			<DatePicker.Content sideOffset={8}>
@@ -208,7 +208,7 @@
 							<DateRangePicker.Segment part={segment.part}>{segment.value}</DateRangePicker.Segment>
 						{/each}
 						{#if type === 'end'}
-							<DateRangePicker.Trigger aria-label="Open calendar">▾</DateRangePicker.Trigger>
+							<DateRangePicker.Trigger aria-label="Open calendar" />
 						{/if}
 					{/snippet}
 				</DateRangePicker.Input>

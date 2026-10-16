@@ -21,7 +21,7 @@
 			{#each entries as entry (entry.id)}
 				<Accordion.Item value={entry.id} disabled={entry.id === 'cube'}>
 					<Accordion.Header>
-						<Accordion.Trigger>{entry.label}<span aria-hidden="true">▾</span></Accordion.Trigger>
+						<Accordion.Trigger>{entry.label}</Accordion.Trigger>
 					</Accordion.Header>
 					<Accordion.Content><p>{entry.body}</p></Accordion.Content>
 				</Accordion.Item>
@@ -31,7 +31,7 @@
 
 	<Demo title="Collapsible">
 		<Collapsible.Root style="width: 100%">
-			<Collapsible.Trigger>Show details<span aria-hidden="true">▾</span></Collapsible.Trigger>
+			<Collapsible.Trigger>Show details</Collapsible.Trigger>
 			<Collapsible.Content><p>Nine themes, one token contract.</p></Collapsible.Content>
 		</Collapsible.Root>
 	</Demo>

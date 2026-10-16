@@ -74,7 +74,7 @@
 					placeholder="Filter themes"
 					oninput={(event) => (search = event.currentTarget.value)}
 				/>
-				<Combobox.Trigger aria-label="Open">▾</Combobox.Trigger>
+				<Combobox.Trigger aria-label="Open" />
 			</div>
 			<Combobox.Portal>
 				<Combobox.Content sideOffset={4}>

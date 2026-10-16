@@ -1,0 +1,74 @@
+/*
+ * The open/close arrow. Every control that opens something - a select, a
+ * combobox, a date picker, an accordion or collapsible - shows the same one,
+ * drawn by the theme, so render those triggers without a glyph.
+ *
+ * It is two half-squares of currentColor side by side, which makes a solid
+ * triangle twice as wide as tall: it follows the palette, needs no font, and
+ * works on a native <select>, where pseudo-elements do not. It points up
+ * while its control is open.
+ *
+ * Loaded last, so the arrow's longhands win over earlier `background` rules;
+ * those set only `background-color` on these controls.
+ */
+@layer rb.components {
+	select[data-rb-field],
+	:is(
+		[data-calendar-month-select],
+		[data-calendar-year-select],
+		[data-range-calendar-month-select],
+		[data-range-calendar-year-select]
+	),
+	[data-select-trigger],
+	[data-combobox-trigger],
+	[data-accordion-trigger],
+	[data-collapsible-trigger],
+	:is([data-date-field-input], [data-time-field-input]) [data-popover-trigger] {
+		appearance: none;
+		padding-inline-end: calc(var(--rb-control-padding-x) * 2 + var(--rb-arrow-size) * 2);
+		background-image:
+			linear-gradient(45deg, transparent 50%, currentColor 50%),
+			linear-gradient(-45deg, transparent 50%, currentColor 50%);
+		background-position:
+			right calc(var(--rb-control-padding-x) + var(--rb-arrow-size)) center,
+			right var(--rb-control-padding-x) center;
+		background-size: var(--rb-arrow-size) var(--rb-arrow-size);
+		background-repeat: no-repeat;
+	}
+
+	/* Accordion and collapsible pad their text by the inset; the arrow follows. */
+	:is([data-accordion-trigger], [data-collapsible-trigger]) {
+		padding-inline-end: calc(var(--rb-inset) * 2 + var(--rb-arrow-size) * 2);
+		background-position:
+			right calc(var(--rb-inset) + var(--rb-arrow-size)) center,
+			right var(--rb-inset) center;
+	}
+
+	/* Triggers that are only an arrow centre it. */
+	[data-combobox-trigger],
+	:is([data-date-field-input], [data-time-field-input]) [data-popover-trigger] {
+		min-width: var(--rb-control-height);
+		padding-inline: 0;
+		background-position:
+			calc(50% - var(--rb-arrow-size) / 2) center,
+			calc(50% + var(--rb-arrow-size) / 2) center;
+	}
+
+	/* Inside a field the picker trigger fills the field's height. */
+	:is([data-date-field-input], [data-time-field-input]) [data-popover-trigger] {
+		align-self: stretch;
+		min-width: calc(var(--rb-arrow-size) * 2 + var(--rb-control-padding-x) * 2);
+	}
+
+	:is(
+		[data-select-trigger],
+		[data-combobox-trigger],
+		[data-accordion-trigger],
+		[data-collapsible-trigger],
+		[data-popover-trigger]
+	)[data-state='open'] {
+		background-image:
+			linear-gradient(135deg, transparent 50%, currentColor 50%),
+			linear-gradient(-135deg, transparent 50%, currentColor 50%);
+	}
+}

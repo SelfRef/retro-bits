@@ -22,7 +22,7 @@
 		padding: var(--rb-control-padding-y) var(--rb-control-padding-x);
 		border: var(--rb-border-width) solid var(--rb-border-color);
 		border-radius: var(--rb-radius);
-		background: var(--rb-surface-sunken);
+		background-color: var(--rb-surface-sunken);
 		box-shadow: var(--rb-bevel-in-thin);
 		color: var(--rb-text);
 		font-family: inherit;
@@ -40,7 +40,7 @@
 		[data-range-calendar-year-select]
 	) {
 		justify-content: space-between;
-		background: var(--rb-surface-raised);
+		background-color: var(--rb-surface-raised);
 		box-shadow: var(--rb-bevel-out-thin);
 		cursor: var(--rb-cursor-pointer);
 	}
@@ -53,13 +53,6 @@
 	textarea[data-rb-field] {
 		height: auto;
 		min-height: var(--rb-control-height);
-	}
-
-	/* The combobox trigger is just an arrow: a square at the end of the input. */
-	[data-combobox-trigger] {
-		justify-content: center;
-		min-width: var(--rb-control-height);
-		padding-inline: 0;
 	}
 
 	[data-select-trigger][data-placeholder] {
@@ -95,7 +88,7 @@
 		margin-inline-start: auto;
 		padding: 0 var(--rb-space-2);
 		border: none;
-		background: transparent;
+		background-color: transparent;
 		box-shadow: none;
 		translate: none;
 	}
