@@ -11,8 +11,8 @@ import {
 	SCHEME_STORAGE_KEY,
 	PALETTE_STORAGE_KEYS
 } from './theme/constants.js';
-import { readThemeSettings } from './theme/settings.js';
-import { THEME_IDS, type ThemeId } from './types.js';
+import { readThemeSettings, type ThemeDefaults } from './theme/settings.js';
+import { THEME_IDS } from './types.js';
 
 export {
 	THEME_ATTRIBUTE,
@@ -22,7 +22,7 @@ export {
 	SCHEME_STORAGE_KEY,
 	PALETTE_STORAGE_KEYS
 };
-export { readThemeSettings, type ThemeSettings } from './theme/settings.js';
+export { readThemeSettings, type ThemeSettings, type ThemeDefaults } from './theme/settings.js';
 
 /**
  * Render the theme attributes for the server's HTML, so the first paint is
@@ -36,9 +36,9 @@ export { readThemeSettings, type ThemeSettings } from './theme/settings.js';
  */
 export function themeAttributes(
 	read: (key: string) => string | null | undefined,
-	fallbackTheme: ThemeId = 'mono'
+	defaults: ThemeDefaults = {}
 ): string {
-	const { theme, scheme, palettes } = readThemeSettings(read, fallbackTheme);
+	const { theme, scheme, palettes } = readThemeSettings(read, defaults);
 	let attrs = `${THEME_ATTRIBUTE}="${theme}"`;
 
 	// `auto` is left off, so the CSS falls back to `prefers-color-scheme`
@@ -56,9 +56,12 @@ export function themeAttributes(
  * Drop the result into a `<script>` tag in `app.html`.
  *
  * It only acts on a valid stored value, so it never overwrites what the server
- * stamped from the cookie. `fallbackTheme` applies only when nothing set a theme.
+ * stamped from the cookie. `defaults` apply only where nothing set a value.
  */
-export function noFlashScript(fallbackTheme: ThemeId = 'mono'): string {
+export function noFlashScript(defaults: ThemeDefaults = {}): string {
+	const fallbackTheme = defaults.theme ?? 'mono';
+	const fallbackScheme =
+		defaults.scheme === 'light' || defaults.scheme === 'dark' ? defaults.scheme : '';
 	const q = JSON.stringify;
 	// theme -> scheme -> palette ids, to validate stored palettes in the browser
 	const palettes = Object.fromEntries(
@@ -70,7 +73,7 @@ export function noFlashScript(fallbackTheme: ThemeId = 'mono'): string {
 			}
 		])
 	);
-	return `(function(){try{var e=document.documentElement,m=${q(palettes)},g=function(k){return localStorage.getItem(k)},t=g(${q(THEME_STORAGE_KEY)}),s=g(${q(SCHEME_STORAGE_KEY)}),a=${q(PALETTE_ATTRIBUTES)},k=${q(PALETTE_STORAGE_KEYS)};var h=function(x){return Object.prototype.hasOwnProperty.call(m,x)};if(h(t))e.setAttribute(${q(THEME_ATTRIBUTE)},t);else if(!e.hasAttribute(${q(THEME_ATTRIBUTE)}))e.setAttribute(${q(THEME_ATTRIBUTE)},${q(fallbackTheme)});t=e.getAttribute(${q(THEME_ATTRIBUTE)});if(s==="light"||s==="dark")e.setAttribute(${q(SCHEME_ATTRIBUTE)},s);else if(s==="auto")e.removeAttribute(${q(SCHEME_ATTRIBUTE)});["light","dark"].forEach(function(c){var p=g(k[c]);if(h(t)&&m[t][c].indexOf(p)>-1)e.setAttribute(a[c],p)})}catch(_){}})()`;
+	return `(function(){try{var e=document.documentElement,m=${q(palettes)},g=function(k){return localStorage.getItem(k)},t=g(${q(THEME_STORAGE_KEY)}),s=g(${q(SCHEME_STORAGE_KEY)}),a=${q(PALETTE_ATTRIBUTES)},k=${q(PALETTE_STORAGE_KEYS)};var h=function(x){return Object.prototype.hasOwnProperty.call(m,x)};if(h(t))e.setAttribute(${q(THEME_ATTRIBUTE)},t);else if(!e.hasAttribute(${q(THEME_ATTRIBUTE)}))e.setAttribute(${q(THEME_ATTRIBUTE)},${q(fallbackTheme)});t=e.getAttribute(${q(THEME_ATTRIBUTE)});if(s==="light"||s==="dark")e.setAttribute(${q(SCHEME_ATTRIBUTE)},s);else if(s==="auto")e.removeAttribute(${q(SCHEME_ATTRIBUTE)});else if(${q(fallbackScheme)}&&!e.hasAttribute(${q(SCHEME_ATTRIBUTE)}))e.setAttribute(${q(SCHEME_ATTRIBUTE)},${q(fallbackScheme)});["light","dark"].forEach(function(c){var p=g(k[c]);if(h(t)&&m[t][c].indexOf(p)>-1)e.setAttribute(a[c],p)})}catch(_){}})()`;
 }
 
 // Re-exported so a server hook can validate a cookie against the real registry

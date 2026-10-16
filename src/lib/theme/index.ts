@@ -8,5 +8,5 @@ export {
 	SCHEME_STORAGE_KEY,
 	PALETTE_STORAGE_KEYS
 } from './constants.js';
-export { readThemeSettings, type ThemeSettings } from './settings.js';
+export { readThemeSettings, type ThemeSettings, type ThemeDefaults } from './settings.js';
 export type { ThemeStateOptions } from './theme.svelte.js';

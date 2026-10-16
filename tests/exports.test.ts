@@ -93,6 +93,13 @@ describe('retro-bits/ssr', () => {
 		);
 	});
 
+	it('uses the default scheme only when none is stored', () => {
+		expect(ssr.readThemeSettings(cookies({}), { scheme: 'light' }).scheme).toBe('light');
+		expect(
+			ssr.readThemeSettings(cookies({ 'rb-scheme': 'dark' }), { scheme: 'light' }).scheme
+		).toBe('dark');
+	});
+
 	it('only takes a palette in the slot of its own scheme', () => {
 		const settings = ssr.readThemeSettings(
 			cookies({ 'rb-palette-light': 'nord-dark', 'rb-palette-dark': 'nord-dark' })
@@ -101,7 +108,11 @@ describe('retro-bits/ssr', () => {
 	});
 
 	it('noFlashScript only acts on valid stored values', () => {
-		const run = (stored: Record<string, string>, attrs: Record<string, string> = {}) => {
+		const run = (
+			stored: Record<string, string>,
+			attrs: Record<string, string> = {},
+			defaults: ssr.ThemeDefaults = {}
+		) => {
 			const html = {
 				attrs: { ...attrs },
 				setAttribute(k: string, v: string) {
@@ -118,7 +129,7 @@ describe('retro-bits/ssr', () => {
 				}
 			};
 			const storage = { getItem: (k: string) => stored[k] ?? null };
-			new Function('document', 'localStorage', ssr.noFlashScript())(
+			new Function('document', 'localStorage', ssr.noFlashScript(defaults))(
 				{ documentElement: html },
 				storage
 			);
@@ -135,6 +146,13 @@ describe('retro-bits/ssr', () => {
 		});
 		// Nothing stamped and nothing stored: the fallback theme.
 		expect(run({})).toEqual({ 'data-rb-theme': 'mono' });
+		// A default scheme fills the gap instead of following the OS, but never wins
+		// over a stored or stamped one.
+		expect(run({}, {}, { scheme: 'light' })).toEqual({
+			'data-rb-theme': 'mono',
+			'data-rb-scheme': 'light'
+		});
+		expect(run({}, stamped, { scheme: 'light' })).toEqual(stamped);
 		// Palettes only land in the slot of their own scheme.
 		expect(
 			run({ 'rb-palette-light': 'rose-light', 'rb-palette-dark': 'rose-light' }, stamped)

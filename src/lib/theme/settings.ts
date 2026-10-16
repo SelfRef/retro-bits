@@ -13,6 +13,14 @@ export interface ThemeSettings {
 	palettes: Partial<Record<ColorScheme, string>>;
 }
 
+/** What to use when nothing valid is stored. */
+export interface ThemeDefaults {
+	/** Defaults to `mono`. */
+	theme?: ThemeId;
+	/** Defaults to `auto`, which follows the OS. Pass `light` or `dark` to skip that. */
+	scheme?: SchemePreference;
+}
+
 export function isSchemePreference(value: unknown): value is SchemePreference {
 	return value === 'auto' || value === 'light' || value === 'dark';
 }
@@ -28,15 +36,15 @@ export function isSchemePreference(value: unknown): value is SchemePreference {
  */
 export function readThemeSettings(
 	read: (key: string) => string | null | undefined,
-	fallbackTheme: ThemeId = 'mono'
+	defaults: ThemeDefaults = {}
 ): ThemeSettings {
 	const stored = read(THEME_STORAGE_KEY);
-	const theme = isThemeId(stored) ? stored : fallbackTheme;
+	const theme = isThemeId(stored) ? stored : (defaults.theme ?? 'mono');
 	const scheme = read(SCHEME_STORAGE_KEY);
 
 	return {
 		theme,
-		scheme: isSchemePreference(scheme) ? scheme : 'auto',
+		scheme: isSchemePreference(scheme) ? scheme : (defaults.scheme ?? 'auto'),
 		palettes: {
 			light: resolvePalette(theme, 'light', read(PALETTE_STORAGE_KEYS.light))?.id,
 			dark: resolvePalette(theme, 'dark', read(PALETTE_STORAGE_KEYS.dark))?.id

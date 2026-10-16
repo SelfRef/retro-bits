@@ -1,5 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import { noFlashScript, themeAttributes } from 'retro-bits/ssr';
+import { defaults } from '$playground/defaults.js';
 
 /**
  * Stamps the theme onto the server-rendered HTML so the first paint is already
@@ -12,7 +13,7 @@ export const handle: Handle = ({ event, resolve }) =>
 			html
 				.replace(
 					'%rb.theme%',
-					themeAttributes((key) => event.cookies.get(key))
+					themeAttributes((key) => event.cookies.get(key), defaults)
 				)
-				.replace('%rb.noflash%', noFlashScript())
+				.replace('%rb.noflash%', noFlashScript(defaults))
 	});

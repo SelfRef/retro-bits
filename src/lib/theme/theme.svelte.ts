@@ -151,9 +151,10 @@ export class ThemeState {
 
 	/**
 	 * Pick a palette. It replaces the current palette of its own scheme only,
-	 * so the other scheme keeps whatever it had.
+	 * so the other scheme keeps whatever it had. Returns the palette, so a
+	 * single theme menu can follow up with `setScheme(palette.scheme)`.
 	 */
-	setPalette(id: string): void {
+	setPalette(id: string): PaletteMeta {
 		const palettes: readonly PaletteMeta[] = THEMES[this.#theme].palettes;
 		const palette = palettes.find((entry) => entry.id === id);
 		if (!palette) throw new Error(`retro-bits: theme "${this.#theme}" has no palette "${id}"`);
@@ -162,6 +163,7 @@ export class ThemeState {
 		if (this.#persist) {
 			writeStored(PALETTE_STORAGE_KEYS[palette.scheme], id, this.#cookieMaxAge);
 		}
+		return palette;
 	}
 
 	setScheme(scheme: SchemePreference): void {
