@@ -18,42 +18,62 @@ pnpm add retro-bits bits-ui
 
 ## Use
 
+The whole setup is one import and one attribute. No component, no JavaScript:
+
 ```svelte
+<!-- src/routes/+layout.svelte -->
 <script>
 	import 'retro-bits/css/index.css';
-	import { ThemeProvider } from 'retro-bits';
-	import { Button, Dialog } from 'bits-ui';
 </script>
-
-<ThemeProvider theme="mono">
-	<Button.Root>Themed, with no wrapper</Button.Root>
-</ThemeProvider>
 ```
 
-`ThemeProvider` writes `data-rb-theme` to `<html>`. That matters: Bits UI portals dialogs, popovers
-and menus to `document.body`, so anything less than the document element would leave portalled
-content unthemed.
+```html
+<!-- src/app.html -->
+<html lang="en" data-rb-theme="mono"></html>
+```
 
-Switching at runtime:
+Every Bits UI component on the page is now themed, with no wrapper:
+
+```svelte
+<Button.Root>Save</Button.Root>
+```
+
+Put the attribute on `<html>`, not a wrapper: Bits UI portals dialogs, popovers and menus to
+`document.body`, so anything less than the document element leaves portalled content unthemed. Light
+and dark follow `prefers-color-scheme` until you say otherwise.
+
+### Switching at runtime
+
+For a theme, scheme or palette picker, wrap the app in `ThemeProvider`. It writes the attributes to
+`<html>` and remembers the choice in `localStorage` and a cookie:
 
 ```svelte
 <script>
-	import { useTheme, themeList } from 'retro-bits';
+	import { ThemeProvider } from 'retro-bits';
+	let { children } = $props();
+</script>
+
+<ThemeProvider>{@render children()}</ThemeProvider>
+```
+
+```svelte
+<script>
+	import { useTheme, palettesFor } from 'retro-bits';
 
 	// Needs a <ThemeProvider> above it, and throws without one.
 	const theme = useTheme();
 </script>
 
-<select value={theme.current} onchange={(e) => theme.set(e.currentTarget.value)}>
-	{#each themeList as entry (entry.id)}
-		<option value={entry.id}>{entry.label}</option>
+<select value={theme.palettes.dark?.id} onchange={(e) => theme.setPalette(e.currentTarget.value)}>
+	{#each palettesFor(theme.current, 'dark') as palette (palette.id)}
+		<option value={palette.id}>{palette.label}</option>
 	{/each}
 </select>
 
-<button onclick={() => theme.toggleScheme()} disabled={!theme.canToggleScheme}>
-	{theme.resolvedScheme}
-</button>
+<button onclick={() => theme.toggleScheme()}>{theme.resolvedScheme}</button>
 ```
+
+`theme.set(id)` switches theme, `setScheme('light' | 'dark' | 'auto')` the scheme.
 
 ## Themes
 
@@ -67,6 +87,29 @@ Switching at runtime:
 and a pressed button moves instead of darkening. It asks for
 [JetBrains Mono](https://www.jetbrains.com/lp/mono/) but does not bundle it - load it yourself, or it
 falls back to the platform's monospace face.
+
+### Palettes
+
+A palette is a colour variant of a theme, and each one is either light or dark. An app picks one of
+each independently - sepia by day, nord at night - and the scheme decides which is on screen:
+
+```html
+<html
+	data-rb-theme="mono"
+	data-rb-palette-light="sepia-light"
+	data-rb-palette-dark="nord-dark"
+></html>
+```
+
+Without the attributes you get the theme's defaults (`mono-light`, `mono-dark`). Both palettes are
+applied at once and `light-dark()` picks between them, so following the OS still needs no JavaScript.
+`palettesFor(theme, scheme)` lists them for a picker.
+
+Mono's palettes besides its own are the flavours of Cameron Brooks'
+[monospace-web-theme](https://github.com/CameronBrooks11/monospace-web-theme) (MIT, Copyright (c)
+2025 Cameron Brooks): rose, ocean, forest, desert, sepia, twilight, glacier, clay, sandstone, coral,
+mint, mauve, slate, honey, rust, dracula, solarized, monokai, gruvbox, nord, one-dark and palenight
+in both schemes, and midnight and terminal in dark only. Ids are `<name>-<scheme>`.
 
 ## How theming works
 
@@ -102,11 +145,24 @@ token files resolve - so a dual-scheme theme is written once rather than twice.
 Each theme declares in the registry which schemes it implements, and `ThemeState` clamps to that.
 Asking a light-only theme for dark gives you light, not a half-styled page.
 
+A theme with palettes builds its colours from a few private inputs per scheme (Mono's are
+`--mono-light-bg`, `--mono-dark-text` and so on). A palette is a block that overrides one scheme's
+inputs under `[data-rb-palette-light]` or `[data-rb-palette-dark]`; the registry lists them, and the
+token test checks the two agree.
+
 ### Override anything
 
-Everything retro-bits emits is inside `@layer rb.reset, rb.tokens, rb.base, rb.components,
-rb.overrides`, and selectors are wrapped in `:where()`. Unlayered CSS - which is what you write by
-default - beats all of it, so you should never need `!important`.
+Everything retro-bits emits is inside one cascade layer, `rb` (with `rb.reset`, `rb.tokens`,
+`rb.base`, `rb.components` and `rb.overrides` inside it), and selectors are wrapped in `:where()`.
+Unlayered CSS - which is what you write by default - beats all of it, so you should never need
+`!important`. Bits UI's `class` prop works as usual.
+
+With Tailwind v4, whose output is layered too, declare the order once so utilities still win:
+
+```css
+@layer rb, theme, base, components, utilities;
+@import 'tailwindcss';
+```
 
 ## Entry points
 
@@ -148,18 +204,27 @@ render them without children:
 <Checkbox.Root bind:checked />
 ```
 
+### Your own markup
+
+Three hooks give hand-written elements the same look as the Bits UI parts around them:
+
+```svelte
+<div data-rb-box>A panel</div>
+<div data-rb-box="sunken">A well</div>
+<a href="/docs" data-rb-button data-rb-variant="primary">Docs</a>
+<input data-rb-field />
+```
+
+Anything else can read the tokens directly: `border: var(--rb-border-width) solid
+var(--rb-border-color)` matches the theme in every palette.
+
 ## No flash on first paint
 
 `retro-bits/ssr` has no Svelte import, so it is safe in a server hook:
 
 ```ts
 // src/hooks.server.ts
-import {
-	THEME_STORAGE_KEY,
-	SCHEME_STORAGE_KEY,
-	themeAttributes,
-	noFlashScript
-} from 'retro-bits/ssr';
+import { themeAttributes, noFlashScript } from 'retro-bits/ssr';
 
 export const handle = ({ event, resolve }) =>
 	resolve(event, {
@@ -167,17 +232,15 @@ export const handle = ({ event, resolve }) =>
 			html
 				.replace(
 					'%rb.theme%',
-					themeAttributes(
-						event.cookies.get(THEME_STORAGE_KEY),
-						event.cookies.get(SCHEME_STORAGE_KEY)
-					)
+					themeAttributes((key) => event.cookies.get(key))
 				)
 				.replace('%rb.noflash%', noFlashScript())
 	});
 ```
 
-with `<html lang="en" %rb.theme%>` and `<script>%rb.noflash%</script>` in `app.html`. Unknown cookie
-values fall back rather than throwing.
+with `<html lang="en" %rb.theme%>` and `<script>%rb.noflash%</script>` in `app.html`. The theme,
+scheme and both palettes come back from the cookies `ThemeProvider` writes; unknown values fall back
+rather than throwing.
 
 The script only applies a valid value from `localStorage`, so it never undoes what the server
 stamped from the cookie. To make server-rendered text that reads the theme agree too (a switcher,
@@ -185,14 +248,13 @@ say), hand the cookie to the provider from a layout `load`:
 
 ```ts
 // src/routes/+layout.server.ts
-export const load = ({ cookies }) => {
-	const theme = cookies.get(THEME_STORAGE_KEY);
-	return { theme: isThemeId(theme) ? theme : undefined };
-};
+import { readThemeSettings } from 'retro-bits/ssr';
+
+export const load = ({ cookies }) => readThemeSettings((key) => cookies.get(key));
 ```
 
 ```svelte
-<ThemeProvider theme={data.theme}>
+<ThemeProvider {...data}>
 ```
 
 ## Development
@@ -211,8 +273,9 @@ pnpm check:tokens   # just the contract
 pnpm run prepack    # build dist/ and run publint
 ```
 
-Playground routes worth knowing: `/gallery` (every Bits UI component; unstyled ones are badged), `/tokens` (the contract
-resolved live), `/nested` (scoped providers side by side).
+Playground routes worth knowing: `/gallery` (every Bits UI component, unstyled ones badged, plus
+the plain-HTML hooks), `/tokens` (the contract resolved live), `/nested` (scoped providers side by
+side).
 
 ## Licence
 

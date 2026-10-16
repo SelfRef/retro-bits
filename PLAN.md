@@ -2,6 +2,13 @@
 
 What is not built yet. The README describes only what exists today.
 
+## Next: get it into other projects
+
+The package builds (`pnpm run prepack`) but is not published, and `dist/` is not committed, so a git
+dependency would install nothing usable. Publish it - to npm, or GitHub Packages if it should stay
+private - and version it with semver, since every consuming app pins it. Token renames and
+`data-rb-*` hook changes are the breaking ones.
+
 ## Stage 2: finish the Mono theme
 
 Mono has to style every Bits UI component before the retro themes start, so each of them has a
@@ -30,7 +37,8 @@ tick, a DOS `[X]`) will need a hook for it, likely a `--rb-check-glyph` token re
 Adding one: put the id in `THEME_IDS` (`src/lib/types.ts`), describe it in `themes/registry.ts`,
 copy `css/themes/_contract.css` to `css/themes/<id>.css` and fill in every value, then add it to
 `themes/loader.ts` and `css/index.css`. `tests/tokens.test.ts` checks the file against the contract
-and the registry.
+and the registry. Every theme lists at least one palette per scheme it supports - the first is its own values - and
+more are optional.
 
 | Name          | System / style                     | Named after                                  | Notes                                    |
 | ------------- | ---------------------------------- | -------------------------------------------- | ---------------------------------------- |
@@ -57,6 +65,12 @@ Tokens in the contract but not read by any component CSS yet: the bevel ramp
 (`--rb-bevel-light`, `-lighter`, `-shadow`, `-darker`), `--rb-unit`, `--rb-cell-w`, `--rb-cell-h`,
 `--rb-surface-disabled`, `--rb-accent-active`, `--rb-duration-fast`, `--rb-duration-slow`. Wire them
 up or drop them as the themes land.
+
+## Later: plain HTML
+
+`data-rb-box`, `data-rb-button` and `data-rb-field` cover hand-written controls. Prose (headings,
+tables, lists, `hr`) is still the app's job; The Monospace Web styles all of it, so Mono could offer
+an opt-in `css/prose.css` scoped under something like `[data-rb-prose]`.
 
 ## Later: window chrome
 
