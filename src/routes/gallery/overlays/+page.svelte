@@ -53,6 +53,7 @@
 				<Popover.Content sideOffset={8}>
 					<p>Popovers, menus and tooltips share one surface rule.</p>
 					<Popover.Close>Dismiss</Popover.Close>
+					<Popover.Arrow />
 				</Popover.Content>
 			</Popover.Portal>
 		</Popover.Root>
@@ -63,7 +64,10 @@
 			<Tooltip.Root>
 				<Tooltip.Trigger>Hover me</Tooltip.Trigger>
 				<Tooltip.Portal>
-					<Tooltip.Content sideOffset={8}>Inverted surface, small type.</Tooltip.Content>
+					<Tooltip.Content sideOffset={8}>
+						Inverted surface, small type.
+						<Tooltip.Arrow />
+					</Tooltip.Content>
 				</Tooltip.Portal>
 			</Tooltip.Root>
 		</Tooltip.Provider>

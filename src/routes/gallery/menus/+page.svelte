@@ -5,6 +5,9 @@
 
 	let scanlines = $state(true);
 	let density = $state('comfortable');
+	let grid = $state(false);
+	let wrap = $state(true);
+	let view = $state('list');
 </script>
 
 <h1>Menus</h1>
@@ -50,24 +53,31 @@
 				<ContextMenu.Content>
 					<ContextMenu.Item>Cut</ContextMenu.Item>
 					<ContextMenu.Item>Copy</ContextMenu.Item>
+					<ContextMenu.Item disabled>Paste</ContextMenu.Item>
 					<ContextMenu.Separator />
-					<ContextMenu.Item>Paste</ContextMenu.Item>
+					<ContextMenu.CheckboxItem bind:checked={grid}>Show grid</ContextMenu.CheckboxItem>
+					<ContextMenu.Sub>
+						<ContextMenu.SubTrigger>Arrange<span aria-hidden="true">▸</span></ContextMenu.SubTrigger
+						>
+						<ContextMenu.SubContent>
+							<ContextMenu.Item>Bring forward</ContextMenu.Item>
+							<ContextMenu.Item>Send back</ContextMenu.Item>
+						</ContextMenu.SubContent>
+					</ContextMenu.Sub>
 				</ContextMenu.Content>
 			</ContextMenu.Portal>
 		</ContextMenu.Root>
 	</Demo>
 
-	<Demo
-		title="Menubar"
-		unstyled
-		note="A menu bar is era-defining chrome - it gets a real pass per theme."
-	>
+	<Demo title="Menubar" note="Triggers invert while their menu is open; arrow keys move along.">
 		<Menubar.Root>
 			<Menubar.Menu>
 				<Menubar.Trigger>File</Menubar.Trigger>
 				<Menubar.Portal>
-					<Menubar.Content>
+					<Menubar.Content sideOffset={4}>
 						<Menubar.Item>New</Menubar.Item>
+						<Menubar.Item>Open</Menubar.Item>
+						<Menubar.Separator />
 						<Menubar.Item>Quit</Menubar.Item>
 					</Menubar.Content>
 				</Menubar.Portal>
@@ -75,24 +85,70 @@
 			<Menubar.Menu>
 				<Menubar.Trigger>Edit</Menubar.Trigger>
 				<Menubar.Portal>
-					<Menubar.Content>
+					<Menubar.Content sideOffset={4}>
 						<Menubar.Item>Undo</Menubar.Item>
+						<Menubar.Item disabled>Redo</Menubar.Item>
+						<Menubar.Separator />
+						<Menubar.CheckboxItem bind:checked={wrap}>Word wrap</Menubar.CheckboxItem>
+					</Menubar.Content>
+				</Menubar.Portal>
+			</Menubar.Menu>
+			<Menubar.Menu>
+				<Menubar.Trigger>View</Menubar.Trigger>
+				<Menubar.Portal>
+					<Menubar.Content sideOffset={4}>
+						<Menubar.RadioGroup bind:value={view}>
+							<Menubar.GroupHeading>Layout</Menubar.GroupHeading>
+							<Menubar.RadioItem value="list">List</Menubar.RadioItem>
+							<Menubar.RadioItem value="grid">Grid</Menubar.RadioItem>
+						</Menubar.RadioGroup>
+						<Menubar.Separator />
+						<Menubar.Sub>
+							<Menubar.SubTrigger>Zoom<span aria-hidden="true">▸</span></Menubar.SubTrigger>
+							<Menubar.SubContent>
+								<Menubar.Item>In</Menubar.Item>
+								<Menubar.Item>Out</Menubar.Item>
+							</Menubar.SubContent>
+						</Menubar.Sub>
 					</Menubar.Content>
 				</Menubar.Portal>
 			</Menubar.Menu>
 		</Menubar.Root>
 	</Demo>
 
-	<Demo title="Navigation menu" unstyled>
+	<Demo
+		title="Navigation menu"
+		note="Content opens into one shared viewport, sized by Bits UI from Content's single child."
+	>
 		<NavigationMenu.Root>
 			<NavigationMenu.List>
 				<NavigationMenu.Item>
-					<NavigationMenu.Trigger>Themes</NavigationMenu.Trigger>
+					<NavigationMenu.Trigger>Playground</NavigationMenu.Trigger>
 					<NavigationMenu.Content>
-						<NavigationMenu.Link href="/gallery">Gallery</NavigationMenu.Link>
-						<NavigationMenu.Link href="/tokens">Tokens</NavigationMenu.Link>
+						<ul>
+							<li><NavigationMenu.Link href="/gallery">Gallery</NavigationMenu.Link></li>
+							<li><NavigationMenu.Link href="/tokens">Tokens</NavigationMenu.Link></li>
+							<li><NavigationMenu.Link href="/nested">Nested themes</NavigationMenu.Link></li>
+						</ul>
 					</NavigationMenu.Content>
 				</NavigationMenu.Item>
+				<NavigationMenu.Item>
+					<NavigationMenu.Trigger>Links</NavigationMenu.Trigger>
+					<NavigationMenu.Content>
+						<ul>
+							<li><NavigationMenu.Link href="https://bits-ui.com">Bits UI</NavigationMenu.Link></li>
+							<li>
+								<NavigationMenu.Link href="https://owickstrom.github.io/the-monospace-web/">
+									The Monospace Web
+								</NavigationMenu.Link>
+							</li>
+						</ul>
+					</NavigationMenu.Content>
+				</NavigationMenu.Item>
+				<NavigationMenu.Item>
+					<NavigationMenu.Link href="/">Overview</NavigationMenu.Link>
+				</NavigationMenu.Item>
+				<NavigationMenu.Indicator />
 			</NavigationMenu.List>
 			<NavigationMenu.Viewport />
 		</NavigationMenu.Root>

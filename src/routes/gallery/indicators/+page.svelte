@@ -4,7 +4,8 @@
 	import DemoGrid from '$playground/DemoGrid.svelte';
 
 	let loaded = $state(62);
-	let volume = $state([40]);
+	let volume = $state([20, 70]);
+	let level = $state(50);
 	let page = $state(1);
 </script>
 
@@ -33,6 +34,21 @@
 				<Slider.Range />
 				{#each thumbItems as thumb (thumb.index)}
 					<Slider.Thumb index={thumb.index} />
+				{/each}
+			{/snippet}
+		</Slider.Root>
+	</Demo>
+
+	<Demo title="Slider with ticks" note="One tick per step, with labels.">
+		<Slider.Root type="single" bind:value={level} max={100} step={25} style="width: 100%">
+			{#snippet children({ thumbItems, tickItems })}
+				<Slider.Range />
+				{#each thumbItems as thumb (thumb.index)}
+					<Slider.Thumb index={thumb.index} />
+				{/each}
+				{#each tickItems as tick (tick.index)}
+					<Slider.Tick index={tick.index} />
+					<Slider.TickLabel index={tick.index}>{tick.value}</Slider.TickLabel>
 				{/each}
 			{/snippet}
 		</Slider.Root>

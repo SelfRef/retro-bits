@@ -92,6 +92,55 @@
 		font-size: var(--rb-font-size-sm);
 	}
 
+	/* ---- arrows ------------------------------------------------------------ */
+	/* Every Bits UI arrow is an svg filled with currentColor. */
+	:where([data-rb-theme]) [data-arrow] {
+		display: block;
+		color: var(--rb-border-color);
+	}
+
+	:where([data-rb-theme]) [data-tooltip-content] [data-arrow] {
+		color: var(--rb-text);
+	}
+
+	/* ---- select and combobox lists ------------------------------------------ */
+	:where([data-rb-theme])
+		:is(
+			[data-select-scroll-up-button],
+			[data-select-scroll-down-button],
+			[data-combobox-scroll-up-button],
+			[data-combobox-scroll-down-button]
+		) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: var(--rb-space-3);
+		color: var(--rb-text-muted);
+		cursor: default;
+	}
+
+	/* ---- command ------------------------------------------------------------ */
+	/* An inline palette: the input becomes the top rule of the box. */
+	:where([data-rb-theme]) [data-command-root] {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	:where([data-rb-theme]) [data-command-root] [data-command-input] {
+		width: 100%;
+		border-width: 0 0 var(--rb-border-width);
+		border-radius: 0;
+		background: transparent;
+		box-shadow: none;
+	}
+
+	:where([data-rb-theme]) [data-command-list] {
+		max-height: calc(var(--rb-menu-item-height) * 7);
+		padding: var(--rb-space-2);
+		overflow-y: auto;
+	}
+
 	/* ---- scroll area ------------------------------------------------------ */
 	:where([data-rb-theme]) [data-scroll-area-scrollbar] {
 		display: flex;

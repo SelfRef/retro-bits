@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Combobox, Command, PinInput, Select } from 'bits-ui';
+	import { Combobox, Command, PinInput, Select, Separator } from 'bits-ui';
 	import Demo from '$playground/Demo.svelte';
 	import DemoGrid from '$playground/DemoGrid.svelte';
 
@@ -43,14 +43,25 @@
 				{themes.find((t) => t.value === selected)?.label ?? 'Pick a theme'}
 			</Select.Trigger>
 			<Select.Portal>
-				<Select.Content>
+				<Select.Content sideOffset={4}>
+					<Select.ScrollUpButton>▴</Select.ScrollUpButton>
 					<Select.Viewport>
-						{#each themes as theme (theme.value)}
-							<Select.Item value={theme.value} label={theme.label}>
-								{theme.label}
-							</Select.Item>
-						{/each}
+						<Select.Group>
+							<Select.GroupHeading>Light</Select.GroupHeading>
+							{#each themes.slice(0, 3) as theme (theme.value)}
+								<Select.Item value={theme.value} label={theme.label}>{theme.label}</Select.Item>
+							{/each}
+						</Select.Group>
+						<Separator.Root />
+						<Select.Group>
+							<Select.GroupHeading>Dark</Select.GroupHeading>
+							{#each themes.slice(3) as theme (theme.value)}
+								<Select.Item value={theme.value} label={theme.label}>{theme.label}</Select.Item>
+							{/each}
+							<Select.Item value="monolith" label="Monolith" disabled>Monolith</Select.Item>
+						</Select.Group>
 					</Select.Viewport>
+					<Select.ScrollDownButton>▾</Select.ScrollDownButton>
 				</Select.Content>
 			</Select.Portal>
 		</Select.Root>
@@ -64,20 +75,22 @@
 			/>
 			<Combobox.Trigger aria-label="Open">▾</Combobox.Trigger>
 			<Combobox.Portal>
-				<Combobox.Content>
-					{#each matches as theme (theme.value)}
-						<Combobox.Item value={theme.value} label={theme.label}>
-							{theme.label}
-						</Combobox.Item>
-					{:else}
-						<div>No matches</div>
-					{/each}
+				<Combobox.Content sideOffset={4}>
+					<Combobox.Viewport>
+						{#each matches as theme (theme.value)}
+							<Combobox.Item value={theme.value} label={theme.label}>
+								{theme.label}
+							</Combobox.Item>
+						{:else}
+							<span class="empty">No matches</span>
+						{/each}
+					</Combobox.Viewport>
 				</Combobox.Content>
 			</Combobox.Portal>
 		</Combobox.Root>
 	</Demo>
 
-	<Demo title="Command" unstyled note="Compound enough to deserve its own pass in stage 2.">
+	<Demo title="Command" note="Highlighted rows are data-selected here; the input is the top rule.">
 		<Command.Root>
 			<Command.Input placeholder="Search themes" />
 			<Command.List>
@@ -90,7 +103,23 @@
 						{/each}
 					</Command.GroupItems>
 				</Command.Group>
+				<Command.Separator />
+				<Command.Group>
+					<Command.GroupHeading>Actions</Command.GroupHeading>
+					<Command.GroupItems>
+						<Command.Item value="toggle-scheme">Toggle scheme</Command.Item>
+						<Command.Item value="reset" disabled>Reset</Command.Item>
+					</Command.GroupItems>
+				</Command.Group>
 			</Command.List>
 		</Command.Root>
 	</Demo>
 </DemoGrid>
+
+<style>
+	.empty {
+		display: block;
+		padding: var(--rb-space-2) var(--rb-space-3);
+		color: var(--rb-text-muted);
+	}
+</style>

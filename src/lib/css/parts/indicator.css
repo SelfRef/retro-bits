@@ -76,6 +76,11 @@
 		background: var(--rb-border-color);
 	}
 
+	/* Tick labels sit above the track; make room so they do not crowd what is above. */
+	:where([data-rb-theme]) [data-slider-root]:has([data-slider-tick-label]) {
+		margin-top: var(--rb-space-3);
+	}
+
 	:where([data-rb-theme]) [data-slider-tick-label],
 	:where([data-rb-theme]) [data-slider-thumb-label] {
 		color: var(--rb-text-muted);

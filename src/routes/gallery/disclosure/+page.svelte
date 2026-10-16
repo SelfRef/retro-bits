@@ -19,7 +19,7 @@
 	>
 		<Accordion.Root type="single" style="width: 100%">
 			{#each entries as entry (entry.id)}
-				<Accordion.Item value={entry.id}>
+				<Accordion.Item value={entry.id} disabled={entry.id === 'cube'}>
 					<Accordion.Header>
 						<Accordion.Trigger>{entry.label}<span aria-hidden="true">▾</span></Accordion.Trigger>
 					</Accordion.Header>
@@ -40,7 +40,7 @@
 		<Tabs.Root value="chicago" style="width: 100%">
 			<Tabs.List>
 				{#each entries as entry (entry.id)}
-					<Tabs.Trigger value={entry.id}>{entry.label}</Tabs.Trigger>
+					<Tabs.Trigger value={entry.id} disabled={entry.id === 'cube'}>{entry.label}</Tabs.Trigger>
 				{/each}
 			</Tabs.List>
 			{#each entries as entry (entry.id)}

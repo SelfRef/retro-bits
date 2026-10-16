@@ -25,6 +25,7 @@
 		text-shadow: var(--rb-glow);
 		-webkit-font-smoothing: var(--rb-font-smoothing);
 		accent-color: var(--rb-accent); /* native checkboxes, radios, ranges */
+		scrollbar-color: var(--rb-text-muted) var(--rb-surface);
 	}
 
 	/*

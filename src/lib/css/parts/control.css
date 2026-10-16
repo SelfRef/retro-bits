@@ -15,7 +15,13 @@
 			[data-alert-dialog-trigger],
 			[data-popover-trigger],
 			[data-dropdown-menu-trigger],
-			[data-tooltip-trigger]
+			[data-tooltip-trigger],
+			[data-popover-close],
+			[data-alert-dialog-close],
+			[data-calendar-prev-button],
+			[data-calendar-next-button],
+			[data-range-calendar-prev-button],
+			[data-range-calendar-next-button]
 		),
 	:where([data-rb-theme]) [data-toolbar-button],
 	:where([data-rb-theme]) [data-pagination-page],
@@ -74,7 +80,13 @@
 			[data-alert-dialog-trigger],
 			[data-popover-trigger],
 			[data-dropdown-menu-trigger],
-			[data-tooltip-trigger]
+			[data-tooltip-trigger],
+			[data-popover-close],
+			[data-alert-dialog-close],
+			[data-calendar-prev-button],
+			[data-calendar-next-button],
+			[data-range-calendar-prev-button],
+			[data-range-calendar-next-button]
 		):hover,
 	:where([data-rb-theme]) [data-toolbar-button]:hover,
 	:where([data-rb-theme]) [data-pagination-page]:hover,
@@ -98,7 +110,13 @@
 			[data-alert-dialog-trigger],
 			[data-popover-trigger],
 			[data-dropdown-menu-trigger],
-			[data-tooltip-trigger]
+			[data-tooltip-trigger],
+			[data-popover-close],
+			[data-alert-dialog-close],
+			[data-calendar-prev-button],
+			[data-calendar-next-button],
+			[data-range-calendar-prev-button],
+			[data-range-calendar-next-button]
 		):active,
 	:where([data-rb-theme]) [data-toolbar-button]:active,
 	:where([data-rb-theme]) [data-pagination-page]:active,

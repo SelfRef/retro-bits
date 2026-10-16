@@ -34,6 +34,12 @@ const SHARED = [
 	'data-placeholder',
 	'data-active',
 	'data-segment',
+	'data-arrow',
+	'data-today',
+	'data-outside-month',
+	'data-unavailable',
+	'data-selection-start',
+	'data-selection-end',
 	'data-starting-style',
 	'data-ending-style'
 ];

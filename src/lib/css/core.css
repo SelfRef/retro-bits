@@ -17,5 +17,7 @@
 @import './parts/popup.css';
 @import './parts/menu.css';
 @import './parts/disclosure.css';
+@import './parts/calendar.css';
+@import './parts/navigation.css';
 @import './parts/indicator.css';
 @import './parts/box.css';

@@ -21,6 +21,7 @@
 	let choice = $state('chicago');
 	let rating = $state(3);
 	let toolbarFormats = $state<string[]>([]);
+	let features = $state<string[]>(['grid']);
 </script>
 
 <h1>Controls</h1>
@@ -42,12 +43,32 @@
 			Accept
 		</Label.Root>
 		<Button.Root onclick={() => (indeterminate = !indeterminate)}>Toggle mixed</Button.Root>
+		<Label.Root>
+			<Checkbox.Root disabled />
+			Disabled
+		</Label.Root>
+	</Demo>
+
+	<Demo title="Checkbox group">
+		<Checkbox.Group bind:value={features} name="features">
+			<Checkbox.GroupLabel>Features</Checkbox.GroupLabel>
+			{#each ['grid', 'scanlines', 'sound'] as id (id)}
+				<Label.Root>
+					<Checkbox.Root value={id} disabled={id === 'sound'} />
+					{id}
+				</Label.Root>
+			{/each}
+		</Checkbox.Group>
 	</Demo>
 
 	<Demo title="Switch">
 		<Label.Root>
 			<Switch.Root bind:checked={on}><Switch.Thumb /></Switch.Root>
 			Scanlines
+		</Label.Root>
+		<Label.Root>
+			<Switch.Root checked disabled><Switch.Thumb /></Switch.Root>
+			Locked
 		</Label.Root>
 	</Demo>
 
@@ -57,6 +78,7 @@
 			<ToggleGroup.Item value="bold" aria-label="Bold">B</ToggleGroup.Item>
 			<ToggleGroup.Item value="italic" aria-label="Italic">I</ToggleGroup.Item>
 			<ToggleGroup.Item value="underline" aria-label="Underline">U</ToggleGroup.Item>
+			<ToggleGroup.Item value="strike" aria-label="Strikethrough" disabled>S</ToggleGroup.Item>
 		</ToggleGroup.Root>
 	</Demo>
 
@@ -64,7 +86,7 @@
 		<RadioGroup.Root bind:value={choice}>
 			{#each ['chicago', 'platinum', 'cube'] as id (id)}
 				<Label.Root>
-					<RadioGroup.Item value={id} />
+					<RadioGroup.Item value={id} disabled={id === 'cube'} />
 					{id}
 				</Label.Root>
 			{/each}

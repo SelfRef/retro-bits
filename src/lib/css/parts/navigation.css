@@ -1,0 +1,118 @@
+/*
+ * Bars of top-level entries: Menubar and NavigationMenu. Their dropdowns reuse
+ * the floating surface and menu rows from popup.css and menu.css.
+ */
+@layer rb.components {
+	:where([data-rb-theme]) [data-menubar-root],
+	:where([data-rb-theme]) [data-navigation-menu-list] {
+		display: flex;
+		align-items: center;
+		gap: var(--rb-space-1);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	:where([data-rb-theme]) [data-menubar-root] {
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface);
+	}
+
+	/* A top-level entry: a flat button that inverts while its menu is open. */
+	:where([data-rb-theme]) [data-menubar-trigger],
+	:where([data-rb-theme]) [data-navigation-menu-trigger],
+	:where([data-rb-theme]) [data-navigation-menu-list] > * > [data-navigation-menu-link] {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--rb-space-2);
+		min-height: var(--rb-control-height);
+		padding: 0 var(--rb-control-padding-x);
+		border: none;
+		border-radius: var(--rb-radius);
+		background: transparent;
+		color: var(--rb-text);
+		font-family: inherit;
+		font-size: var(--rb-font-size);
+		font-weight: var(--rb-font-weight);
+		text-decoration: none;
+		cursor: var(--rb-cursor-pointer);
+	}
+
+	:where([data-rb-theme]) [data-menubar-trigger]:hover,
+	:where([data-rb-theme]) [data-navigation-menu-trigger]:hover,
+	:where([data-rb-theme]) [data-navigation-menu-list] > * > [data-navigation-menu-link]:hover {
+		background: var(--rb-surface-hover);
+	}
+
+	:where([data-rb-theme]) [data-menubar-trigger]:is([data-state='open'], [data-highlighted]),
+	:where([data-rb-theme]) [data-navigation-menu-trigger][data-state='open'] {
+		background: var(--rb-accent);
+		color: var(--rb-text-on-accent);
+	}
+
+	/* ---- navigation menu dropdown ----------------------------------------- */
+	:where([data-rb-theme]) [data-navigation-menu-root] {
+		position: relative;
+	}
+
+	/* Bits UI measures the open content and hands the viewport its size. */
+	:where([data-rb-theme]) [data-navigation-menu-viewport] {
+		position: absolute;
+		top: calc(100% + var(--rb-space-1));
+		left: 0;
+		z-index: 50;
+		width: var(--bits-navigation-menu-viewport-width);
+		height: var(--bits-navigation-menu-viewport-height);
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
+		background: var(--rb-surface-raised);
+		box-shadow: var(--rb-window-shadow);
+		overflow: hidden;
+		transition:
+			width var(--rb-transition),
+			height var(--rb-transition);
+	}
+
+	:where([data-rb-theme]) [data-navigation-menu-content] {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	/*
+	 * Bits UI sizes the viewport from the content's first child, so Content
+	 * takes one wrapper (a list, usually) and the layout lives on it.
+	 */
+	:where([data-rb-theme]) [data-navigation-menu-content] > * {
+		display: flex;
+		flex-direction: column;
+		min-width: 12rem;
+		margin: 0;
+		padding: var(--rb-space-2);
+		list-style: none;
+	}
+
+	:where([data-rb-theme]) [data-navigation-menu-content] [data-navigation-menu-link] {
+		display: flex;
+		align-items: center;
+		min-height: var(--rb-menu-item-height);
+		padding: 0 var(--rb-space-3);
+		border-radius: var(--rb-radius);
+		color: var(--rb-text);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	:where([data-rb-theme])
+		[data-navigation-menu-content]
+		[data-navigation-menu-link]:is(:hover, :focus-visible, [data-active]) {
+		background: var(--rb-accent);
+		color: var(--rb-text-on-accent);
+	}
+
+	:where([data-rb-theme]) [data-navigation-menu-indicator] {
+		height: var(--rb-border-width);
+		background: var(--rb-accent);
+	}
+}

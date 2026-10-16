@@ -3,7 +3,8 @@
  * select / combobox / command all share the same row, so they share one rule.
  *
  * Bits UI drives row highlight with `data-highlighted` (keyboard or pointer),
- * not `:hover`, so that is what is styled here.
+ * not `:hover`, so that is what is styled here - except Command, which marks
+ * its highlighted row `data-selected`.
  *
  * Menu parts carry the variant as their prefix - `data-dropdown-menu-item`,
  * `data-context-menu-item`, `data-menubar-item` - never `data-menu-*`.
@@ -39,14 +40,89 @@
 		user-select: none;
 	}
 
-	:where([data-rb-theme]) [data-highlighted] {
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-item],
+			[data-context-menu-item],
+			[data-menubar-item],
+			[data-dropdown-menu-checkbox-item],
+			[data-context-menu-checkbox-item],
+			[data-menubar-checkbox-item],
+			[data-dropdown-menu-radio-item],
+			[data-context-menu-radio-item],
+			[data-menubar-radio-item],
+			[data-dropdown-menu-sub-trigger],
+			[data-context-menu-sub-trigger],
+			[data-menubar-sub-trigger],
+			[data-select-item],
+			[data-combobox-item]
+		)[data-highlighted],
+	:where([data-rb-theme]) [data-command-item][data-selected] {
 		background: var(--rb-accent);
 		color: var(--rb-text-on-accent);
 	}
 
-	:where([data-rb-theme]) [data-select-item][data-selected],
-	:where([data-rb-theme]) [data-combobox-item][data-selected] {
+	/*
+	 * Checkbox and radio rows draw their mark like Checkbox does: an outline
+	 * filled from the content box when checked. currentColor keeps it legible on
+	 * a highlighted row. Children are free for the label.
+	 */
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-checkbox-item],
+			[data-context-menu-checkbox-item],
+			[data-menubar-checkbox-item],
+			[data-dropdown-menu-radio-item],
+			[data-context-menu-radio-item],
+			[data-menubar-radio-item]
+		)::before {
+		content: '';
+		flex: none;
+		box-sizing: border-box;
+		width: var(--rb-icon-size);
+		height: var(--rb-icon-size);
+		border: var(--rb-border-width) solid currentColor;
+		border-radius: var(--rb-radius);
+	}
+
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-radio-item],
+			[data-context-menu-radio-item],
+			[data-menubar-radio-item]
+		)::before {
+		border-radius: 999px;
+	}
+
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-checkbox-item],
+			[data-context-menu-checkbox-item],
+			[data-menubar-checkbox-item],
+			[data-dropdown-menu-radio-item],
+			[data-context-menu-radio-item],
+			[data-menubar-radio-item]
+		):is([data-state='checked'], [data-state='indeterminate'])::before {
+		padding: calc(var(--rb-icon-size) / 4 - var(--rb-border-width));
+		background: currentColor content-box;
+	}
+
+	:where([data-rb-theme])
+		:is(
+			[data-dropdown-menu-checkbox-item],
+			[data-context-menu-checkbox-item],
+			[data-menubar-checkbox-item]
+		)[data-state='indeterminate']::before {
+		padding-block: calc((var(--rb-icon-size) - var(--rb-border-width) * 3) / 2);
+	}
+
+	:where([data-rb-theme]) :is([data-select-item], [data-combobox-item])[data-selected] {
 		background: var(--rb-surface-selected);
+	}
+
+	:where([data-rb-theme])
+		:is([data-select-item], [data-combobox-item])[data-selected][data-highlighted] {
+		background: var(--rb-accent);
 	}
 
 	:where([data-rb-theme])
@@ -56,6 +132,7 @@
 			[data-menubar-group-heading]
 		),
 	:where([data-rb-theme]) [data-select-group-label],
+	:where([data-rb-theme]) [data-combobox-group-label],
 	:where([data-rb-theme]) [data-command-group-heading] {
 		padding: var(--rb-space-2) var(--rb-space-3);
 		color: var(--rb-text-muted);
@@ -67,6 +144,7 @@
 	:where([data-rb-theme])
 		:is([data-dropdown-menu-separator], [data-context-menu-separator], [data-menubar-separator]),
 	:where([data-rb-theme]) [data-select-separator],
+	:where([data-rb-theme]) [data-combobox-separator],
 	:where([data-rb-theme]) [data-command-separator],
 	:where([data-rb-theme]) [data-separator-root] {
 		flex: none;
