@@ -4,6 +4,13 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Playground only: the package does not bundle fonts. Mono asks for JetBrains Mono. -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+		/>
 		<!--
 			Reconciles localStorage before first paint. Belt and braces next to the
 			server-stamped attributes above: it covers the case where the cookie was

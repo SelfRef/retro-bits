@@ -27,7 +27,7 @@ export { THEME_ATTRIBUTE, SCHEME_ATTRIBUTE, THEME_STORAGE_KEY, SCHEME_STORAGE_KE
 export function themeAttributes(
 	theme?: string | null,
 	scheme?: string | null,
-	fallbackTheme: ThemeId = 'default'
+	fallbackTheme: ThemeId = 'mono'
 ): string {
 	const id = isThemeId(theme) ? theme : fallbackTheme;
 	let attrs = `${THEME_ATTRIBUTE}="${id}"`;
@@ -49,7 +49,7 @@ export function themeAttributes(
  * It only acts on a valid stored value, so it never overwrites what the server
  * stamped from the cookie. `fallbackTheme` applies only when nothing set a theme.
  */
-export function noFlashScript(fallbackTheme: ThemeId = 'default'): string {
+export function noFlashScript(fallbackTheme: ThemeId = 'mono'): string {
 	const q = JSON.stringify;
 	return `(function(){try{var e=document.documentElement,t=localStorage.getItem(${q(THEME_STORAGE_KEY)}),s=localStorage.getItem(${q(SCHEME_STORAGE_KEY)});if(${q(THEME_IDS)}.indexOf(t)>-1)e.setAttribute(${q(THEME_ATTRIBUTE)},t);else if(!e.hasAttribute(${q(THEME_ATTRIBUTE)}))e.setAttribute(${q(THEME_ATTRIBUTE)},${q(fallbackTheme)});if(s==="light"||s==="dark")e.setAttribute(${q(SCHEME_ATTRIBUTE)},s);else if(s==="auto")e.removeAttribute(${q(SCHEME_ATTRIBUTE)})}catch(_){}})()`;
 }

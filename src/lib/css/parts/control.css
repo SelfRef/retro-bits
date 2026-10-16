@@ -9,6 +9,14 @@
 @layer rb.components {
 	/* ---- button ------------------------------------------------------------ */
 	:where([data-rb-theme]) [data-button-root],
+	:where([data-rb-theme])
+		:is(
+			[data-dialog-trigger],
+			[data-alert-dialog-trigger],
+			[data-popover-trigger],
+			[data-dropdown-menu-trigger],
+			[data-tooltip-trigger]
+		),
 	:where([data-rb-theme]) [data-toolbar-button],
 	:where([data-rb-theme]) [data-pagination-page],
 	:where([data-rb-theme]) [data-pagination-prev],
@@ -59,6 +67,14 @@
 	}
 
 	:where([data-rb-theme]) [data-button-root]:hover,
+	:where([data-rb-theme])
+		:is(
+			[data-dialog-trigger],
+			[data-alert-dialog-trigger],
+			[data-popover-trigger],
+			[data-dropdown-menu-trigger],
+			[data-tooltip-trigger]
+		):hover,
 	:where([data-rb-theme]) [data-toolbar-button]:hover,
 	:where([data-rb-theme]) [data-pagination-page]:hover,
 	:where([data-rb-theme]) [data-pagination-prev]:hover,
@@ -74,6 +90,14 @@
 	}
 
 	:where([data-rb-theme]) [data-button-root]:active,
+	:where([data-rb-theme])
+		:is(
+			[data-dialog-trigger],
+			[data-alert-dialog-trigger],
+			[data-popover-trigger],
+			[data-dropdown-menu-trigger],
+			[data-tooltip-trigger]
+		):active,
 	:where([data-rb-theme]) [data-toolbar-button]:active,
 	:where([data-rb-theme]) [data-pagination-page]:active,
 	:where([data-rb-theme]) [data-dialog-close]:active,
@@ -81,6 +105,7 @@
 	:where([data-rb-theme]) [data-alert-dialog-action]:active {
 		background: var(--rb-surface-active);
 		box-shadow: var(--rb-bevel-pressed);
+		translate: var(--rb-press-offset);
 	}
 
 	:where([data-rb-theme]) [data-pagination-page][data-selected] {
@@ -125,11 +150,16 @@
 	}
 
 	/* ---- checkbox ------------------------------------------------------------ */
+	/*
+	 * Checkbox and radio draw their own mark: the accent fills the content box,
+	 * and padding shrinks that box to an inner square or dot. Render no children.
+	 */
 	:where([data-rb-theme]) [data-checkbox-root] {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		flex: none;
+		box-sizing: border-box;
 		width: var(--rb-icon-size);
 		height: var(--rb-icon-size);
 		padding: 0;
@@ -145,9 +175,16 @@
 	}
 
 	:where([data-rb-theme]) [data-checkbox-root][data-state='checked'],
-	:where([data-rb-theme]) [data-checkbox-root][data-state='indeterminate'] {
+	:where([data-rb-theme]) [data-checkbox-root][data-state='indeterminate'],
+	:where([data-rb-theme]) [data-radio-group-item][data-state='checked'] {
+		padding: calc(var(--rb-icon-size) / 4 - var(--rb-border-width));
 		border-color: var(--rb-accent);
-		background: var(--rb-accent);
+		background: var(--rb-accent) content-box;
+	}
+
+	/* A bar one border wide, centred. */
+	:where([data-rb-theme]) [data-checkbox-root][data-state='indeterminate'] {
+		padding-block: calc((var(--rb-icon-size) - var(--rb-border-width) * 3) / 2);
 	}
 
 	:where([data-rb-theme]) [data-checkbox-group] {
@@ -161,15 +198,21 @@
 	}
 
 	/* ---- switch -------------------------------------------------------------- */
+	/*
+	 * Two icon cells wide, one tall. The thumb is a solid block of the border
+	 * colour that inverts when the track fills, so it reads with or without
+	 * bevels. It travels exactly one icon cell.
+	 */
 	:where([data-rb-theme]) [data-switch-root] {
 		display: inline-flex;
 		align-items: center;
 		flex: none;
-		width: calc(var(--rb-icon-size) * 2.25);
-		height: calc(var(--rb-icon-size) * 1.25);
-		padding: var(--rb-space-1);
+		box-sizing: border-box;
+		width: calc(var(--rb-icon-size) * 2);
+		height: var(--rb-icon-size);
+		padding: var(--rb-border-width);
 		border: var(--rb-border-width) solid var(--rb-border-color);
-		border-radius: 999px;
+		border-radius: var(--rb-radius);
 		background: var(--rb-surface-sunken);
 		box-shadow: var(--rb-bevel-in-thin);
 		cursor: var(--rb-cursor-pointer);
@@ -182,16 +225,17 @@
 	}
 
 	:where([data-rb-theme]) [data-switch-thumb] {
-		width: calc(var(--rb-icon-size) * 0.875);
-		height: calc(var(--rb-icon-size) * 0.875);
-		border-radius: 999px;
-		background: var(--rb-surface-raised);
+		width: calc(var(--rb-icon-size) - var(--rb-border-width) * 4);
+		height: calc(var(--rb-icon-size) - var(--rb-border-width) * 4);
+		border-radius: var(--rb-radius);
+		background: var(--rb-border-color);
 		box-shadow: var(--rb-bevel-out-thin);
 		transition: translate var(--rb-transition);
 	}
 
 	:where([data-rb-theme]) [data-switch-thumb][data-state='checked'] {
-		translate: calc(var(--rb-icon-size) * 1) 0;
+		background: var(--rb-surface-raised);
+		translate: var(--rb-icon-size) 0;
 	}
 
 	/* ---- radio group and rating group ---------------------------------------- */
@@ -212,6 +256,7 @@
 		align-items: center;
 		justify-content: center;
 		flex: none;
+		box-sizing: border-box;
 		width: var(--rb-icon-size);
 		height: var(--rb-icon-size);
 		padding: 0;
@@ -220,12 +265,6 @@
 		background: var(--rb-surface-sunken);
 		box-shadow: var(--rb-bevel-in-thin);
 		cursor: var(--rb-cursor-pointer);
-	}
-
-	:where([data-rb-theme]) [data-radio-group-item][data-state='checked'] {
-		border-color: var(--rb-accent);
-		border-width: calc(var(--rb-icon-size) / 4);
-		background: var(--rb-surface-raised);
 	}
 
 	:where([data-rb-theme]) [data-rating-group-item] {

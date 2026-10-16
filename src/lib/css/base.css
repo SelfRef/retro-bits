@@ -24,6 +24,7 @@
 		cursor: var(--rb-cursor);
 		text-shadow: var(--rb-glow);
 		-webkit-font-smoothing: var(--rb-font-smoothing);
+		accent-color: var(--rb-accent); /* native checkboxes, radios, ranges */
 	}
 
 	/*
@@ -37,6 +38,15 @@
 
 	:where([data-rb-theme][data-rb-scheme='dark']) {
 		color-scheme: dark;
+	}
+
+	/*
+	 * Native and Bits UI controls render real <button>s and <input>s, which do
+	 * not inherit the theme's face or colour on their own.
+	 */
+	:where([data-rb-theme]) :where(button, input, select, textarea) {
+		font: inherit;
+		color: inherit;
 	}
 
 	:where([data-rb-theme]) ::selection {

@@ -11,7 +11,7 @@ import { THEME_ATTRIBUTE } from '../theme/constants.js';
  * the rest on demand. The specifiers are static so bundlers can see them.
  */
 const loaders: Record<ThemeId, () => Promise<unknown>> = {
-	default: () => import('../css/themes/default.css')
+	mono: () => import('../css/themes/mono.css')
 };
 
 const pending = new Map<ThemeId, Promise<void>>();

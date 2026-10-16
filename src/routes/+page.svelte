@@ -51,7 +51,7 @@
 		</tbody>
 	</table>
 	<p class="note">
-		Only Default exists so far. The retro themes are planned - see <code>PLAN.md</code>.
+		Only Mono exists so far. The retro themes are planned - see <code>PLAN.md</code>.
 	</p>
 </section>
 

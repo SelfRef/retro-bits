@@ -3,7 +3,7 @@
  * Adding an entry here is step one of adding a theme; `themes/registry.ts` and a
  * matching `css/themes/<id>.css` are checked against this list.
  */
-export const THEME_IDS = ['default'] as const;
+export const THEME_IDS = ['mono'] as const;
 
 export type ThemeId = (typeof THEME_IDS)[number];
 

@@ -11,7 +11,7 @@
 		width: 100%;
 		height: var(--rb-space-3);
 		border: var(--rb-border-width) solid var(--rb-border-color);
-		border-radius: 999px;
+		border-radius: var(--rb-radius);
 		background: var(--rb-surface-sunken);
 		box-shadow: var(--rb-bevel-in-thin);
 		overflow: hidden;
@@ -43,8 +43,10 @@
 		content: '';
 		position: absolute;
 		inset-inline: 0;
+		box-sizing: border-box;
 		height: var(--rb-space-2);
-		border-radius: 999px;
+		border: var(--rb-border-width) solid var(--rb-border-color);
+		border-radius: var(--rb-radius);
 		background: var(--rb-surface-sunken);
 		box-shadow: var(--rb-bevel-in-thin);
 	}
@@ -52,7 +54,7 @@
 	:where([data-rb-theme]) [data-slider-range] {
 		position: absolute;
 		height: var(--rb-space-2);
-		border-radius: 999px;
+		border-radius: var(--rb-radius);
 		background: var(--rb-accent);
 	}
 
@@ -61,7 +63,7 @@
 		width: var(--rb-icon-size);
 		height: var(--rb-icon-size);
 		border: var(--rb-border-width) solid var(--rb-border-color);
-		border-radius: 999px;
+		border-radius: var(--rb-radius);
 		background: var(--rb-surface-raised);
 		box-shadow: var(--rb-bevel-out);
 		cursor: var(--rb-cursor-pointer);
@@ -88,7 +90,7 @@
 		width: calc(var(--rb-control-height) * 1.25);
 		height: calc(var(--rb-control-height) * 1.25);
 		border: var(--rb-border-width) solid var(--rb-border-color);
-		border-radius: 999px;
+		border-radius: var(--rb-radius);
 		background: var(--rb-surface-sunken);
 		overflow: hidden;
 	}

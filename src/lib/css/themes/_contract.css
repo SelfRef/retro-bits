@@ -61,6 +61,7 @@
 		--rb-bevel-in-thin: ;
 		--rb-bevel-flat: ; /* usually `none`; the "no chrome" state */
 		--rb-bevel-pressed: ; /* what a button looks like while held */
+		--rb-press-offset: ; /* `translate` while held: `none`, or e.g. `2px 2px` */
 
 		/* -- focus ------------------------------------------------------------ */
 		--rb-focus-color: ;

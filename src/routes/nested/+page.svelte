@@ -11,8 +11,7 @@
 <p class="lede">
 	Tokens are custom properties, so a nested <code>data-rb-theme</code> simply re-declares them for its
 	subtree. Two themes or schemes can sit side by side in one page with no extra machinery - which is what
-	makes a theme picker with live previews possible. Only Default exists so far, so this shows its two
-	schemes.
+	makes a theme picker with live previews possible. Only Mono exists so far, so this shows its two schemes.
 </p>
 
 <p class="lede">
@@ -24,14 +23,10 @@
 
 <div class="split">
 	{#each schemes as scheme (scheme)}
-		<ThemeProvider target="scoped" theme="default" {scheme} persist={false}>
-			<Demo title="Default, {scheme}">
+		<ThemeProvider target="scoped" theme="mono" {scheme} persist={false}>
+			<Demo title="Mono, {scheme}">
 				<Label.Root>
-					<Checkbox.Root checked>
-						{#snippet children({ checked })}
-							<span aria-hidden="true">{checked ? '✓' : ''}</span>
-						{/snippet}
-					</Checkbox.Root>
+					<Checkbox.Root checked />
 					Themed independently
 				</Label.Root>
 				<Button.Root data-rb-variant="primary">OK</Button.Root>

@@ -7,4 +7,4 @@
  * `loadTheme()` if you later need another.
  */
 @import './core.css';
-@import './themes/default.css';
+@import './themes/mono.css';

@@ -5,11 +5,11 @@ import { THEME_IDS, type ThemeId, type ThemeMeta } from '../types.js';
  * adding an id to `THEME_IDS` without describing it here a type error.
  */
 export const THEMES = {
-	default: {
-		id: 'default',
-		label: 'Default',
-		inspiration: 'Neutral modern UI',
-		reference: 'Baseline for testing components, in the spirit of the Bits UI docs',
+	mono: {
+		id: 'mono',
+		label: 'Mono',
+		inspiration: 'The Monospace Web',
+		reference: 'Oskar Wickström\'s "The Monospace Web": monospace type on a character grid',
 		schemes: ['light', 'dark']
 	}
 } satisfies Record<ThemeId, ThemeMeta>;

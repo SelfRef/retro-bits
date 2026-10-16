@@ -35,7 +35,6 @@
 		padding: 0 var(--rb-space-3);
 		border-radius: calc(var(--rb-radius) / 2);
 		color: var(--rb-text);
-		text-transform: var(--rb-text-transform);
 		cursor: var(--rb-cursor-pointer);
 		user-select: none;
 	}

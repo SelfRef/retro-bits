@@ -1,0 +1,130 @@
+/*
+ * Mono - monospace, grid-aligned, black on white.
+ *
+ * Inspired by Oskar Wickström's "The Monospace Web"
+ * (https://owickstrom.github.io/the-monospace-web/, MIT). Everything sits on a
+ * character grid: one `ch` across, one line height down. Borders are solid
+ * 2px text-colour rules, nothing is rounded, nothing casts a shadow, nothing
+ * animates, and a pressed button moves instead of darkening.
+ *
+ * JetBrains Mono is not bundled. Load it yourself, or the stack falls back to
+ * the platform's monospace face; the grid holds either way because it is
+ * measured in `ch`.
+ *
+ * Light and dark are expressed with `light-dark()` rather than duplicated
+ * blocks. `color-scheme` (set from `--rb-color-scheme` in base.css, or forced by
+ * `data-rb-scheme`) decides which half is used.
+ */
+@layer rb.tokens {
+	:where([data-rb-theme='mono']) {
+		/* meta */
+		--rb-theme-name: 'Mono';
+		--rb-color-scheme: light dark;
+
+		/* surfaces */
+		--rb-surface: light-dark(#fff, #000);
+		--rb-surface-raised: light-dark(#fff, #000);
+		--rb-surface-sunken: light-dark(#fff, #000);
+		--rb-surface-hover: light-dark(#eee, #111);
+		--rb-surface-active: light-dark(#ddd, #222);
+		--rb-surface-disabled: light-dark(#eee, #111);
+		--rb-surface-selected: light-dark(#eee, #111);
+		--rb-accent: light-dark(#000, #fff);
+		--rb-accent-hover: light-dark(#333, #ccc);
+		--rb-accent-active: light-dark(#555, #aaa);
+		--rb-desktop: light-dark(#fff, #000);
+		--rb-overlay: light-dark(rgb(255 255 255 / 0.8), rgb(0 0 0 / 0.8));
+
+		/* text */
+		--rb-text: light-dark(#000, #fff);
+		--rb-text-muted: light-dark(#666, #aaa);
+		--rb-text-disabled: light-dark(#999, #666);
+		--rb-text-inverted: light-dark(#fff, #000);
+		--rb-text-on-accent: light-dark(#fff, #000);
+		--rb-link: var(--rb-text);
+		--rb-selection-bg: var(--rb-text);
+		--rb-selection-text: var(--rb-text-inverted);
+
+		/* borders and bevels */
+		--rb-border-width: 2px;
+		--rb-border-color: var(--rb-text);
+		--rb-border-color-muted: var(--rb-text-muted);
+		--rb-radius: 0;
+		--rb-radius-window: 0;
+		--rb-bevel-light: var(--rb-surface);
+		--rb-bevel-lighter: var(--rb-surface);
+		--rb-bevel-shadow: var(--rb-text);
+		--rb-bevel-darker: var(--rb-text);
+		--rb-bevel-out: none;
+		--rb-bevel-in: none;
+		--rb-bevel-out-thin: none;
+		--rb-bevel-in-thin: none;
+		--rb-bevel-flat: none;
+		--rb-bevel-pressed: none;
+		--rb-press-offset: 2px 2px;
+
+		/*
+		 * focus: the border thickens to 3px. A 3px outline pulled in by the 2px
+		 * border lands on top of it and adds one pixel outside.
+		 */
+		--rb-focus-color: var(--rb-text);
+		--rb-focus-width: 3px;
+		--rb-focus-offset: calc(var(--rb-border-width) * -1);
+		--rb-focus-style: solid;
+
+		/* typography */
+		--rb-font-ui:
+			'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+			monospace;
+		--rb-font-mono: var(--rb-font-ui);
+		--rb-font-display: var(--rb-font-ui);
+		--rb-font-size: 1rem;
+		--rb-font-size-sm: 1rem;
+		--rb-font-size-lg: 1rem;
+		--rb-line-height: 1.2rem;
+		--rb-font-weight: 500;
+		--rb-font-weight-bold: 800;
+		--rb-letter-spacing: normal;
+		--rb-text-transform: uppercase;
+		--rb-font-smoothing: auto;
+		--rb-font-features: 'tnum' 1, 'lnum' 1;
+
+		/* metrics: one `ch` across, one line down */
+		--rb-unit: 1ch;
+		--rb-cell-w: 1ch;
+		--rb-cell-h: var(--rb-line-height);
+		--rb-space-1: calc(var(--rb-cell-h) / 4);
+		--rb-space-2: calc(var(--rb-cell-h) / 2);
+		--rb-space-3: var(--rb-cell-h);
+		--rb-space-4: calc(var(--rb-cell-h) * 1.5);
+		--rb-space-5: calc(var(--rb-cell-h) * 2);
+		--rb-space-6: calc(var(--rb-cell-h) * 3);
+		--rb-control-height: calc(var(--rb-cell-h) * 2);
+		--rb-control-padding-x: calc(var(--rb-cell-w) - var(--rb-border-width));
+		--rb-control-padding-y: calc(var(--rb-cell-h) / 2 - var(--rb-border-width));
+		--rb-gap: var(--rb-cell-w);
+		--rb-inset: calc(var(--rb-cell-h) - var(--rb-border-width));
+		--rb-scrollbar-size: calc(var(--rb-cell-h) / 2);
+		--rb-icon-size: var(--rb-cell-h);
+		--rb-menu-item-height: var(--rb-control-height);
+
+		/* window */
+		--rb-window-shadow: none;
+
+		/* decoration */
+		--rb-pattern-desktop: none;
+		--rb-pattern-dither: none;
+		--rb-glow: none;
+		--rb-image-rendering: auto;
+		--rb-cursor: default;
+		--rb-cursor-pointer: pointer;
+		--rb-cursor-text: text;
+
+		/* motion: none - the grid snaps */
+		--rb-duration-fast: 0s;
+		--rb-duration: 0s;
+		--rb-duration-slow: 0s;
+		--rb-ease: linear;
+		--rb-transition: var(--rb-duration) var(--rb-ease);
+	}
+}

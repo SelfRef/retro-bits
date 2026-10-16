@@ -54,7 +54,8 @@ export const RB_TOKEN_GROUPS = {
 		'--rb-bevel-out-thin',
 		'--rb-bevel-in-thin',
 		'--rb-bevel-flat',
-		'--rb-bevel-pressed'
+		'--rb-bevel-pressed',
+		'--rb-press-offset'
 	],
 
 	focus: ['--rb-focus-color', '--rb-focus-width', '--rb-focus-offset', '--rb-focus-style'],

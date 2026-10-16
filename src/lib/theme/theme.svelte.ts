@@ -54,7 +54,7 @@ function writeStored(key: string, value: string, cookieMaxAge: number): void {
  * state, so it can be unit tested without a document.
  */
 export class ThemeState {
-	#theme = $state<ThemeId>('default');
+	#theme = $state<ThemeId>('mono');
 	#scheme = $state<SchemePreference>('auto');
 	#systemScheme = $state<ColorScheme>('light');
 	#pending = $state(false);

@@ -33,13 +33,12 @@
 		<Button.Root disabled>Disabled</Button.Root>
 	</Demo>
 
-	<Demo title="Checkbox" note="Styled from data-state, including the indeterminate state.">
+	<Demo
+		title="Checkbox"
+		note="The theme draws the mark from data-state, including indeterminate - no children needed."
+	>
 		<Label.Root>
-			<Checkbox.Root bind:checked bind:indeterminate>
-				{#snippet children({ checked: isChecked, indeterminate: isMixed })}
-					<span aria-hidden="true">{isMixed ? '–' : isChecked ? '✓' : ''}</span>
-				{/snippet}
-			</Checkbox.Root>
+			<Checkbox.Root bind:checked bind:indeterminate />
 			Accept
 		</Label.Root>
 		<Button.Root onclick={() => (indeterminate = !indeterminate)}>Toggle mixed</Button.Root>
