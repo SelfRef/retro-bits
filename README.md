@@ -1,24 +1,20 @@
 # retro-bits
 
-Retro operating system themes for [Bits UI](https://bits-ui.com), plus the window chrome Bits UI has
-no concept of.
+Retro operating system themes for [Bits UI](https://bits-ui.com).
 
 Themes are plain CSS driven by `--rb-*` custom properties. There is no Tailwind, no preset, and no
 build step for consumers - and no wrapper components to keep in step with `bits-ui` releases,
 because the themes style Bits UI through the data attributes it already renders.
 
-> **Status: stage 1.** The machinery is done - package, theme registry, runtime switching, SSR, and a
-> playground. Only the **Default** theme has real values. The eight retro themes are declared, with
-> complete token files, but they still carry Default's values.
+> **Status: early.** The machinery is done - package, theme registry, runtime switching, SSR, and a
+> playground. There is one theme, **Mono**, and it does not cover every Bits UI component yet.
+> The retro themes are planned - see [PLAN.md](PLAN.md).
 
 ## Install
 
 ```sh
 pnpm add retro-bits bits-ui
 ```
-
-`bits-ui` is an optional peer dependency: if you only want the themes or the window chrome, you do
-not need it.
 
 ## Use
 
@@ -29,7 +25,7 @@ not need it.
 	import { Button, Dialog } from 'bits-ui';
 </script>
 
-<ThemeProvider theme="default">
+<ThemeProvider theme="mono">
 	<Button.Root>Themed, with no wrapper</Button.Root>
 </ThemeProvider>
 ```
@@ -44,6 +40,7 @@ Switching at runtime:
 <script>
 	import { useTheme, themeList } from 'retro-bits';
 
+	// Needs a <ThemeProvider> above it, and throws without one.
 	const theme = useTheme();
 </script>
 
@@ -60,17 +57,16 @@ Switching at runtime:
 
 ## Themes
 
-| Name          | System / style                     | Named after                                  | Status      |
-| ------------- | ---------------------------------- | -------------------------------------------- | ----------- |
-| **Default**   | Neutral modern UI                  | Baseline for testing components              | implemented |
-| **Chicago**   | Windows 9x (classic)               | Code name of Windows 95                      | declared    |
-| **Platinum**  | Mac OS 9 (classic)                 | The "Platinum appearance" of Mac OS 8/9      | declared    |
-| **BigBlue**   | IBM classic DOS text mode          | IBM's nickname, "Big Blue"                   | declared    |
-| **Phosphor**  | Monochrome retro terminal          | The phosphor coating of CRT monitors         | declared    |
-| **Kickstart** | AmigaOS                            | The Amiga's boot firmware / ROM              | declared    |
-| **Haiku**     | BeOS                               | The haiku error messages in BeOS NetPositive | declared    |
-| **Cube**      | NeXTSTEP / OpenStep                | The black cube - the NeXT Computer           | declared    |
-| **Monolith**  | Retro-futurism / cassette futurism | The monolith from "2001: A Space Odyssey"    | declared    |
+| Id     | Style                                                         |
+| ------ | ------------------------------------------------------------- |
+| `mono` | Monospace on a character grid, black on white, light and dark |
+
+**Mono** is inspired by Oskar Wickström's
+[The Monospace Web](https://owickstrom.github.io/the-monospace-web/) (MIT). Everything is measured in
+`ch` across and line heights down, borders are 2px rules, nothing is rounded, shadowed or animated,
+and a pressed button moves instead of darkening. It asks for
+[JetBrains Mono](https://www.jetbrains.com/lp/mono/) but does not bundle it - load it yourself, or it
+falls back to the platform's monospace face.
 
 ## How theming works
 
@@ -79,17 +75,17 @@ reads only those values and never names a theme, so one stylesheet serves every 
 
 ```css
 @layer rb.tokens {
-	:where([data-rb-theme='chicago']) {
-		--rb-bevel-out:
-			inset -1px -1px var(--rb-bevel-darker), inset 1px 1px var(--rb-bevel-lighter),
-			inset -2px -2px var(--rb-bevel-shadow), inset 2px 2px var(--rb-bevel-light);
+	:where([data-rb-theme='mono']) {
+		--rb-text: light-dark(#000, #fff);
+		--rb-control-height: calc(var(--rb-cell-h) * 2);
+		--rb-bevel-out: none;
 	}
 }
 ```
 
-Tokens hold **whole values**, not just colours. `--rb-bevel-out` is a four-layer `box-shadow` in
-Chicago, a single hairline in Cube, and `none` in Phosphor. That is what lets one set of component
-rules cover both a Windows 95 button and a CRT terminal.
+Tokens hold **whole values**, not just colours: `--rb-bevel-out` is a complete `box-shadow`, so a
+theme can use a soft drop shadow, a stack of bevel insets, or `none` (as Mono does) without touching
+the component rules.
 
 Because custom properties inherit, **nesting just works**: a second `data-rb-theme` inside the tree
 re-declares the tokens for its subtree, which is all a live theme preview needs.
@@ -116,9 +112,9 @@ default - beats all of it, so you should never need `!important`.
 
 | Import                           | What it is                                              |
 | -------------------------------- | ------------------------------------------------------- |
-| `retro-bits`                     | Components, `ThemeProvider`, theme state, registry      |
+| `retro-bits`                     | `ThemeProvider`, theme state, registry                  |
 | `retro-bits/ssr`                 | Server helpers and the registry, with no Svelte runtime |
-| `retro-bits/css/index.css`       | Core plus all nine themes - the simple choice           |
+| `retro-bits/css/index.css`       | Core plus every theme - the simple choice               |
 | `retro-bits/css/core.css`        | Component rules only, no tokens                         |
 | `retro-bits/css/reset.css`       | Optional minimal reset                                  |
 | `retro-bits/css/themes/<id>.css` | One theme's tokens                                      |
@@ -126,18 +122,30 @@ default - beats all of it, so you should never need `!important`.
 To ship only the themes you use, import `core.css` plus those themes, and call `loadTheme(id)` to
 pull another in on demand - it resolves before the attribute flips, so there is no unstyled frame.
 
-## Components
+## Variants and hooks
 
-Bits UI covers the interactive parts. retro-bits adds the chrome it has no concept of, where the
-markup is ours and stays stable across themes:
-
-`Window`, `TitleBar`, `WindowControls`, `Panel`, `GroupBox`, `StatusBar`, `StatusBarSegment`,
-`Desktop`.
-
-For Bits UI parts, ask for a different treatment with `data-rb-variant` instead of a wrapper:
+There are no wrapper components. Ask for a different treatment of a Bits UI part with
+`data-rb-variant`:
 
 ```svelte
 <Button.Root data-rb-variant="primary">Save</Button.Root>
+<Button.Root data-rb-variant="ghost">Cancel</Button.Root>
+```
+
+Progress and Meter render no fill of their own, so mark the child you pass with
+`data-rb-indicator`:
+
+```svelte
+<Progress.Root value={40}>
+	<div data-rb-indicator style="width: 40%"></div>
+</Progress.Root>
+```
+
+Checkbox and RadioGroup items draw their own mark from `data-state`, including indeterminate, so
+render them without children:
+
+```svelte
+<Checkbox.Root bind:checked />
 ```
 
 ## No flash on first paint
@@ -171,6 +179,22 @@ export const handle = ({ event, resolve }) =>
 with `<html lang="en" %rb.theme%>` and `<script>%rb.noflash%</script>` in `app.html`. Unknown cookie
 values fall back rather than throwing.
 
+The script only applies a valid value from `localStorage`, so it never undoes what the server
+stamped from the cookie. To make server-rendered text that reads the theme agree too (a switcher,
+say), hand the cookie to the provider from a layout `load`:
+
+```ts
+// src/routes/+layout.server.ts
+export const load = ({ cookies }) => {
+	const theme = cookies.get(THEME_STORAGE_KEY);
+	return { theme: isThemeId(theme) ? theme : undefined };
+};
+```
+
+```svelte
+<ThemeProvider theme={data.theme}>
+```
+
 ## Development
 
 This is one SvelteKit project: `src/lib` is the package, `src/routes` is the playground. The
@@ -182,13 +206,13 @@ pnpm install
 pnpm dev            # playground at /
 pnpm check          # svelte-check
 pnpm lint           # prettier + eslint
-pnpm test           # token contract and public surface
+pnpm test           # token contract, Bits UI selectors, public surface
 pnpm check:tokens   # just the contract
 pnpm run prepack    # build dist/ and run publint
 ```
 
-Playground routes worth knowing: `/gallery` (every Bits UI component), `/tokens` (the contract
-resolved live), `/nested` (two themes in one page).
+Playground routes worth knowing: `/gallery` (every Bits UI component; unstyled ones are badged), `/tokens` (the contract
+resolved live), `/nested` (scoped providers side by side).
 
 ## Licence
 
