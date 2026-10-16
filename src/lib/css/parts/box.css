@@ -2,7 +2,11 @@
  * A plain box for your own markup, matching the theme's panels:
  * `<div data-rb-box>`, or `data-rb-box="raised"` / `"sunken"` for a bevel.
  *
- * With `data-rb-button` (control.css) and `data-rb-field` (field.css) this is
+ * `data-rb-group` joins controls into one: `<div data-rb-group>` around an
+ * input and a button (or a combobox input and its trigger) puts them edge to
+ * edge, with their shared border as the separator.
+ *
+ * With `data-rb-button` (control.css) and `data-rb-field` (field.css) these are
  * the whole set of hooks for elements that are not Bits UI parts.
  */
 @layer rb.components {
@@ -22,5 +26,30 @@
 	[data-rb-box='sunken'] {
 		background: var(--rb-surface-sunken);
 		box-shadow: var(--rb-bevel-in);
+	}
+
+	[data-rb-group] {
+		display: inline-flex;
+		align-items: stretch;
+	}
+
+	[data-rb-group] > * + * {
+		margin-inline-start: calc(var(--rb-border-width) * -1);
+	}
+
+	[data-rb-group] > :not(:first-child) {
+		border-start-start-radius: 0;
+		border-end-start-radius: 0;
+	}
+
+	[data-rb-group] > :not(:last-child) {
+		border-start-end-radius: 0;
+		border-end-end-radius: 0;
+	}
+
+	/* The focused part comes forward, so its border and ring are not overlapped. */
+	[data-rb-group] > :focus-visible {
+		position: relative;
+		z-index: 1;
 	}
 }

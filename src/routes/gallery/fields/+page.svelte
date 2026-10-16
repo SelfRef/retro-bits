@@ -69,11 +69,13 @@
 
 	<Demo title="Combobox">
 		<Combobox.Root type="single" bind:value={comboValue} items={matches}>
-			<Combobox.Input
-				placeholder="Filter themes"
-				oninput={(event) => (search = event.currentTarget.value)}
-			/>
-			<Combobox.Trigger aria-label="Open">▾</Combobox.Trigger>
+			<div data-rb-group>
+				<Combobox.Input
+					placeholder="Filter themes"
+					oninput={(event) => (search = event.currentTarget.value)}
+				/>
+				<Combobox.Trigger aria-label="Open">▾</Combobox.Trigger>
+			</div>
 			<Combobox.Portal>
 				<Combobox.Content sideOffset={4}>
 					<Combobox.Viewport>

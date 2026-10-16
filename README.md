@@ -229,7 +229,7 @@ wrapper:
 
 ### Your own markup
 
-Three hooks give hand-written elements the same look as the Bits UI parts around them:
+A few hooks give hand-written elements the same look as the Bits UI parts around them:
 
 ```svelte
 <div data-rb-box>A panel</div>
@@ -237,6 +237,19 @@ Three hooks give hand-written elements the same look as the Bits UI parts around
 <a href="/docs" data-rb-button data-rb-variant="primary">Docs</a>
 <input data-rb-field />
 ```
+
+`data-rb-group` joins controls edge to edge into one, with their shared border as the separator -
+an input and its button, a row of buttons, or a combobox input and its trigger:
+
+```svelte
+<div data-rb-group>
+	<Combobox.Input />
+	<Combobox.Trigger>▾</Combobox.Trigger>
+</div>
+```
+
+Every control - button, toggle, input, select, trigger, date field - is exactly
+`--rb-control-height` tall, so mixed rows line up.
 
 Anything else can read the tokens directly: `border: var(--rb-border-width) solid
 var(--rb-border-color)` matches the theme in every palette.

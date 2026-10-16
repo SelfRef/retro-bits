@@ -22,6 +22,21 @@
 		<a href="#top" data-rb-button data-rb-variant="ghost">Link</a>
 	</Demo>
 
+	<Demo
+		title="Group"
+		note="data-rb-group joins controls edge to edge; the shared border separates them."
+	>
+		<div data-rb-group>
+			<input data-rb-field placeholder="Search" />
+			<button type="button" data-rb-button>Go</button>
+		</div>
+		<div data-rb-group>
+			<button type="button" data-rb-button>Left</button>
+			<button type="button" data-rb-button>Middle</button>
+			<button type="button" data-rb-button>Right</button>
+		</div>
+	</Demo>
+
 	<Demo title="Field" note="data-rb-field on a native input, select or textarea.">
 		<input data-rb-field placeholder="Type here" />
 		<select data-rb-field>
