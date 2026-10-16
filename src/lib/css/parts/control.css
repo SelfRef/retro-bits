@@ -184,8 +184,8 @@
 	/*
 	 * Checkbox and radio draw their own mark: the accent fills the content box,
 	 * and padding shrinks that box to an inner square or dot. The gap is one
-	 * border width, the same as around the switch thumb, so all three marks
-	 * match. Render no children.
+	 * border width plus a pixel, the same as around the switch thumb, so all
+	 * three marks match. Render no children.
 	 */
 	[data-checkbox-root] {
 		display: inline-flex;
@@ -210,7 +210,7 @@
 	[data-checkbox-root][data-state='checked'],
 	[data-checkbox-root][data-state='indeterminate'],
 	[data-radio-group-item][data-state='checked'] {
-		padding: var(--rb-border-width);
+		padding: calc(var(--rb-border-width) + 1px);
 		border-color: var(--rb-accent);
 		background: var(--rb-accent) content-box;
 	}
@@ -243,7 +243,7 @@
 		box-sizing: border-box;
 		width: calc(var(--rb-icon-size) * 2);
 		height: var(--rb-icon-size);
-		padding: var(--rb-border-width);
+		padding: calc(var(--rb-border-width) + 1px);
 		border: var(--rb-border-width) solid var(--rb-border-color);
 		border-radius: var(--rb-radius);
 		background: var(--rb-surface-sunken);
@@ -258,8 +258,8 @@
 	}
 
 	[data-switch-thumb] {
-		width: calc(var(--rb-icon-size) - var(--rb-border-width) * 4);
-		height: calc(var(--rb-icon-size) - var(--rb-border-width) * 4);
+		width: calc(var(--rb-icon-size) - var(--rb-border-width) * 4 - 2px);
+		height: calc(var(--rb-icon-size) - var(--rb-border-width) * 4 - 2px);
 		border-radius: var(--rb-radius);
 		background: var(--rb-border-color);
 		box-shadow: var(--rb-bevel-out-thin);
